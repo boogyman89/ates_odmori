@@ -62,7 +62,10 @@
          */
         protected $privilegija;
         
-     
+        /**
+         * @ORM\Column(type="string", length=30)
+         */
+        protected $sifra;
     /**
      * Get id
      *
@@ -278,5 +281,28 @@
     public function getPrivilegija()
     {
         return $this->privilegija;
+    }
+
+    /**
+     * Set sifra
+     *
+     * @param string $sifra
+     * @return Korisnik
+     */
+    public function setSifra($sifra)
+    {
+        $this->sifra = $sifra;
+    
+        return $this;
+    }
+
+    /**
+     * Get sifra
+     *
+     * @return string 
+     */
+    public function getSifra()
+    {
+        return $this->sifra;
     }
 }

@@ -5,10 +5,10 @@
     
     /**
      * @ORM\Entity
-     * @ORM\Table(name="korisnik")
+     * @ORM\Table(name="privremeni_korisnik")
      */
     
-    class Korisnik
+    class PrivremeniKorisnik
     {
         /**
         * @ORM\Id
@@ -53,19 +53,10 @@
         protected $email;
 
         /**
-         * @ORM\Column(type="integer")
-         */
-        protected $br_slobodnih_dana;
-
-        /**
-         * @ORM\Column(type="string", length=10)
-         */
-        protected $privilegija;
-        
-        /**
          * @ORM\Column(type="string", length=30)
          */
         protected $sifra;
+    
     /**
      * Get id
      *
@@ -80,7 +71,7 @@
      * Set ime
      *
      * @param string $ime
-     * @return Korisnik
+     * @return PrivremeniKorisnik
      */
     public function setIme($ime)
     {
@@ -103,7 +94,7 @@
      * Set prezime
      *
      * @param string $prezime
-     * @return Korisnik
+     * @return PrivremeniKorisnik
      */
     public function setPrezime($prezime)
     {
@@ -126,7 +117,7 @@
      * Set jmbg
      *
      * @param string $jmbg
-     * @return Korisnik
+     * @return PrivremeniKorisnik
      */
     public function setJmbg($jmbg)
     {
@@ -149,7 +140,7 @@
      * Set adresa
      *
      * @param string $adresa
-     * @return Korisnik
+     * @return PrivremeniKorisnik
      */
     public function setAdresa($adresa)
     {
@@ -172,7 +163,7 @@
      * Set telefon
      *
      * @param string $telefon
-     * @return Korisnik
+     * @return PrivremeniKorisnik
      */
     public function setTelefon($telefon)
     {
@@ -195,7 +186,7 @@
      * Set pocetak_rada
      *
      * @param \DateTime $pocetakRada
-     * @return Korisnik
+     * @return PrivremeniKorisnik
      */
     public function setPocetakRada($pocetakRada)
     {
@@ -218,7 +209,7 @@
      * Set email
      *
      * @param string $email
-     * @return Korisnik
+     * @return PrivremeniKorisnik
      */
     public function setEmail($email)
     {
@@ -238,48 +229,25 @@
     }
 
     /**
-     * Set br_slobodnih_dana
+     * Set sifra
      *
-     * @param integer $brSlobodnihDana
-     * @return Korisnik
+     * @param string $sifra
+     * @return PrivremeniKorisnik
      */
-    public function setBrSlobodnihDana($brSlobodnihDana)
+    public function setSifra($sifra)
     {
-        $this->br_slobodnih_dana = $brSlobodnihDana;
+        $this->sifra = $sifra;
     
         return $this;
     }
 
     /**
-     * Get br_slobodnih_dana
-     *
-     * @return integer 
-     */
-    public function getBrSlobodnihDana()
-    {
-        return $this->br_slobodnih_dana;
-    }
-
-    /**
-     * Set privilegija
-     *
-     * @param string $privilegija
-     * @return Korisnik
-     */
-    public function setPrivilegija($privilegija)
-    {
-        $this->privilegija = $privilegija;
-    
-        return $this;
-    }
-
-    /**
-     * Get privilegija
+     * Get sifra
      *
      * @return string 
      */
-    public function getPrivilegija()
+    public function getSifra()
     {
-        return $this->privilegija;
+        return $this->sifra;
     }
 }
