@@ -1,0 +1,65 @@
+<?php
+    namespace Ates\StoreBundle\Entity;
+    
+    use Doctrine\ORM\Mapping as ORM;
+    
+    /**
+     * @ORM\Entity
+     * @ORM\Table(name="korisnik")
+     */
+    
+    class Korisnik
+    {
+        /**
+        * @ORM\Id
+        * @ORM\Column(type="integer")
+        * @ORM\GeneratedValue(strategy="AUTO")
+        */
+        protected $id;
+
+        /**
+        * @ORM\Column(type="string", length=50)
+        */
+        protected $ime;
+
+        /**
+        * @ORM\Column(type="string", length=50)
+        */
+        protected $prezime;
+
+        /**
+         * @ORM\Column(type="string", length=20)
+         */
+        protected $jmbg;
+
+        /**
+         * @ORM\Column(type="string", length=50)
+         */
+        protected $adresa;
+
+        /**
+         * @ORM\Column(type="string", length=20)
+         */
+        protected $telefon;
+
+        /**
+         * @ORM\Column(type="date")
+         */
+        protected $pocetak_rada;
+
+        /**
+         * @ORM\Column(type="string", length=30)
+         */
+        protected $email;
+
+        /**
+         * @ORM\Column(type="integer")
+         */
+        protected $br_slobodnih_dana;
+
+        /**
+         * @ORM\Column(type="string", length=10)
+         */
+        protected $privilegija;
+        
+     }
