@@ -1,0 +1,55 @@
+<?php
+namespace Ates\StoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="zahtev")
+ */
+class Zahtev
+{
+    /**
+    * @ORM\Id
+    * @ORM\Column(type="integer")
+    * @ORM\GeneratedValue(strategy="AUTO")
+    */
+    protected $id;
+    
+    /**
+    * @ORM\Column(type="integer")
+    */
+    protected $id_user;
+    
+    /**
+    * @ORM\Column(type="integer")
+    */
+    protected $id_admin;
+    
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $podnet;
+    
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $od;
+    
+    /**
+     * @ORM\Column(type="date")
+     */
+    protected $do;
+    
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $status;
+    
+     /**
+     * @ORM\Column(type="string", length=200)
+     */
+    protected $pdf;
+    
+    
+}
