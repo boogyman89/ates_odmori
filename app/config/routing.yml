@@ -1,0 +1,4 @@
+ates_store:
+    resource: "@AtesStoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
