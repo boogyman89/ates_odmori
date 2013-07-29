@@ -1,3 +1,7 @@
+ates_user:
+    resource: "@AtesUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ates_store:
     resource: "@AtesStoreBundle/Resources/config/routing.yml"
     prefix:   /

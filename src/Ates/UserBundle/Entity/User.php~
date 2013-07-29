@@ -1,0 +1,80 @@
+<?php
+    namespace Ates\UserBundle\Entity;
+    
+    use Doctrine\ORM\Mapping as ORM;
+    
+    /**
+     * @ORM\Entity
+     * @ORM\Table(name="user")
+     */
+    
+    class User
+    {
+        /**
+        * @ORM\Id
+        * @ORM\Column(type="integer")
+        * @ORM\GeneratedValue(strategy="AUTO")
+        */
+        protected $id;
+
+        /**
+        * @ORM\Column(type="string", length=50)
+        */
+        protected $first_name;
+
+        /**
+        * @ORM\Column(type="string", length=50)
+        */
+        protected $last_name;
+
+        /**
+         * @ORM\Column(type="string", length=20)
+         */
+        protected $ssn;
+
+        /**
+         * @ORM\Column(type="string", length=50)
+         */
+        protected $address;
+
+        /**
+         * @ORM\Column(type="string", length=20)
+         */
+        protected $phone;
+
+        /**
+         * @ORM\Column(type="date")
+         */
+        protected $date_of_employment;
+
+        /**
+         * @ORM\Column(type="string", length=30)
+         */
+        protected $email;
+
+        /**
+         * @ORM\Column(type="integer")
+         */
+        protected $no_days_off;
+
+        /**
+         * @ORM\Column(type="string", length=10)
+         */
+        protected $role;
+        
+        /**
+         * @ORM\Column(type="string", length=30)
+         */
+        protected $password;
+        
+        /**
+         * @ORM\Column(type="bool")
+         */
+        protected $is_approved;
+        
+        /**
+         * @ORM\Column(type="bool")
+         */
+        protected $is_validated;
+ 
+}

@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Ates\StoreBundle\AtesStoreBundle(),
 			new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Ates\UserBundle\AtesUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

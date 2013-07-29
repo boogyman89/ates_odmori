@@ -1,0 +1,7 @@
+parameters:
+#    ates_user.example.class: Ates\UserBundle\Example
+
+services:
+#    ates_user.example:
+#        class: %ates_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
