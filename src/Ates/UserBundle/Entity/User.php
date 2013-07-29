@@ -1,14 +1,15 @@
 <?php
     namespace Ates\UserBundle\Entity;
     
+    use FOS\UserBundle\Model\User as BaseUser;
     use Doctrine\ORM\Mapping as ORM;
     
     /**
      * @ORM\Entity
-     * @ORM\Table(name="user")
+     * @ORM\Table(name="ates_user")
      */
     
-    class User
+    class User extends BaseUser
     {
         /**
         * @ORM\Id
@@ -18,66 +19,64 @@
         protected $id;
 
         /**
-        * @ORM\Column(type="string", length=50)
+        * @ORM\Column(type="string", length=50, nullable = true)
         */
         protected $first_name;
 
         /**
-        * @ORM\Column(type="string", length=50)
+        * @ORM\Column(type="string", length=50, nullable = true)
         */
         protected $last_name;
 
         /**
-         * @ORM\Column(type="string", length=20)
+         * @ORM\Column(type="string", length=20, nullable = true)
          */
         protected $ssn;
 
         /**
-         * @ORM\Column(type="string", length=50)
+         * @ORM\Column(type="string", length=50, nullable = true)
          */
         protected $address;
 
         /**
-         * @ORM\Column(type="string", length=20)
+         * @ORM\Column(type="string", length=20, nullable = true)
          */
         protected $phone;
 
         /**
-         * @ORM\Column(type="date")
+         * @ORM\Column(type="date", nullable = true)
          */
         protected $date_of_employment;
 
         /**
-         * @ORM\Column(type="string", length=30)
-         */
-        protected $email;
-
-        /**
-         * @ORM\Column(type="integer")
+         * @ORM\Column(type="integer", nullable = true)
          */
         protected $no_days_off;
 
         /**
-         * @ORM\Column(type="string", length=10)
+         * @ORM\Column(type="string", length=10, nullable = true)
          */
         protected $role;
         
-        /**
-         * @ORM\Column(type="string", length=30)
-         */
-        protected $password;
         
         /**
-         * @ORM\Column(type="boolean")
+         * @ORM\Column(type="boolean", nullable = true)
          */
         protected $is_approved;
         
         /**
-         * @ORM\Column(type="boolean")
+         * @ORM\Column(type="boolean", nullable = true)
          */
         protected $is_validated;
  
 
+        
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+    
     /**
      * Get id
      *
@@ -226,28 +225,6 @@
         return $this->date_of_employment;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
 
     /**
      * Set no_days_off
@@ -293,29 +270,6 @@
     public function getRole()
     {
         return $this->role;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
     }
 
     /**
