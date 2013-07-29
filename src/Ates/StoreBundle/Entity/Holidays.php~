@@ -5,9 +5,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="slava")
+ * @ORM\Table(name="neradni_dani")
  */
-class Slava
+class Holidays
 {
     /**
     * @ORM\Id
@@ -19,11 +19,17 @@ class Slava
     /**
     * @ORM\Column(type="integer")
     */
-    protected $id_user;
+    protected $id_admin;
     
     /**
     * @ORM\Column(type="date")
     */
     protected $date;
+    
+   /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
 
+   
 }
