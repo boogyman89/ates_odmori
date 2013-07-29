@@ -5,9 +5,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="zahtev")
+ * @ORM\Table(name="request")
  */
-class Zahtev
+class Request
 {
     /**
     * @ORM\Id
@@ -29,22 +29,22 @@ class Zahtev
     /**
      * @ORM\Column(type="date")
      */
-    protected $podnet;
+    protected $submitted;
     
     /**
      * @ORM\Column(type="date")
      */
-    protected $od;
+    protected $from;
     
     /**
      * @ORM\Column(type="date")
      */
-    protected $do;
+    protected $to;
     
     /**
      * @ORM\Column(type="string", length=100)
      */
-    protected $status;
+    protected $state;
     
      /**
      * @ORM\Column(type="string", length=200)
@@ -67,7 +67,7 @@ class Zahtev
      * Set id_user
      *
      * @param integer $idUser
-     * @return Zahtev
+     * @return Request
      */
     public function setIdUser($idUser)
     {
@@ -90,7 +90,7 @@ class Zahtev
      * Set id_admin
      *
      * @param integer $idAdmin
-     * @return Zahtev
+     * @return Request
      */
     public function setIdAdmin($idAdmin)
     {
@@ -110,102 +110,102 @@ class Zahtev
     }
 
     /**
-     * Set podnet
+     * Set submitted
      *
-     * @param \DateTime $podnet
-     * @return Zahtev
+     * @param \DateTime $submitted
+     * @return Request
      */
-    public function setPodnet($podnet)
+    public function setSubmitted($submitted)
     {
-        $this->podnet = $podnet;
+        $this->submitted = $submitted;
     
         return $this;
     }
 
     /**
-     * Get podnet
+     * Get submitted
      *
      * @return \DateTime 
      */
-    public function getPodnet()
+    public function getSubmitted()
     {
-        return $this->podnet;
+        return $this->submitted;
     }
 
     /**
-     * Set od
+     * Set from
      *
-     * @param \DateTime $od
-     * @return Zahtev
+     * @param \DateTime $from
+     * @return Request
      */
-    public function setOd($od)
+    public function setFrom($from)
     {
-        $this->od = $od;
+        $this->from = $from;
     
         return $this;
     }
 
     /**
-     * Get od
+     * Get from
      *
      * @return \DateTime 
      */
-    public function getOd()
+    public function getFrom()
     {
-        return $this->od;
+        return $this->from;
     }
 
     /**
-     * Set do
+     * Set to
      *
-     * @param \DateTime $do
-     * @return Zahtev
+     * @param \DateTime $to
+     * @return Request
      */
-    public function setDo($do)
+    public function setTo($to)
     {
-        $this->do = $do;
+        $this->to = $to;
     
         return $this;
     }
 
     /**
-     * Get do
+     * Get to
      *
      * @return \DateTime 
      */
-    public function getDo()
+    public function getTo()
     {
-        return $this->do;
+        return $this->to;
     }
 
     /**
-     * Set status
+     * Set state
      *
-     * @param string $status
-     * @return Zahtev
+     * @param string $state
+     * @return Request
      */
-    public function setStatus($status)
+    public function setState($state)
     {
-        $this->status = $status;
+        $this->state = $state;
     
         return $this;
     }
 
     /**
-     * Get status
+     * Get state
      *
      * @return string 
      */
-    public function getStatus()
+    public function getState()
     {
-        return $this->status;
+        return $this->state;
     }
 
     /**
      * Set pdf
      *
      * @param string $pdf
-     * @return Zahtev
+     * @return Request
      */
     public function setPdf($pdf)
     {

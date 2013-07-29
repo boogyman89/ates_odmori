@@ -19,12 +19,13 @@ class Slava
     /**
     * @ORM\Column(type="integer")
     */
-    protected $id_korisnik;
+    protected $id_user;
     
     /**
     * @ORM\Column(type="date")
     */
-    protected $datum;
+    protected $date;
+
 
     /**
      * Get id
@@ -37,48 +38,48 @@ class Slava
     }
 
     /**
-     * Set id_korisnik
+     * Set id_user
      *
-     * @param integer $idKorisnik
+     * @param integer $idUser
      * @return Slava
      */
-    public function setIdKorisnik($idKorisnik)
+    public function setIdUser($idUser)
     {
-        $this->id_korisnik = $idKorisnik;
+        $this->id_user = $idUser;
     
         return $this;
     }
 
     /**
-     * Get id_korisnik
+     * Get id_user
      *
      * @return integer 
      */
-    public function getIdKorisnik()
+    public function getIdUser()
     {
-        return $this->id_korisnik;
+        return $this->id_user;
     }
 
     /**
-     * Set datum
+     * Set date
      *
-     * @param \DateTime $datum
+     * @param \DateTime $date
      * @return Slava
      */
-    public function setDatum($datum)
+    public function setDate($date)
     {
-        $this->datum = $datum;
+        $this->date = $date;
     
         return $this;
     }
 
     /**
-     * Get datum
+     * Get date
      *
      * @return \DateTime 
      */
-    public function getDatum()
+    public function getDate()
     {
-        return $this->datum;
+        return $this->date;
     }
 }

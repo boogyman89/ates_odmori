@@ -5,9 +5,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="neradni_dani")
+ * @ORM\Table(name="holidays")
  */
-class NeradniDani
+class Holidays
 {
     /**
     * @ORM\Id
@@ -24,12 +24,14 @@ class NeradniDani
     /**
     * @ORM\Column(type="date")
     */
-    protected $datum;
+    protected $date;
     
    /**
      * @ORM\Column(type="string", length=100)
      */
-    protected $naziv;
+    protected $name;
+
+   
 
     /**
      * Get id
@@ -42,33 +44,10 @@ class NeradniDani
     }
 
     /**
-     * Set datum
-     *
-     * @param \DateTime $datum
-     * @return NeradniDani
-     */
-    public function setDatum($datum)
-    {
-        $this->datum = $datum;
-    
-        return $this;
-    }
-
-    /**
-     * Get datum
-     *
-     * @return \DateTime 
-     */
-    public function getDatum()
-    {
-        return $this->datum;
-    }
-
-    /**
      * Set id_admin
      *
      * @param integer $idAdmin
-     * @return NeradniDani
+     * @return Holidays
      */
     public function setIdAdmin($idAdmin)
     {
@@ -88,25 +67,48 @@ class NeradniDani
     }
 
     /**
-     * Set naziv
+     * Set date
      *
-     * @param string $naziv
-     * @return NeradniDani
+     * @param \DateTime $date
+     * @return Holidays
      */
-    public function setNaziv($naziv)
+    public function setDate($date)
     {
-        $this->naziv = $naziv;
+        $this->date = $date;
     
         return $this;
     }
 
     /**
-     * Get naziv
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Holidays
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
      *
      * @return string 
      */
-    public function getNaziv()
+    public function getName()
     {
-        return $this->naziv;
+        return $this->name;
     }
 }
