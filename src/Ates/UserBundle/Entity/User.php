@@ -6,7 +6,7 @@
     
     /**
      * @ORM\Entity
-     * @ORM\Table(name="ates_user")
+     * @ORM\Table(name="employee")
      */
     
     class User extends BaseUser

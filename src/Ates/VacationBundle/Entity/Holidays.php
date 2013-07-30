@@ -16,11 +16,7 @@ class Holidays
     */
     protected $id;
     
-    /**
-    * @ORM\Column(type="integer")
-    */
-    protected $id_admin;
-    
+      
     /**
     * @ORM\Column(type="date")
     */
@@ -43,29 +39,7 @@ class Holidays
         return $this->id;
     }
 
-    /**
-     * Set id_admin
-     *
-     * @param integer $idAdmin
-     * @return Holidays
-     */
-    public function setIdAdmin($idAdmin)
-    {
-        $this->id_admin = $idAdmin;
-    
-        return $this;
-    }
-
-    /**
-     * Get id_admin
-     *
-     * @return integer 
-     */
-    public function getIdAdmin()
-    {
-        return $this->id_admin;
-    }
-
+   
     /**
      * Set date
      *
