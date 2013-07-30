@@ -1,0 +1,3 @@
+ates_store_homepage:
+    pattern:  /cao/{name}
+    defaults: { _controller: AtesVacationBundle:Default:index }

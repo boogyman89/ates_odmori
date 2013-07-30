@@ -16,7 +16,7 @@
       <parameter key="AsseticBundle">Symfony\Bundle\AsseticBundle\AsseticBundle</parameter>
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
-      <parameter key="AtesStoreBundle">Ates\StoreBundle\AtesStoreBundle</parameter>
+      <parameter key="AtesVacationBundle">Ates\VacationBundle\AtesVacationBundle</parameter>
       <parameter key="DoctrineMigrationsBundle">Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle</parameter>
       <parameter key="AtesUserBundle">Ates\UserBundle\AtesUserBundle</parameter>
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
@@ -1918,6 +1918,12 @@
         <argument>zh_CN</argument>
         <argument>validators</argument>
       </call>
+      <call method="addResource">
+        <argument>yml</argument>
+        <argument>D:/xampp/htdocs/ates_odmori/app/Resources/translations\FOSUserBundle.en.yml</argument>
+        <argument>en</argument>
+        <argument>FOSUserBundle</argument>
+      </call>
     </service>
     <service id="translation.loader.php" class="Symfony\Component\Translation\Loader\PhpFileLoader">
       <tag name="translation.loader" alias="php"/>
@@ -2669,7 +2675,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>51f6635374efa</argument>
+            <argument>51f7a2df0bbdd</argument>
           </service>
         </argument>
       </argument>
@@ -2935,7 +2941,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>51f6635374efa</argument>
+            <argument>51f7a2df0bbdd</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3370,7 +3376,7 @@
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
             <argument type="collection">
-              <argument key="AtesStoreBundle">Ates\StoreBundle\Entity</argument>
+              <argument key="AtesVacationBundle">Ates\VacationBundle\Entity</argument>
               <argument key="AtesUserBundle">Ates\UserBundle\Entity</argument>
               <argument key="FOSUserBundle">FOS\UserBundle\Entity</argument>
             </argument>
@@ -3410,19 +3416,19 @@
                     <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
-                        <argument>D:\xampp\htdocs\ates_odmori\src\Ates\StoreBundle\Entity</argument>
+                        <argument>D:\xampp\htdocs\ates_odmori\src\Ates\VacationBundle\Entity</argument>
                         <argument>D:\xampp\htdocs\ates_odmori\src\Ates\UserBundle\Entity</argument>
                       </argument>
                     </service>
                   </argument>
-                  <argument>Ates\StoreBundle\Entity</argument>
+                  <argument>Ates\VacationBundle\Entity</argument>
                 </call>
                 <call method="addDriver">
                   <argument type="service">
                     <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
-                        <argument>D:\xampp\htdocs\ates_odmori\src\Ates\StoreBundle\Entity</argument>
+                        <argument>D:\xampp\htdocs\ates_odmori\src\Ates\VacationBundle\Entity</argument>
                         <argument>D:\xampp\htdocs\ates_odmori\src\Ates\UserBundle\Entity</argument>
                       </argument>
                     </service>
@@ -3932,8 +3938,8 @@
         <argument>Doctrine</argument>
       </call>
       <call method="addPath">
-        <argument>D:\xampp\htdocs\ates_odmori\src\Ates\StoreBundle/Resources/views</argument>
-        <argument>AtesStore</argument>
+        <argument>D:\xampp\htdocs\ates_odmori\src\Ates\VacationBundle/Resources/views</argument>
+        <argument>AtesVacation</argument>
       </call>
       <call method="addPath">
         <argument>D:\xampp\htdocs\ates_odmori\src\Ates\UserBundle/Resources/views</argument>

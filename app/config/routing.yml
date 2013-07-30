@@ -3,6 +3,6 @@ ates_user:
     prefix:   /
 
 ates_store:
-    resource: "@AtesStoreBundle/Resources/config/routing.yml"
+    resource: "@AtesVacationBundle/Resources/config/routing.yml"
     prefix:   /
 

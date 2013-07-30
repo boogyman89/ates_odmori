@@ -1,5 +1,5 @@
 <?php
-namespace Ates\StoreBundle\Entity;
+namespace Ates\VacationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

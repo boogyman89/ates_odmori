@@ -1,3 +1,0 @@
-ates_store_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: AtesStoreBundle:Default:index }

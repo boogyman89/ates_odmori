@@ -1,13 +1,13 @@
 <?php
-namespace Ates\StoreBundle\Entity;
+namespace Ates\VacationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="slava")
+ * @ORM\Table(name="holidays")
  */
-class Slava
+class Holidays
 {
     /**
     * @ORM\Id
@@ -19,13 +19,19 @@ class Slava
     /**
     * @ORM\Column(type="integer")
     */
-    protected $id_user;
+    protected $id_admin;
     
     /**
     * @ORM\Column(type="date")
     */
     protected $date;
+    
+   /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
 
+   
 
     /**
      * Get id
@@ -38,33 +44,33 @@ class Slava
     }
 
     /**
-     * Set id_user
+     * Set id_admin
      *
-     * @param integer $idUser
-     * @return Slava
+     * @param integer $idAdmin
+     * @return Holidays
      */
-    public function setIdUser($idUser)
+    public function setIdAdmin($idAdmin)
     {
-        $this->id_user = $idUser;
+        $this->id_admin = $idAdmin;
     
         return $this;
     }
 
     /**
-     * Get id_user
+     * Get id_admin
      *
      * @return integer 
      */
-    public function getIdUser()
+    public function getIdAdmin()
     {
-        return $this->id_user;
+        return $this->id_admin;
     }
 
     /**
      * Set date
      *
      * @param \DateTime $date
-     * @return Slava
+     * @return Holidays
      */
     public function setDate($date)
     {
@@ -81,5 +87,28 @@ class Slava
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Holidays
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }
