@@ -16,7 +16,7 @@ group:
 
 security:
     login:
-        username: "Username:"
+        username: "Email:"
         password: "Password:"
         remember_me: Remember me
         submit: Login
