@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="request")
  */
-class Request
+class VacationRequest
 {
     /**
     * @ORM\Id
@@ -22,22 +22,22 @@ class Request
     protected $id_user;
     
     /**
-    * @ORM\Column(type="integer")
+    * @ORM\Column(type="integer", nullable = true)
     */
     protected $id_admin;
     
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     protected $submitted;
     
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable = true)
      */
     protected $from;
     
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable = true)
      */
     protected $to;
     
@@ -47,7 +47,7 @@ class Request
     protected $state;
     
      /**
-     * @ORM\Column(type="string", length=200)
+     * @ORM\Column(type="string", length=200, nullable = true)
      */
     protected $pdf;
     
