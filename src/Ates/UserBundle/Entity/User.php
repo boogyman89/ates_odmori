@@ -19,46 +19,40 @@
         protected $id;
 
         /**
-        * @ORM\Column(type="string", length=50, nullable = true)
+        * @ORM\Column(type="string", length=50)
         */
         protected $first_name;
 
         /**
-        * @ORM\Column(type="string", length=50, nullable = true)
+        * @ORM\Column(type="string", length=50)
         */
         protected $last_name;
 
         /**
-         * @ORM\Column(type="string", length=20, nullable = true)
+         * @ORM\Column(type="string", length=20)
          */
         protected $ssn;
 
         /**
-         * @ORM\Column(type="string", length=50, nullable = true)
+         * @ORM\Column(type="string", length=50)
          */
         protected $address;
 
         /**
-         * @ORM\Column(type="string", length=20, nullable = true)
+         * @ORM\Column(type="string", length=20)
          */
         protected $phone;
 
         /**
-         * @ORM\Column(type="date", nullable = true)
+         * @ORM\Column(type="date")
          */
         protected $date_of_employment;
 
         /**
-         * @ORM\Column(type="integer", nullable = true)
+         * @ORM\Column(type="integer")
          */
         protected $no_days_off;
-
-        /**
-         * @ORM\Column(type="string", length=10, nullable = true)
-         */
-        protected $role;
-        
-        
+                     
         /**
          * @ORM\Column(type="boolean", nullable = true)
          */
@@ -75,6 +69,8 @@
     {
         parent::__construct();
         // your own logic
+        $this->is_approved = false;
+        $this->is_validated = false;
     }
     
     /**
@@ -249,30 +245,7 @@
         return $this->no_days_off;
     }
 
-    /**
-     * Set role
-     *
-     * @param string $role
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-    
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string 
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
+     /**
      * Set is_approved
      *
      * @param \bool $isApproved
