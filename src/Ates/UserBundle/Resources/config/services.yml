@@ -2,6 +2,13 @@ parameters:
 #    ates_user.example.class: Ates\UserBundle\Example
 
 services:
-#    ates_user.example:
-#        class: %ates_user.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ates_user.registration.form.type:
+          class: Ates\UserBundle\Form\Type\RegistrationFormType
+          arguments: [%fos_user.model.user.class%]
+          tags:
+              - { name: form.type, alias: ates_user_registration }
+    ates_user.profile.form.type:
+          class: Ates\UserBundle\Form\Type\ProfileFormType
+          arguments: [%fos_user.model.user.class%]
+          tags:
+              - { name: form.type, alias: ates_user_profile }
