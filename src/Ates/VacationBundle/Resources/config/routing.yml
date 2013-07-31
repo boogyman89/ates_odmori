@@ -1,3 +1,2 @@
-ates_store_homepage:
-    pattern:  /cao/{name}
+send_request_form:
     defaults: { _controller: AtesVacationBundle:Default:index }
