@@ -1,3 +1,7 @@
+employees_vacations_homepage:
+    path: /
+    defaults: { _controller: AtesUserBundle:Default:index }
+    
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

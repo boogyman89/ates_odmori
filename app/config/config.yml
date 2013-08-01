@@ -72,6 +72,8 @@ fos_user:
     registration:
         form:
             type: ates_user_registration
+        confirmation:
+            enabled:    true
     profile:
         form:
             type: ates_user_profile
