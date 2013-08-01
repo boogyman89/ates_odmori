@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AtesUserBundle:Default:index.html.twig', array('name' => 'guys! It\'s working!'));
+        return $this->render('AtesUserBundle:Default:index.html.twig');
     }
 }

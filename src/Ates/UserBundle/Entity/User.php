@@ -71,6 +71,7 @@
         // your own logic
         $this->is_approved = false;
         $this->is_validated = false;
+        $this->no_days_off = 20;
     }
     
     /**
