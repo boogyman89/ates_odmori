@@ -32,14 +32,14 @@ class VacationRequest
     protected $submitted;
     
     /**
-     * @ORM\Column(type="date", nullable = true)
+     * @ORM\Column(type="date")
      */
-    protected $from;
+    protected $start_date;
     
     /**
-     * @ORM\Column(type="date", nullable = true)
+     * @ORM\Column(type="date")
      */
-    protected $to;
+    protected $end_date;
     
     /**
      * @ORM\Column(type="string", length=100)
@@ -133,49 +133,49 @@ class VacationRequest
     }
 
     /**
-     * Set from
+     * Set start_date
      *
-     * @param \DateTime $from
+     * @param \DateTime $start_date
      * @return Request
      */
-    public function setFrom($from)
+    public function setStartDate($start_date)
     {
-        $this->from = $from;
+        $this->start_date = $start_date;
     
         return $this;
     }
 
     /**
-     * Get from
+     * Get start_date
      *
      * @return \DateTime 
      */
-    public function getFrom()
+    public function getStartDate()
     {
-        return $this->from;
+        return $this->start_date;
     }
 
     /**
-     * Set to
+     * Set end_date
      *
-     * @param \DateTime $to
+     * @param \DateTime $end_date
      * @return Request
      */
-    public function setTo($to)
+    public function setEndDate($end_date)
     {
-        $this->to = $to;
+        $this->end_date = $end_date;
     
         return $this;
     }
 
     /**
-     * Get to
+     * Get end_date
      *
      * @return \DateTime 
      */
-    public function getTo()
+    public function getEndDate()
     {
-        return $this->to;
+        return $this->end_date;
     }
 
     /**
