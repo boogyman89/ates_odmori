@@ -38,7 +38,7 @@ class DefaultController extends Controller
            $em->persist($vacationRequest);
            $em->flush();
           
-           return $this->redirect($this->generateUrl('\profile'));
+           return $this->redirect($this->generateUrl('fos_user_profile_show'));
             
             
        }

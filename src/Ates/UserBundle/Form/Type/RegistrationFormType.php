@@ -18,6 +18,7 @@ class RegistrationFormType extends BaseType
         $builder->add('address');
         $builder->add('phone');
         $builder->add('date_of_employment');
+        $builder->add('date_of_slava');
         
     }
 

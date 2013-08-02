@@ -7,7 +7,7 @@ parameters:
     database_user: root
     database_password: null
     mailer_transport: gmail
-    mailer_host:      ~
+    mailer_host: null
     mailer_user: n.bugaric@gmail.com
     mailer_password: glupasifra
     locale: en
