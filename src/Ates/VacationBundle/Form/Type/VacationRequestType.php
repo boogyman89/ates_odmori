@@ -20,9 +20,9 @@ class VacationRequestType extends AbstractType
     
      public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-     //   $resolver->setDefaults(array(
-     //      'data_class' => 'Ates\VacationBundle\Entity\VacationRequest',
-     //    ));       
+        $resolver->setDefaults(array(
+           'data_class' => 'Ates\VacationBundle\Entity\VacationRequest',
+         ));       
     }
 
    public function getName()

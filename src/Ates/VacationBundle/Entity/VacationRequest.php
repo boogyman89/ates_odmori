@@ -32,6 +32,11 @@ class VacationRequest
     protected $submitted;
     
     /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $edit_time;
+    
+    /**
      * @ORM\Column(type="date")
      */
     protected $start_date;
@@ -222,5 +227,28 @@ class VacationRequest
     public function getPdf()
     {
         return $this->pdf;
+    }
+
+    /**
+     * Set edit_time
+     *
+     * @param \DateTime $editTime
+     * @return VacationRequest
+     */
+    public function setEditTime($editTime)
+    {
+        $this->edit_time = $editTime;
+    
+        return $this;
+    }
+
+    /**
+     * Get edit_time
+     *
+     * @return \DateTime 
+     */
+    public function getEditTime()
+    {
+        return $this->edit_time;
     }
 }

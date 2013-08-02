@@ -32,6 +32,11 @@ class VacationRequest
     protected $submitted;
     
     /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $edit_time;
+    
+    /**
      * @ORM\Column(type="date")
      */
     protected $start_date;

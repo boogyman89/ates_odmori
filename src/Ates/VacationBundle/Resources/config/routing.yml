@@ -4,4 +4,4 @@ send_request_form:
 
 edit_request_form:
     path: /edit_request/{id}
-    defaults: { _controller: AtesVacationBundle:Default:editRequest }
+    defaults: { _controller: AtesVacationBundle:Default:edit }
