@@ -1,11 +1,11 @@
 <?php
-namespace Ates\StoreBundle\Entity;
+namespace Ates\VacationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="neradni_dani")
+ * @ORM\Table(name="holidays")
  */
 class Holidays
 {
@@ -16,11 +16,7 @@ class Holidays
     */
     protected $id;
     
-    /**
-    * @ORM\Column(type="integer")
-    */
-    protected $id_admin;
-    
+      
     /**
     * @ORM\Column(type="date")
     */
@@ -32,4 +28,61 @@ class Holidays
     protected $name;
 
    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+   
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Holidays
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Holidays
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }

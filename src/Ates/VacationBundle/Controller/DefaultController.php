@@ -43,7 +43,18 @@ class DefaultController extends Controller
             
        }
        
-       return $this->Render('AtesVacationBundle:Default:request.html.twig', 
+       return $this->Render('AtesVacationBundle:Request:request.html.twig', 
                array('form' => $form->createView()));
+    }
+    
+    
+    public function editRequestAction($id)
+    {
+        $repository = $this->getDoctrine()->getRepository('AtesVacationBundle:VacationRequest');
+        $request = $repository->find($id);
+        
+        return $this->render('AtesVacationBundle:Request:EditRequest.html.twig', array(
+            'request' => $request)
+        );
     }
 }
