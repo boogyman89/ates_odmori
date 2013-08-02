@@ -2,6 +2,10 @@ employees_vacations_homepage:
     path: /
     defaults: { _controller: AtesUserBundle:Default:index }
     
+employees_vacations_profile_reguest_state:
+    path: /profile/{state}
+    defaults: { _controller: AtesUserBundle:Profile:show }
+    
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

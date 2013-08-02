@@ -1,1 +1,16 @@
+<a href="{{ path('fos_user_profile_show') }}">All </a><br/>
+<a href="{{ path('employees_vacations_profile_reguest_state', { 'state': 'pending' }) }}">Pending </a><br/>
+<a href="{{ path('employees_vacations_profile_reguest_state',  { 'state': 'approved' }) }}">Approved </a><br/> 
+
+<ul>
+    {% for request in requests %}
+        {% if ( request.getState == state ) or ( state == null ) %}
+            <li> {{ request.getState }} 
+                 {{ request.getStartDate|date('Y-m-d') }}  
+                 {{ request.getEndDate|date('Y-m-d') }}  
+                 <a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a> 
+            </li> 
+        {% endif %}
+    {% endfor %}
+</ul>
 <a href='{{ path('send_request_form') }}'>Send Request</a>
