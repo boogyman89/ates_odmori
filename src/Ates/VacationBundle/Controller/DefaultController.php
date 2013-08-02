@@ -34,7 +34,9 @@ class DefaultController extends Controller
            $em->persist($vacationRequest);
            $em->flush();
           
-           return $this->redirect($this->generateUrl('fos_user_profile_show'));           
+           return $this->redirect($this->generateUrl('fos_user_profile_show'));
+            
+            
        }
         return $this->Render('AtesVacationBundle:Request:request.html.twig', 
                array('form' => $form->createView()));

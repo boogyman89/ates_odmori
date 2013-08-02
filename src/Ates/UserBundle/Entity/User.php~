@@ -59,9 +59,9 @@
         protected $is_approved;
         
         /**
-         * @ORM\Column(type="boolean", nullable = true)
+         * @ORM\Column(type="date")
          */
-        protected $is_validated;
+        protected $date_of_slava;
  
 
         
@@ -269,26 +269,4 @@
         return $this->is_approved;
     }
 
-    /**
-     * Set is_validated
-     *
-     * @param \bool $isValidated
-     * @return User
-     */
-    public function setIsValidated(\bool $isValidated)
-    {
-        $this->is_validated = $isValidated;
-    
-        return $this;
-    }
-
-    /**
-     * Get is_validated
-     *
-     * @return \bool 
-     */
-    public function getIsValidated()
-    {
-        return $this->is_validated;
-    }
 }
