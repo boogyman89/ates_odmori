@@ -5,7 +5,15 @@ employees_vacations_homepage:
 employees_vacations_profile_reguest_state:
     path: /profile/{state}
     defaults: { _controller: AtesUserBundle:Profile:show }
-    
+ 
+show_admin_panel:
+    path: /admin
+    defaults: { _controller: AtesUserBundle:Admin:showAdmin }
+
+approve_request:
+    path: /admin/approve/{id}
+    defaults: { _controller: AtesUserBundle:Admin:approveRequest }
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

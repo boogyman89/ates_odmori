@@ -14,16 +14,20 @@ class ProfileController extends BaseController
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-
+        $roles = $user->getRoles();
+        
         $repository = $this->container->get('doctrine')
           ->getRepository('AtesVacationBundle:VacationRequest');
         
-        $requests = $repository->findAllByUserId($user->getId());        
-        
+        $requests = $repository->findAllByUserId($user->getId());      
+                        
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'), array(
             'user' => $user, 
             'requests' => $requests,
-            'state' => $state
+            'state' => $state,
+            'roles' => $roles
         ));
     }
+    
+    
 }

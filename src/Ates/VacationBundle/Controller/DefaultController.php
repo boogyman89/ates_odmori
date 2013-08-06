@@ -22,8 +22,8 @@ class DefaultController extends Controller
            $datetime = new \DateTime("NOW");
            $vacationRequest = new VacationRequest();
            
-           $vacationRequest->setStartDate($form->get('start_date')->getData()); //moze vako da se vade podaci iz forme
-           $vacationRequest->setEndDate($form["end_date"]->getData()); //a moze i vako
+           $vacationRequest->setStartDate($form->get('start_date')->getData()); //moze 'vako da se vade podaci iz forme
+           $vacationRequest->setEndDate($form["end_date"]->getData()); //a moze i 'vako
            $vacationRequest->setIdUser($user->getId());
            $vacationRequest->setSubmitted($datetime);
            $vacationRequest->setState("pending");
@@ -42,7 +42,7 @@ class DefaultController extends Controller
                array('form' => $form->createView()));
     }
     
-    public function editAction($id)
+    public function editRequestAction($id)
     {        
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AtesVacationBundle:VacationRequest');

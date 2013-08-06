@@ -14,3 +14,10 @@
     {% endfor %}
 </ul>
 <a href='{{ path('send_request_form') }}'>Send Request</a>
+
+
+{% for role in roles %}
+{% if role == 'ROLE_ADMIN' %}
+<a href='{{ path('show_admin_panel') }}'> Admin Panel</a>
+{% endif %}
+{% endfor %}
