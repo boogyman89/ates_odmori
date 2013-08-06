@@ -1,0 +1,15 @@
+Hello dear admin.
+
+<ul>
+    {% for request in requests %}
+        {% if ( request.getState == 'pending' ) %}
+            <li> {{ request.getState }} 
+                 {{ request.getStartDate|date('Y-m-d') }}  
+                 {{ request.getEndDate|date('Y-m-d') }}  
+                 <a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> 
+                 <a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a>
+                
+            </li> 
+        {% endif %}
+    {% endfor %}
+</ul>

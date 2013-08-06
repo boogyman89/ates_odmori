@@ -1,4 +1,3 @@
-<body>
 <a href="{{ path('fos_user_profile_show') }}">All </a><br/>
 <a href="{{ path('employees_vacations_profile_reguest_state', { 'state': 'pending' }) }}">Pending </a><br/>
 <a href="{{ path('employees_vacations_profile_reguest_state',  { 'state': 'approved' }) }}">Approved </a><br/> 
@@ -15,4 +14,10 @@
     {% endfor %}
 </ul>
 <a href='{{ path('send_request_form') }}'>Send Request</a>
-</body>
+
+
+{% for role in roles %}
+{% if role == 'ROLE_ADMIN' %}
+<a href='{{ path('show_admin_panel') }}'> Admin Panel</a>
+{% endif %}
+{% endfor %}
