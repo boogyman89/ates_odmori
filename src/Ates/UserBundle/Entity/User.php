@@ -52,11 +52,6 @@
          * @ORM\Column(type="integer")
          */
         protected $no_days_off;
-                     
-        /**
-         * @ORM\Column(type="boolean", nullable = true)
-         */
-        protected $is_approved;
         
         /**
          * @ORM\Column(type="date")
@@ -72,6 +67,7 @@
         $this->is_approved = false;
         $this->is_validated = false;
         $this->no_days_off = 20;
+        $this->locked = true;
     }
     
     /**
@@ -244,29 +240,6 @@
     public function getNoDaysOff()
     {
         return $this->no_days_off;
-    }
-
-     /**
-     * Set is_approved
-     *
-     * @param \bool $isApproved
-     * @return User
-     */
-    public function setIsApproved(\bool $isApproved)
-    {
-        $this->is_approved = $isApproved;
-    
-        return $this;
-    }
-
-    /**
-     * Get is_approved
-     *
-     * @return \bool 
-     */
-    public function getIsApproved()
-    {
-        return $this->is_approved;
     }
 
 
