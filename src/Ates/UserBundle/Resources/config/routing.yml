@@ -11,9 +11,25 @@ show_admin_panel:
     defaults: { _controller: AtesUserBundle:Admin:showAdmin }
 
 approve_request:
-    path: /admin/approve/{id}
+    path: /admin/approve_request/{id}
     defaults: { _controller: AtesUserBundle:Admin:approveRequest }
 
+reject_request:
+    path: /admin/reject_request/{id}
+    defaults: { _controller: AtesUserBundle:Admin:rejectRequest }
+    
+add_holiday:
+    path: /admin/add_holiday
+    defaults: { _controller: AtesUserBundle:Admin:addHoliday }
+    
+edit_holiday_form:
+    path: /admin/edit_holiday/{id}
+    defaults: { _controller: AtesUserBundle:Admin:editHoliday }
+    
+delete_holiday:
+    path: /admin/delete_holiday/{id}
+    defaults: { _controller: AtesUserBundle:Admin:deleteHoliday }
+    
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

@@ -27,7 +27,5 @@ class ProfileController extends BaseController
             'state' => $state,
             'roles' => $roles
         ));
-    }
-    
-    
+    } 
 }
