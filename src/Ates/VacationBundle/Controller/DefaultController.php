@@ -39,7 +39,7 @@ class DefaultController extends Controller
             
             
        }
-        return $this->Render('AtesVacationBundle:Request:request.html.twig', 
+        return $this->Render('AtesVacationBundle:Request:anyForm.html.twig', 
                array('form' => $form->createView()));
     }
     
@@ -55,7 +55,6 @@ class DefaultController extends Controller
         
         if($form->isValid()) 
         {    
-          $repository = $this->getDoctrine()->getRepository('AtesVacationBundle:VacationRequest');
           $vacationRequest = $repository->find($id);
           $datetime = new \DateTime("NOW");
           
@@ -63,10 +62,23 @@ class DefaultController extends Controller
           $vacationRequest->setStartDate($form->get('start_date')->getData());
           $vacationRequest->setEndDate($form->get('end_date')->getData());
           
-          $em->flush();
+          $em->flush();     //kraj edita
+                            //sledi provera ROLE-a
+          $user = $this->container->get('security.context')->getToken()->getUser();
+          $roles = $user->getRoles();
           
-          return $this->redirect($this->generateUrl('fos_user_profile_show'));
-        }              
+          foreach ($roles as $role)
+          {
+              if($role == 'ROLE_ADMIN')
+              {
+                  return $this->redirect($this->generateUrl('show_admin_panel')); //ROLE_ADMIN return
+              }
+          }
+          
+          return $this->redirect($this->generateUrl('fos_user_profile_show'));   // ROLE_USER return
+          
+        }    
+        
         $form->setData($vacationRequest);
         
         return $this->Render('AtesVacationBundle:Request:EditRequest.html.twig', array(

@@ -9,7 +9,7 @@
                  {{ request.getEndDate|date('Y-m-d') }}  
                  <a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> 
                  <a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a>
-                
+                 <a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a>
             </li> 
         {% endif %}
     {% endfor %}
@@ -26,4 +26,18 @@
             </li> 
     {% endfor %}
 </ul>
+
+
+<h3> Holidays </h3>
+<ul>
+    {% for holiday in holidays %}      
+            <li> {{ holiday.getDate|date('Y-m-d') }} 
+                 {{ holiday.getName }}                    
+                 <a href=' {{ path('edit_holiday_form', {'id' : holiday.id}) }}'>Edit</a> 
+                 <a href=' {{ path('delete_holiday',  {'id' : holiday.id}) }}'>Delete</a>                
+            </li>        
+    {% endfor %}
+</ul>
+<a href=' {{ path('add_holiday') }} '>Add Holiday</a>
+
 </body>
