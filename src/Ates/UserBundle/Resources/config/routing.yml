@@ -14,6 +14,14 @@ approve_request:
     path: /admin/approve/{id}
     defaults: { _controller: AtesUserBundle:Admin:approveRequest }
 
+approve_user:
+    path: /admin/approve_user/{id}
+    defaults: { _controller: AtesUserBundle:Admin:approveUser }
+    
+delete_user_on_approving:
+    path: /admin/delete_user_on_approving/{id}
+    defaults: { _controller: AtesUserBundle:Admin:deleteUserOnApproving }
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

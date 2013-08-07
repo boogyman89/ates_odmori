@@ -26,6 +26,7 @@ class DefaultController extends Controller
            $vacationRequest->setEndDate($form["end_date"]->getData()); //a moze i 'vako
            $vacationRequest->setIdUser($user->getId());
            $vacationRequest->setSubmitted($datetime);
+           $vacationRequest->setEditTime($datetime);
            $vacationRequest->setState("pending");
                                
            // $vacationRequest = $form->getData();

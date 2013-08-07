@@ -23,6 +23,7 @@ class RegistrationController extends BaseController
         $vacationRequest->setIdUser($user->getId());
         $vacationRequest->setSubmitted($date);
         $vacationRequest->setState("approved");
+        $vacationRequest->setEditTime($date);
 
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($vacationRequest);
