@@ -8,7 +8,7 @@ use FOS\UserBundle\Model\UserInterface;
 
 class ProfileController extends BaseController
 {    
-    public function showAction( $state = null )
+    public function showAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -24,7 +24,6 @@ class ProfileController extends BaseController
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'), array(
             'user' => $user, 
             'requests' => $requests,
-            'state' => $state,
             'roles' => $roles
         ));
     } 

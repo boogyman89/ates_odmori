@@ -1,0 +1,15 @@
+{% for name, requests in all_requests %}
+  <h3>{{ name }}</h3>
+  <ul>
+    {% for request in requests %}
+      <li> 
+          {{ request.getState }} 
+          {{ request.getStartDate|date('Y-m-d') }}  
+          {{ request.getEndDate|date('Y-m-d') }}  
+          <a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> 
+          <a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a>
+          <a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endfor %}

@@ -57,6 +57,11 @@
          * @ORM\Column(type="date")
          */
         protected $date_of_slava;
+        
+        /**
+         * @ORM\Column(type="integer")
+         */
+        protected $last_year;
  
 
         
@@ -264,5 +269,28 @@
     public function getDateOfSlava()
     {
         return $this->date_of_slava;
+    }
+
+    /**
+     * Set last_year
+     *
+     * @param integer $lastYear
+     * @return User
+     */
+    public function setLastYear($lastYear)
+    {
+        $this->last_year = $lastYear;
+    
+        return $this;
+    }
+
+    /**
+     * Get last_year
+     *
+     * @return integer 
+     */
+    public function getLastYear()
+    {
+        return $this->last_year;
     }
 }
