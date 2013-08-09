@@ -52,16 +52,16 @@
          * @ORM\Column(type="integer")
          */
         protected $no_days_off;
-                     
-        /**
-         * @ORM\Column(type="boolean", nullable = true)
-         */
-        protected $is_approved;
         
         /**
          * @ORM\Column(type="date")
          */
         protected $date_of_slava;
+        
+        /**
+         * @ORM\Column(type="integer")
+         */
+        protected $last_year;
  
 
         
@@ -72,6 +72,7 @@
         $this->is_approved = false;
         $this->is_validated = false;
         $this->no_days_off = 20;
+        $this->locked = true;
     }
     
     /**
@@ -246,27 +247,27 @@
         return $this->no_days_off;
     }
 
-     /**
-     * Set is_approved
+
+    /**
+     * Set date_of_slava
      *
-     * @param \bool $isApproved
+     * @param \DateTime $dateOfSlava
      * @return User
      */
-    public function setIsApproved(\bool $isApproved)
+    public function setDateOfSlava($dateOfSlava)
     {
-        $this->is_approved = $isApproved;
+        $this->date_of_slava = $dateOfSlava;
     
         return $this;
     }
 
     /**
-     * Get is_approved
+     * Get date_of_slava
      *
-     * @return \bool 
+     * @return \DateTime 
      */
-    public function getIsApproved()
+    public function getDateOfSlava()
     {
-        return $this->is_approved;
+        return $this->date_of_slava;
     }
-
 }

@@ -1,19 +1,37 @@
+<script src="{{ asset('js/jquery-1.10.2.min.js') }}"  type="text/javascript"></script>
+<script src="{{ asset('js/ajax.js') }}"  type="text/javascript"></script>
+
+<link href="{{ asset('css/main.css') }}"  rel="stylesheet" />
+
 <body>
     <h3>Hello dear admin.</h3>
 
-<ul>
-    {% for request in requests %}
-        {% if ( request.getState == 'pending' ) %}
-            <li> {{ request.getState }} 
+    
+<ul id="requestResults">
+    {% for  request in requests %}
+            <li> 
+                 {{ request.getState }} 
                  {{ request.getStartDate|date('Y-m-d') }}  
                  {{ request.getEndDate|date('Y-m-d') }}  
                  <a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> 
                  <a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a>
                  <a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a>
             </li> 
-        {% endif %}
     {% endfor %}
 </ul>
+
+    
+<div id="searchRequest"> 
+    <h3>Filter request by:</h3>
+    
+    <label>First name:</label>
+    <input id="requestWorkerName" type="text" name="name" value=""/>
+    
+    <label>Last name:</label>
+    <input id="requestWorkerLastName" type="text" name="lastname" value=""/>
+    
+    <button id="filterRequestButton">Find</button>
+</div>
 
 
 <br/><h3>Users for approving:</h3>
@@ -40,4 +58,28 @@
 </ul>
 <a href=' {{ path('add_holiday') }} '>Add Holiday</a>
 
+
+<div class="grayWrapp">
+    <div id="searchUsers"> 
+        <h3>Search/Edit Users:</h3>
+
+        <label>First name:</label>
+        <input id="searchUserName" type="text" name="name" value=""/>
+
+        <label>Last name:</label>
+        <input id="searchUserLastName" type="text" name="last_name" value=""/>
+
+        <button id="findUsersButton">Find</button>
+    </div>
+    <div id="usersResult">
+    </div>
+</div>
+    
+    
+<select id="requestsFilterProfile">
+    <option>all</option>
+    <option>pending</option>
+    <option>approved</option>
+</select>
+    <div id="userRequestResults"></div>
 </body>

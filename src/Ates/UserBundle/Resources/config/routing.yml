@@ -1,10 +1,6 @@
 employees_vacations_homepage:
     path: /
     defaults: { _controller: AtesUserBundle:Default:index }
-    
-employees_vacations_profile_reguest_state:
-    path: /profile/{state}
-    defaults: { _controller: AtesUserBundle:Profile:show }
  
 show_admin_panel:
     path: /admin
@@ -17,6 +13,22 @@ approve_request:
 approve_user:
     path: /admin/approve_user/{id}
     defaults: { _controller: AtesUserBundle:Admin:approveUser }
+    
+ajax_request_find_requests:
+    path: /ajax/admin_find_requests
+    defaults: { _controller: AtesUserBundle:Ajax:findRequests }
+
+ajax_request_find_user:
+    path: /ajax/admin_find_users
+    defaults: { _controller: AtesUserBundle:Ajax:findUsers }
+
+ajax_find_user_request:
+    path: /ajax/find_user_requests/{filter}
+    defaults: { _controller: AtesUserBundle:Ajax:findRequestsForUser, filter: null}
+
+admin_edit_user:
+    path: /admin/edit_user/{id}
+    defaults: { _controller: AtesUserBundle:Admin:editUserProfile }
     
 delete_user_on_approving:
     path: /admin/delete_user_on_approving/{id}
