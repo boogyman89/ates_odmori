@@ -5,3 +5,9 @@
 /vendor/
 /app/config/parameters.yml
 /app/Version20130731125523.php
+/app/cache/dev/appDevDebugProjectContainerCompiler.log
+/app/cache/dev/appDevDebugProjectContainer.php
+/app/cache/dev/appDevDebugProjectContainer.php.meta
+/app/cache/dev/appDevDebugProjectContainer.xml
+
+/app/cache

@@ -7,8 +7,11 @@ use Ates\VacationBundle\Entity\VacationRequest;
 use Ates\VacationBundle\Form\Type\HolidaysType;
 use Ates\VacationBundle\Entity\Holidays;
 
+require('fpdf/fpdf.php');
+
 class AdminController extends Controller
 {
+    
     public function showAdminAction()
     {      
         $em = $this->getDoctrine()->getManager();
@@ -25,18 +28,39 @@ class AdminController extends Controller
         return $this->Render('AtesUserBundle:Admin:panel.html.twig', 
                 array(                    
                         'requests' => $requests,
-                        'holidays' => $holidays
+                        'holidays' => $holidays,
+                        'users' => $users
                 ));
     }
-    
+  
     public function approveRequestAction($id)
     {
          $em = $this->getDoctrine()->getManager();
-         $repository = $em->getRepository('AtesVacationBundle:VacationRequest');
-         $vacationRequest = $repository->find($id);
+         $vacationRepository = $em->getRepository('AtesVacationBundle:VacationRequest');
+         $vacationRequest = $vacationRepository->find($id);
+         $userRepository = $em->getRepository('AtesUserBundle:User');
+         $user = $userRepository->find($vacationRequest->getIdUser());
+         $holidaysRepository = $em->getRepository('AtesVacationBundle:Holidays');
+         $holidaysList = $holidaysRepository->findAll();
+         
+         $holidays = array();
+         $i = 0;
+         foreach ($holidaysList as $holiday)
+         {
+            $holidays[] = $holiday->getDate();
+         }
           
+         $startDate = $vacationRequest->getStartDate();
+         $endDate = $vacationRequest->getEndDate();
+         $days = $endDate->diff($startDate)->days;
+               
+         $workingDays = $this->getWorkingDays($days, $startDate,$endDate, $holidays);
+  
+         $this->createPDF($user,$vacationRequest,$workingDays);
+        
          $vacationRequest->setState('approved');
-          
+         $user->setNoDaysOff($user->getNoDaysOff() - $workingDays);
+               
          $em->flush();
           
          return $this->redirect($this->generateUrl('show_admin_panel'));
@@ -137,5 +161,90 @@ class AdminController extends Controller
               
         return $this->Render('AtesVacationBundle:Request:anyForm.html.twig', 
                array('form' => $form->createView()));
+    }
+    
+    public function getWorkingDays($days,$startDate,$endDate,$holidays)
+    {                     
+        //floor — Round fractions down
+        //fmod — Returns the floating point remainder (modulo) of the division of the arguments
+        $no_full_weeks = floor($days / 7);
+        $no_remaining_days = fmod($days, 7);
+
+        //It will return 1 if it's Monday,.. ,7 for Sunday
+        $the_first_day_of_week = $startDate->format('w');
+        $the_last_day_of_week = $endDate->format('w');
+                
+        if ($the_first_day_of_week <= $the_last_day_of_week) 
+        {
+            if ($the_first_day_of_week <= 6 && 6 <= $the_last_day_of_week) $no_remaining_days--;
+            if ($the_first_day_of_week <= 7 && 7 <= $the_last_day_of_week) $no_remaining_days--;
+        }
+        else
+        {
+            if ($the_first_day_of_week == 7) 
+            {
+                // if the start date is a Sunday, then we definitely subtract 1 day
+                $no_remaining_days--;
+
+                if ($the_last_day_of_week == 6)
+                {
+                    // if the end date is a Saturday, then we subtract another day
+                    $no_remaining_days--;
+                }
+            }
+            else
+            {
+                // the start date was a Saturday (or earlier), and the end date was (Mon..Fri)
+                // so we skip an entire weekend and subtract 2 days
+                $no_remaining_days -= 2;
+            }
+        }                
+        $workingDays = $no_full_weeks * 5;
+        if ($no_remaining_days > 0 )
+        {
+            $workingDays += $no_remaining_days;
+        }
+
+        $startDate = strtotime($startDate->format('T-m-d H:i:s'));
+        $endDate = strtotime($endDate->format('T-m-d H:i:s'));
+        
+        //We subtract the holidays
+        foreach($holidays as $holiday)
+        {         
+            $holidayDayOfTheWeek = $holiday->format('w');
+            $time_stamp=strtotime($holiday->format('T-m-d H:i:s'));
+            //If the holiday doesn't fall in weekend
+            if ($startDate <= $time_stamp 
+                    && $time_stamp <= $endDate 
+                    && $holidayDayOfTheWeek != 6 
+                    && $holidayDayOfTheWeek != 7)
+            {
+                $workingDays--;
+            }
+        }         
+        return $workingDays;
+    }
+    
+    function createPDF($user,$vacationRequest,$workingDays)
+    {
+        $pdf = new \FPDF('P', 'mm', 'A4');
+                
+        $text = "Zaposlenom " . $user->getFirstName() . " " . $user->getLastName() 
+                . " sa maticnim brojem " . $user->getSSN() 
+                . " se odobrava godisnji odmor u trajanju od " . $workingDays 
+                . " radnih dana sa pocetkom dana " . $vacationRequest->getStartDate()->format('Y-m-d')
+                . " do " . $vacationRequest->getEndDate()->format('Y-m-d') ;
+             
+        $pdf->AddPage();
+        $pdf->SetFont('Arial','',12);
+         //cell width height text in mm
+        $pdf->write(5,$text);
+        $path = "PDF/" . $user->getID() . "req" . $vacationRequest->getId() . ".pdf";
+        $pdf->Output($path,"F");
+       
+        $url = "http://localhost/" . $path;
+        echo $url;
+        $vacationRequest->setPdf($url);
+      //  return $this->redirect('http://localhost/pdf/simple.pdf');
     }
 }
