@@ -17,9 +17,10 @@ class VacationRequest
     protected $id;
     
     /**
-    * @ORM\Column(type="integer")
+    * @ORM\ManyToOne(targetEntity="Ates\UserBundle\Entity\User", inversedBy="vacation_requests")
+    * @ORM\JoinColumn(name="user_id", referencedColumnName="id") 
     */
-    protected $id_user;
+    protected $user;
     
     /**
     * @ORM\Column(type="integer", nullable = true)
@@ -250,5 +251,28 @@ class VacationRequest
     public function getEditTime()
     {
         return $this->edit_time;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Ates\UserBundle\Entity\User $user
+     * @return VacationRequest
+     */
+    public function setUser(\Ates\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Ates\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

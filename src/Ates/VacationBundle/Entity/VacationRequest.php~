@@ -1,6 +1,7 @@
 <?php
 namespace Ates\VacationBundle\Entity;
 
+use Ates\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,9 +18,10 @@ class VacationRequest
     protected $id;
     
     /**
-    * @ORM\Column(type="integer")
+    * @ORM\ManyToOne(targetEntity="Ates\UserBundle\Entity\User", inversedBy="vacation_requests")
+    * @ORM\JoinColumn(name="user_id", referencedColumnName="id") 
     */
-    protected $id_user;
+    protected $user;
     
     /**
     * @ORM\Column(type="integer", nullable = true)
@@ -227,5 +229,51 @@ class VacationRequest
     public function getPdf()
     {
         return $this->pdf;
+    }
+
+    /**
+     * Set edit_time
+     *
+     * @param \DateTime $editTime
+     * @return VacationRequest
+     */
+    public function setEditTime($editTime)
+    {
+        $this->edit_time = $editTime;
+    
+        return $this;
+    }
+
+    /**
+     * Get edit_time
+     *
+     * @return \DateTime 
+     */
+    public function getEditTime()
+    {
+        return $this->edit_time;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Ates\VacationBundle\Entity\User $user
+     * @return VacationRequest
+     */
+    public function setUser(\Ates\VacationBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Ates\VacationBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

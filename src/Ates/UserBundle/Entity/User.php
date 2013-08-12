@@ -3,6 +3,7 @@
     
     use FOS\UserBundle\Model\User as BaseUser;
     use Doctrine\ORM\Mapping as ORM;
+    use Doctrine\Common\Collections\ArrayCollection;
     
     /**
      * @ORM\Entity
@@ -63,6 +64,11 @@
          */
         protected $no_days_off_last_year;
  
+        /**
+         *
+         * @ORM\OneToMany(targetEntity="Ates\VacationBundle\Entity\VacationRequest", mappedBy="user")
+         */
+        protected $vacation_requests;
 
         
     public function __construct()
@@ -72,7 +78,9 @@
         $this->is_approved = false;
         $this->is_validated = false;
         $this->no_days_off = 20;
+        $this->no_days_off_last_year = 0;
         $this->locked = true;
+        $this->vacation_requests = new ArrayCollection();
     }
     
     /**
@@ -292,5 +300,38 @@
     public function getNoDaysOffLastYear()
     {
         return $this->no_days_off_last_year;
+    }
+
+    /**
+     * Add vacation_requests
+     *
+     * @param \Ates\UserBundle\Entity\Product $vacationRequests
+     * @return User
+     */
+    public function addVacationRequest(\Ates\UserBundle\Entity\Product $vacationRequests)
+    {
+        $this->vacation_requests[] = $vacationRequests;
+    
+        return $this;
+    }
+
+    /**
+     * Remove vacation_requests
+     *
+     * @param \Ates\UserBundle\Entity\Product $vacationRequests
+     */
+    public function removeVacationRequest(\Ates\UserBundle\Entity\Product $vacationRequests)
+    {
+        $this->vacation_requests->removeElement($vacationRequests);
+    }
+
+    /**
+     * Get vacation_requests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVacationRequests()
+    {
+        return $this->vacation_requests;
     }
 }

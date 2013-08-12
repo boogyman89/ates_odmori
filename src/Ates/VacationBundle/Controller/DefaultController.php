@@ -32,9 +32,13 @@ class DefaultController extends Controller
            $datetime = new \DateTime("NOW");
            $vacationRequest = new VacationRequest();
            
-           $vacationRequest->setStartDate($form->get('start_date')->getData()); //moze 'vako da se vade podaci iz forme
-           $vacationRequest->setEndDate($form["end_date"]->getData()); //a moze i 'vako
-           $vacationRequest->setIdUser($user->getId());
+           $vacationRequest = $form->getData();
+           $vacationRequest->setUser($user);
+           
+          // $vacationRequest->setStartDate($form->get('start_date')->getData()); //moze 'vako da se vade podaci iz forme
+          // $vacationRequest->setEndDate($form["end_date"]->getData()); //a moze i 'vako
+          // $vacationRequest->setIdUser($user->getId());
+          
            $vacationRequest->setSubmitted($datetime);
            $vacationRequest->setEditTime($datetime);
            $vacationRequest->setState("pending");
@@ -46,8 +50,6 @@ class DefaultController extends Controller
            $em->flush();
           
            return $this->redirect($this->generateUrl('fos_user_profile_show'));
-            
-            
        }
        return array('form' => $form->createView());
        
