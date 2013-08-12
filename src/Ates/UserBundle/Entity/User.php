@@ -61,7 +61,7 @@
         /**
          * @ORM\Column(type="integer")
          */
-        protected $last_year;
+        protected $no_days_off_last_year;
  
 
         
@@ -272,25 +272,25 @@
     }
 
     /**
-     * Set last_year
+     * Set no_days_off_last_year
      *
-     * @param integer $lastYear
+     * @param integer $no_days_off_last_year
      * @return User
      */
-    public function setLastYear($lastYear)
+    public function setNoDaysOffLastYear($no_days_off_last_year)
     {
-        $this->last_year = $lastYear;
+        $this->no_days_off_last_year = $lastYear;
     
         return $this;
     }
 
     /**
-     * Get last_year
+     * Get no_days_off_last_year
      *
      * @return integer 
      */
-    public function getLastYear()
+    public function getNoDaysOffLastYear()
     {
-        return $this->last_year;
+        return $this->no_days_off_last_year;
     }
 }

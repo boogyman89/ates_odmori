@@ -8,9 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Ates\VacationBundle\Entity\VacationRequest;
 use Ates\VacationBundle\Form\Type\VacationRequestType;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 class DefaultController extends Controller
 {
     public function indexAction()
+    {
+    }
+    /**
+     * @Route("/request", name="send_request_form")
+     * @Template("AtesVacationBundle:Request:anyForm.html.twig")
+     */    
+    public function sendRequestAction()
     {
        $form = $this->createForm(new VacationRequestType());
        $request = $this->getRequest();
@@ -39,10 +49,16 @@ class DefaultController extends Controller
             
             
        }
-        return $this->Render('AtesVacationBundle:Request:anyForm.html.twig', 
-               array('form' => $form->createView()));
+       return array('form' => $form->createView());
+       
+  //      return $this->Render('AtesVacationBundle:Request:anyForm.html.twig', 
+  //             array('form' => $form->createView()));
     }
     
+    /**
+     * @Route("/edit_request/{id}", name="edit_request_form")
+     * @Template("AtesVacationBundle:Request:anyForm.html.twig")
+     */  
     public function editRequestAction($id)
     {        
         $em = $this->getDoctrine()->getManager();
@@ -81,8 +97,7 @@ class DefaultController extends Controller
         
         $form->setData($vacationRequest);
         
-        return $this->Render('AtesVacationBundle:Request:EditRequest.html.twig', array(
-            'form' => $form->createView()
-                ));
+        
+        return array('form' => $form->createView());       
     }
 }
