@@ -28,23 +28,10 @@ class DefaultController extends Controller
        
        if($form->isValid()) 
        {                  
-           $user = $this->container->get('security.context')->getToken()->getUser();
-           $datetime = new \DateTime("NOW");
-           $vacationRequest = new VacationRequest();
-           
+           $user = $this->getUser();         
            $vacationRequest = $form->getData();
-           $vacationRequest->setUser($user);
-           
-          // $vacationRequest->setStartDate($form->get('start_date')->getData()); //moze 'vako da se vade podaci iz forme
-          // $vacationRequest->setEndDate($form["end_date"]->getData()); //a moze i 'vako
-          // $vacationRequest->setIdUser($user->getId());
-          
-           $vacationRequest->setSubmitted($datetime);
-           $vacationRequest->setEditTime($datetime);
-           $vacationRequest->setState("pending");
-                               
-           // $vacationRequest = $form->getData();
-                               
+           $vacationRequest->setUser($user);      
+                                       
            $em = $this->getDoctrine()->getManager();
            $em->persist($vacationRequest);
            $em->flush();
@@ -69,20 +56,17 @@ class DefaultController extends Controller
         $form = $this->createForm(new VacationRequestType());
             
         $formRequest = $this->getRequest();
-        $form->handleRequest($formRequest);
-        
+        $form->handleRequest($formRequest);        
         if($form->isValid()) 
         {    
           $vacationRequest = $repository->find($id);
-          $datetime = new \DateTime("NOW");
-          
-          $vacationRequest->setEditTime($datetime);
+               
           $vacationRequest->setStartDate($form->get('start_date')->getData());
           $vacationRequest->setEndDate($form->get('end_date')->getData());
           
           $em->flush();     //kraj edita
                             //sledi provera ROLE-a
-          $user = $this->container->get('security.context')->getToken()->getUser();
+          $user = $this->getUser();
           $roles = $user->getRoles();
           
           foreach ($roles as $role)
@@ -95,10 +79,8 @@ class DefaultController extends Controller
           
           return $this->redirect($this->generateUrl('fos_user_profile_show'));   // ROLE_USER return
           
-        }    
-        
-        $form->setData($vacationRequest);
-        
+        }            
+        $form->setData($vacationRequest);        
         
         return array('form' => $form->createView());       
     }

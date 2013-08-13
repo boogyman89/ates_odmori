@@ -20,7 +20,7 @@ class ProfileController extends BaseController
           ->getRepository('AtesVacationBundle:VacationRequest');
         
         $requests = $user->getVacationRequests();
-   //     $requests = $repository->findAllByUserId($user->getId());      
+       
                         
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'), array(
             'user' => $user, 

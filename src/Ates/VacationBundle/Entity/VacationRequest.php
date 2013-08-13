@@ -2,6 +2,7 @@
 namespace Ates\VacationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Ates\VacationBundle\Entity\VacationRequestRepository")
@@ -28,14 +29,16 @@ class VacationRequest
     protected $id_admin;
     
     /**
-     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
      */
-    protected $submitted;
+    protected $created;
     
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
-    protected $edit_time;
+    private $updated;
     
     /**
      * @ORM\Column(type="date")
@@ -59,6 +62,11 @@ class VacationRequest
     
     
 
+    public function __construct()
+    {
+        $this->state = 'pending';
+    }
+    
     /**
      * Get id
      *
@@ -274,5 +282,51 @@ class VacationRequest
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return VacationRequest
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return VacationRequest
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }
