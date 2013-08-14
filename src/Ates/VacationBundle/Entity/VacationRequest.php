@@ -2,6 +2,7 @@
 namespace Ates\VacationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Ates\VacationBundle\Entity\VacationRequestRepository")
@@ -17,9 +18,10 @@ class VacationRequest
     protected $id;
     
     /**
-    * @ORM\Column(type="integer")
+    * @ORM\ManyToOne(targetEntity="Ates\UserBundle\Entity\User", inversedBy="vacation_requests")
+    * @ORM\JoinColumn(name="user_id", referencedColumnName="id") 
     */
-    protected $id_user;
+    protected $user;
     
     /**
     * @ORM\Column(type="integer", nullable = true)
@@ -27,14 +29,16 @@ class VacationRequest
     protected $id_admin;
     
     /**
-     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
      */
-    protected $submitted;
+    protected $created;
     
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(name="updated", type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
-    protected $edit_time;
+    private $updated;
     
     /**
      * @ORM\Column(type="date")
@@ -58,6 +62,11 @@ class VacationRequest
     
     
 
+    public function __construct()
+    {
+        $this->state = 'pending';
+    }
+    
     /**
      * Get id
      *
@@ -250,5 +259,74 @@ class VacationRequest
     public function getEditTime()
     {
         return $this->edit_time;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Ates\UserBundle\Entity\User $user
+     * @return VacationRequest
+     */
+    public function setUser(\Ates\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Ates\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return VacationRequest
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return VacationRequest
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

@@ -19,10 +19,12 @@
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
-		"doctrine/migrations": "dev-master",
+	"doctrine/migrations": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "symfony/console": "2.4.*@dev"
+        "symfony/console": "2.4.*@dev",
+	"gedmo/doctrine-extensions":      "dev-master"
+
     },
     "scripts": {
         "post-install-cmd": [

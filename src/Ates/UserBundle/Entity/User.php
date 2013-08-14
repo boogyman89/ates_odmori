@@ -3,7 +3,9 @@
     
     use FOS\UserBundle\Model\User as BaseUser;
     use Doctrine\ORM\Mapping as ORM;
-    
+    use Doctrine\Common\Collections\ArrayCollection;
+    use Gedmo\Mapping\Annotation as Gedmo;
+
     /**
      * @ORM\Entity
      * @ORM\Table(name="employee")
@@ -63,7 +65,23 @@
          */
         protected $no_days_off_last_year;
  
+        /**
+         *
+         * @ORM\OneToMany(targetEntity="Ates\VacationBundle\Entity\VacationRequest", mappedBy="user")
+         */
+        protected $vacation_requests;
 
+        /**
+         * @Gedmo\Timestampable(on="create")
+         * @ORM\Column(name="created", type="datetime")
+         */
+        protected $created;
+
+        /**
+         * @ORM\Column(name="updated", type="datetime")
+         * @Gedmo\Timestampable(on="update")
+         */
+        private $updated;
         
     public function __construct()
     {
@@ -72,8 +90,9 @@
         $this->is_approved = false;
         $this->is_validated = false;
         $this->no_days_off = 20;
-        $this->locked = true;
         $this->no_days_off_last_year = 0;
+        $this->locked = true;
+        $this->vacation_requests = new ArrayCollection();
     }
     
     /**
@@ -294,5 +313,84 @@
     public function getNoDaysOffLastYear()
     {
         return $this->no_days_off_last_year;
+    }
+
+    /**
+     * Add vacation_requests
+     *
+     * @param \Ates\UserBundle\Entity\Product $vacationRequests
+     * @return User
+     */
+    public function addVacationRequest(\Ates\UserBundle\Entity\Product $vacationRequests)
+    {
+        $this->vacation_requests[] = $vacationRequests;
+    
+        return $this;
+    }
+
+    /**
+     * Remove vacation_requests
+     *
+     * @param \Ates\UserBundle\Entity\Product $vacationRequests
+     */
+    public function removeVacationRequest(\Ates\UserBundle\Entity\Product $vacationRequests)
+    {
+        $this->vacation_requests->removeElement($vacationRequests);
+    }
+
+    /**
+     * Get vacation_requests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVacationRequests()
+    {
+        return $this->vacation_requests;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return User
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return User
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

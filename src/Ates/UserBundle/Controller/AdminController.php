@@ -85,8 +85,22 @@ class AdminController extends Controller
          $workingDays = $this->getWorkingDays($days, $startDate,$endDate, $holidays);
   
          $this->createPDF($user,$vacationRequest,$workingDays);
-        
+         
          $vacationRequest->setState('approved');
+         $noDaysOffLastYear = $user->getNoDaysOffLastYear();
+         if($noDaysOffLastYear != 0)
+         {
+             if($noDaysOffLastYear >= $workingDays)
+             {
+                 $noDaysOffLastYear -= $workingDays;
+             }
+             else
+             {
+                 $noDaysOffLastYear = 0;
+                 $workingDays -= $noDaysOffLastYear;
+             }
+         }
+         $user->setNoDaysOffLastYear($noDaysOffLastYear);
          $user->setNoDaysOff($user->getNoDaysOff() - $workingDays);
                
          $em->flush();

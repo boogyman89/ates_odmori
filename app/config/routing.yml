@@ -10,3 +10,6 @@ ates_user_bundle:
     resource: "@AtesUserBundle/Controller"
     type:     annotation
 
+AtesVacationBundle:
+  resource: "@AtesVacationBundle/Controller"
+  type: annotation

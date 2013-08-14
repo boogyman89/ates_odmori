@@ -8,9 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Ates\VacationBundle\Entity\VacationRequest;
 use Ates\VacationBundle\Form\Type\VacationRequestType;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 class DefaultController extends Controller
 {
     public function indexAction()
+    {
+    }
+    /**
+     * @Route("/request", name="send_request_form")
+     * @Template("AtesVacationBundle:Request:anyForm.html.twig")
+     */    
+    public function sendRequestAction()
     {
        $form = $this->createForm(new VacationRequestType());
        $request = $this->getRequest();
@@ -18,35 +28,26 @@ class DefaultController extends Controller
        
        if($form->isValid()) 
        {                  
-           $user = $this->getUser();
-           $datetime = new \DateTime("NOW");
-           $vacationRequest = new VacationRequest();
-           
-           $vacationRequest->setStartDate($form->get('start_date')->getData()); //moze 'vako da se vade podaci iz forme
-           $vacationRequest->setEndDate($form["end_date"]->getData()); //a moze i 'vako
-           $vacationRequest->setIdUser($user->getId());
-           $vacationRequest->setSubmitted($datetime);
-           $vacationRequest->setEditTime($datetime);
-           $vacationRequest->setState("pending");
                                
-           // $vacationRequest = $form->getData();
-                               
+           $user = $this->getUser();         
+           $vacationRequest = $form->getData();
+           $vacationRequest->setUser($user);      
+                                       
            $em = $this->getDoctrine()->getManager();
            $em->persist($vacationRequest);
            $em->flush();
           
            return $this->redirect($this->generateUrl('fos_user_profile_show'));
-            
-            
        }
-        return $this->Render('AtesVacationBundle:Request:anyForm.html.twig', 
-               array('form' => $form->createView()));
+       return array('form' => $form->createView());
+
     }
+
+    
     /**
-     * 
-     * @param type $id
-     * @return type
-     */
+     * @Route("/edit_request/{id}", name="edit_request_form")
+     * @Template("AtesVacationBundle:Request:anyForm.html.twig")
+     */  
     public function editRequestAction($id)
     {        
         $em = $this->getDoctrine()->getManager();
@@ -55,20 +56,17 @@ class DefaultController extends Controller
         $form = $this->createForm(new VacationRequestType());
             
         $formRequest = $this->getRequest();
-        $form->handleRequest($formRequest);
-        
+        $form->handleRequest($formRequest);        
         if($form->isValid()) 
         {    
           $vacationRequest = $repository->find($id);
-          $datetime = new \DateTime("NOW");
-          
-          $vacationRequest->setEditTime($datetime);
+               
           $vacationRequest->setStartDate($form->get('start_date')->getData());
           $vacationRequest->setEndDate($form->get('end_date')->getData());
           
           $em->flush();     //kraj edita
                             //sledi provera ROLE-a
-          $user = $this->container->get('security.context')->getToken()->getUser();
+          $user = $this->getUser();
           $roles = $user->getRoles();
           
           foreach ($roles as $role)
@@ -81,12 +79,9 @@ class DefaultController extends Controller
           
           return $this->redirect($this->generateUrl('fos_user_profile_show'));   // ROLE_USER return
           
-        }    
+        }            
+        $form->setData($vacationRequest);        
         
-        $form->setData($vacationRequest);
-        
-        return $this->Render('AtesVacationBundle:Request:EditRequest.html.twig', array(
-            'form' => $form->createView()
-                ));
+        return array('form' => $form->createView());       
     }
 }

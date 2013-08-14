@@ -11,14 +11,23 @@
     <option>pending</option>
     <option>approved</option>
 </select>
-    
+
+<h5>Number of days off:</h5>
+This year: {{ user.getNoDaysOff }}  </br>
+Last year: {{user.getNoDaysOffLastYear }}
+
 <div id="userRequestResults">
 <ul>
     {% for request in requests %}
         <li> {{ request.getState }} 
              {{ request.getStartDate|date('Y-m-d') }}  
              {{ request.getEndDate|date('Y-m-d') }}  
-             <a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a> 
+             {% if (request.getState == 'pending' )%}
+                <a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a> 
+             {% endif %}
+             {% if (request.getPdf != null )%}
+                <a href=' {{ request.getPdf }} '>PDF</a>
+             {% endif %}
         </li> 
     {% endfor %}
 </ul>
