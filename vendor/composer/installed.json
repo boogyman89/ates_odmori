@@ -1552,5 +1552,18 @@
             "bootstrap",
             "css"
         ]
+    },
+    {
+        "name": "jquery/jquery",
+        "version": "1.9.1",
+        "version_normalized": "1.9.1.0",
+        "dist": {
+            "type": "file",
+            "url": "http://code.jquery.com/jquery-1.9.1.js",
+            "reference": null,
+            "shasum": null
+        },
+        "type": "library",
+        "installation-source": "dist"
     }
 ]
