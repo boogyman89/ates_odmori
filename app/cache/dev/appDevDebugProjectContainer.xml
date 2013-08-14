@@ -20,6 +20,7 @@
       <parameter key="DoctrineMigrationsBundle">Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle</parameter>
       <parameter key="AtesUserBundle">Ates\UserBundle\AtesUserBundle</parameter>
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
+      <parameter key="BcBootstrapBundle">Bc\Bundle\BootstrapBundle\BcBootstrapBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
@@ -88,6 +89,7 @@
     <parameter key="debug.controller_resolver.class">Symfony\Component\HttpKernel\Controller\TraceableControllerResolver</parameter>
     <parameter key="kernel.secret">ThisTokenIsNotSoSecretChangeIt</parameter>
     <parameter key="kernel.http_method_override">true</parameter>
+    <parameter key="kernel.trusted_hosts" type="collection"/>
     <parameter key="kernel.trusted_proxies" type="collection"/>
     <parameter key="kernel.default_locale">en</parameter>
     <parameter key="session.class">Symfony\Component\HttpFoundation\Session\Session</parameter>
@@ -300,6 +302,8 @@
     <parameter key="twig.exception_listener.controller">twig.controller.exception:showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
+      <parameter>BcBootstrapBundle:Form:form_div_layout.html.twig</parameter>
+      <parameter>AcmeBundle:Form:form_div_layout.html.twig</parameter>
     </parameter>
     <parameter key="debug.templating.engine.twig.class">Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine</parameter>
     <parameter key="twig.options" type="collection">
@@ -345,26 +349,32 @@
     <parameter key="swiftmailer.plugin.impersonate.class">Swift_Plugins_ImpersonatePlugin</parameter>
     <parameter key="swiftmailer.plugin.messagelogger.class">Swift_Plugins_MessageLogger</parameter>
     <parameter key="swiftmailer.plugin.antiflood.class">Swift_Plugins_AntiFloodPlugin</parameter>
-    <parameter key="swiftmailer.plugin.antiflood.threshold">99</parameter>
-    <parameter key="swiftmailer.plugin.antiflood.sleep">0</parameter>
-    <parameter key="swiftmailer.data_collector.class">Symfony\Bridge\Swiftmailer\DataCollector\MessageDataCollector</parameter>
     <parameter key="swiftmailer.transport.smtp.class">Swift_Transport_EsmtpTransport</parameter>
-    <parameter key="swiftmailer.transport.smtp.encryption">ssl</parameter>
-    <parameter key="swiftmailer.transport.smtp.port">465</parameter>
-    <parameter key="swiftmailer.transport.smtp.host">smtp.gmail.com</parameter>
-    <parameter key="swiftmailer.transport.smtp.username">n.bugaric@gmail.com</parameter>
-    <parameter key="swiftmailer.transport.smtp.password">glupasifra</parameter>
-    <parameter key="swiftmailer.transport.smtp.auth_mode">login</parameter>
-    <parameter key="swiftmailer.transport.smtp.timeout">30</parameter>
-    <parameter key="swiftmailer.transport.smtp.source_ip">null</parameter>
     <parameter key="swiftmailer.plugin.blackhole.class">Swift_Plugins_BlackholePlugin</parameter>
+    <parameter key="swiftmailer.spool.file.class">Swift_FileSpool</parameter>
     <parameter key="swiftmailer.spool.memory.class">Swift_MemorySpool</parameter>
     <parameter key="swiftmailer.email_sender.listener.class">Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener</parameter>
-    <parameter key="swiftmailer.spool.memory.path">D:/xampp/htdocs/employees_vacations/app/cache/dev/swiftmailer/spool</parameter>
+    <parameter key="swiftmailer.data_collector.class">Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.name">smtp</parameter>
+    <parameter key="swiftmailer.mailer.default.delivery.enabled">true</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.encryption">ssl</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.port">465</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.host">smtp.gmail.com</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.username">n.bugaric@gmail.com</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.password">glupasifra</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.auth_mode">login</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.timeout">30</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.source_ip">null</parameter>
+    <parameter key="swiftmailer.spool.default.memory.path">D:/xampp/htdocs/employees_vacations/app/cache/dev/swiftmailer/spool/default</parameter>
+    <parameter key="swiftmailer.mailer.default.spool.enabled">true</parameter>
+    <parameter key="swiftmailer.mailer.default.single_address">null</parameter>
     <parameter key="swiftmailer.spool.enabled">true</parameter>
-    <parameter key="swiftmailer.sender_address">null</parameter>
+    <parameter key="swiftmailer.delivery.enabled">true</parameter>
     <parameter key="swiftmailer.single_address">null</parameter>
-    <parameter key="swiftmailer.delivery_whitelist" type="collection"/>
+    <parameter key="swiftmailer.mailers" type="collection">
+      <parameter key="default">swiftmailer.mailer.default</parameter>
+    </parameter>
+    <parameter key="swiftmailer.default_mailer">default</parameter>
     <parameter key="assetic.asset_factory.class">Symfony\Bundle\AsseticBundle\Factory\AssetFactory</parameter>
     <parameter key="assetic.asset_manager.class">Assetic\Factory\LazyAssetManager</parameter>
     <parameter key="assetic.asset_manager_cache_warmer.class">Symfony\Bundle\AsseticBundle\CacheWarmer\AssetManagerCacheWarmer</parameter>
@@ -391,10 +401,17 @@
     <parameter key="assetic.read_from">D:/xampp/htdocs/employees_vacations/app/../web</parameter>
     <parameter key="assetic.write_to">D:/xampp/htdocs/employees_vacations/app/../web</parameter>
     <parameter key="assetic.variables" type="collection"/>
-    <parameter key="assetic.java.bin">c:\Windows\system32\java.EXE</parameter>
-    <parameter key="assetic.node.bin">c:\Program Files (x86)\NodeJS\node.EXE</parameter>
+    <parameter key="assetic.java.bin">C:\Windows\system32\java.EXE</parameter>
+    <parameter key="assetic.node.bin">C:\Program Files (x86)\NodeJS\node.EXE</parameter>
     <parameter key="assetic.ruby.bin">/usr/bin/ruby</parameter>
     <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
+    <parameter key="assetic.filter.less.class">Assetic\Filter\LessFilter</parameter>
+    <parameter key="assetic.filter.less.node">/usr/local/bin/node</parameter>
+    <parameter key="assetic.filter.less.node_paths" type="collection">
+      <parameter>/usr/local/lib/node_modules</parameter>
+    </parameter>
+    <parameter key="assetic.filter.less.timeout">null</parameter>
+    <parameter key="assetic.filter.less.compress">null</parameter>
     <parameter key="assetic.filter.cssrewrite.class">Assetic\Filter\CssRewriteFilter</parameter>
     <parameter key="assetic.twig_extension.functions" type="collection"/>
     <parameter key="assetic.controller.class">Symfony\Bundle\AsseticBundle\Controller\AsseticController</parameter>
@@ -563,7 +580,7 @@
       </parameter>
       <parameter key="swiftmailer.data_collector" type="collection">
         <parameter>swiftmailer</parameter>
-        <parameter>SwiftmailerBundle:Collector:swiftmailer</parameter>
+        <parameter>@Swiftmailer/Collector/swiftmailer.html.twig</parameter>
       </parameter>
       <parameter key="data_collector.doctrine" type="collection">
         <parameter>db</parameter>
@@ -572,6 +589,55 @@
     </parameter>
   </parameters>
   <services>
+    <service id="extension.listener" class="Ates\VacationBundle\Listener\DoctrineExtensionListener">
+      <tag name="kernel.event_listener" event="kernel.request" method="onLateKernelRequest" priority="-10"/>
+      <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+      <call method="setContainer">
+        <argument type="service" id="service_container"/>
+      </call>
+    </service>
+    <service id="gedmo.listener.tree" class="Gedmo\Tree\TreeListener">
+      <tag name="doctrine.event_subscriber" connection="default"/>
+      <call method="setAnnotationReader">
+        <argument type="service" id="annotation_reader"/>
+      </call>
+    </service>
+    <service id="gedmo.listener.translatable" class="Gedmo\Translatable\TranslatableListener">
+      <tag name="doctrine.event_subscriber" connection="default"/>
+      <call method="setAnnotationReader">
+        <argument type="service" id="annotation_reader"/>
+      </call>
+      <call method="setDefaultLocale">
+        <argument>en</argument>
+      </call>
+      <call method="setTranslationFallback">
+        <argument>false</argument>
+      </call>
+    </service>
+    <service id="gedmo.listener.timestampable" class="Gedmo\Timestampable\TimestampableListener">
+      <tag name="doctrine.event_subscriber" connection="default"/>
+      <call method="setAnnotationReader">
+        <argument type="service" id="annotation_reader"/>
+      </call>
+    </service>
+    <service id="gedmo.listener.sluggable" class="Gedmo\Sluggable\SluggableListener">
+      <tag name="doctrine.event_subscriber" connection="default"/>
+      <call method="setAnnotationReader">
+        <argument type="service" id="annotation_reader"/>
+      </call>
+    </service>
+    <service id="gedmo.listener.sortable" class="Gedmo\Sortable\SortableListener">
+      <tag name="doctrine.event_subscriber" connection="default"/>
+      <call method="setAnnotationReader">
+        <argument type="service" id="annotation_reader"/>
+      </call>
+    </service>
+    <service id="gedmo.listener.loggable" class="Gedmo\Loggable\LoggableListener">
+      <tag name="doctrine.event_subscriber" connection="default"/>
+      <call method="setAnnotationReader">
+        <argument type="service" id="annotation_reader"/>
+      </call>
+    </service>
     <service id="adding_days_off_class" class="Acme\UserBundle\Command\AddWorkingDaysCommand">
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
@@ -596,6 +662,22 @@
     </service>
     <service id="event_dispatcher" class="Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher">
       <argument type="service" id="service_container"/>
+      <call method="addListenerService">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument>extension.listener</argument>
+          <argument>onLateKernelRequest</argument>
+        </argument>
+        <argument>-10</argument>
+      </call>
+      <call method="addListenerService">
+        <argument>kernel.request</argument>
+        <argument type="collection">
+          <argument>extension.listener</argument>
+          <argument>onKernelRequest</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
       <call method="addListenerService">
         <argument>kernel.controller</argument>
         <argument type="collection">
@@ -2536,10 +2618,9 @@
       </call>
       <call method="add">
         <argument type="service">
-          <service class="Symfony\Bridge\Swiftmailer\DataCollector\MessageDataCollector" public="false">
-            <tag name="data_collector" template="SwiftmailerBundle:Collector:swiftmailer" id="swiftmailer"/>
+          <service class="Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector" public="false">
+            <tag name="data_collector" template="@Swiftmailer/Collector/swiftmailer.html.twig" id="swiftmailer"/>
             <argument type="service" id="service_container"/>
-            <argument>true</argument>
           </service>
         </argument>
       </call>
@@ -2684,7 +2765,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>520a340f54801</argument>
+            <argument>520b76e48b2bd</argument>
           </service>
         </argument>
       </argument>
@@ -2950,7 +3031,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>520a340f54801</argument>
+            <argument>520b76e48b2bd</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3137,6 +3218,8 @@
                   <service class="Symfony\Bridge\Twig\Form\TwigRendererEngine" public="false">
                     <argument type="collection">
                       <argument>form_div_layout.html.twig</argument>
+                      <argument>BcBootstrapBundle:Form:form_div_layout.html.twig</argument>
+                      <argument>AcmeBundle:Form:form_div_layout.html.twig</argument>
                     </argument>
                   </service>
                 </argument>
@@ -3174,6 +3257,15 @@
           </service>
         </argument>
       </call>
+      <call method="addExtension">
+        <argument type="service" id="bc_bootstrap.twig.icon_extension"/>
+      </call>
+      <call method="addExtension">
+        <argument type="service" id="bc_bootstrap.twig.label_extension"/>
+      </call>
+      <call method="addExtension">
+        <argument type="service" id="bc_bootstrap.twig.badge_extension"/>
+      </call>
       <call method="addGlobal">
         <argument>app</argument>
         <argument type="service" id="templating.globals"/>
@@ -3208,23 +3300,32 @@
       <argument>200</argument>
       <argument>true</argument>
     </service>
-    <service id="swiftmailer.transport.eventdispatcher" class="Swift_Events_SimpleEventDispatcher" public="false"/>
-    <service id="swiftmailer.plugin.messagelogger" class="Swift_Plugins_MessageLogger">
-      <tag name="swiftmailer.plugin"/>
-    </service>
     <service id="swiftmailer.email_sender.listener" class="Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener">
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="service_container"/>
     </service>
+    <service id="swiftmailer.mailer.default.transport.eventdispatcher" class="Swift_Events_SimpleEventDispatcher" public="false"/>
+    <service id="swiftmailer.mailer.default" class="Swift_Mailer">
+      <argument type="service" id="swiftmailer.mailer.default.transport"/>
+    </service>
+    <service id="swiftmailer.mailer.default.plugin.messagelogger" class="Swift_Plugins_MessageLogger">
+      <tag name="swiftmailer.default.plugin"/>
+    </service>
     <service id="assetic.filter_manager" class="Symfony\Bundle\AsseticBundle\FilterManager">
       <argument type="service" id="service_container"/>
       <argument type="collection">
+        <argument key="less">assetic.filter.less</argument>
         <argument key="cssrewrite">assetic.filter.cssrewrite</argument>
       </argument>
     </service>
     <service id="assetic.asset_manager" class="Assetic\Factory\LazyAssetManager">
       <argument type="service" id="assetic.asset_factory"/>
       <argument type="collection">
+        <argument key="config" type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Loader\ConfigurationLoader" public="false">
+            <tag name="assetic.formula_loader" alias="config"/>
+          </service>
+        </argument>
         <argument key="twig" type="service">
           <service class="Assetic\Factory\Loader\CachedFormulaLoader" public="false">
             <tag name="assetic.formula_loader" alias="twig"/>
@@ -3244,6 +3345,77 @@
           </service>
         </argument>
       </argument>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource" public="false">
+            <tag name="assetic.formula_resource" loader="config"/>
+            <argument type="collection">
+              <argument key="bootstrap_css" type="collection">
+                <argument type="collection">
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less</argument>
+                </argument>
+                <argument type="collection">
+                  <argument>less</argument>
+                  <argument>cssrewrite</argument>
+                  <argument>less</argument>
+                  <argument>cssrewrite</argument>
+                </argument>
+                <argument type="collection">
+                  <argument key="output">css/bootstrap.css</argument>
+                </argument>
+              </argument>
+              <argument key="bootstrap_js" type="collection">
+                <argument type="collection">
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js</argument>
+                </argument>
+                <argument type="collection"/>
+                <argument type="collection">
+                  <argument key="output">js/bootstrap.js</argument>
+                </argument>
+              </argument>
+              <argument key="jquery" type="collection">
+                <argument type="collection">
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js</argument>
+                  <argument>D:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js</argument>
+                </argument>
+                <argument type="collection"/>
+                <argument type="collection">
+                  <argument key="output">js/jquery.js</argument>
+                </argument>
+              </argument>
+            </argument>
+          </service>
+        </argument>
+        <argument>config</argument>
+      </call>
       <call method="addResource">
         <argument type="service">
           <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource" public="false">
@@ -3268,6 +3440,15 @@
       <argument>true</argument>
       <call method="addWorker">
         <argument type="service">
+          <service class="Assetic\Factory\Worker\EnsureFilterWorker" public="false">
+            <tag name="assetic.factory_worker"/>
+            <argument>/\.less$/</argument>
+            <argument type="service" id="assetic.filter.less"/>
+          </service>
+        </argument>
+      </call>
+      <call method="addWorker">
+        <argument type="service">
           <service class="Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker" public="false">
             <tag name="assetic.factory_worker"/>
           </service>
@@ -3276,6 +3457,19 @@
     </service>
     <service id="assetic.value_supplier.default" class="Symfony\Bundle\AsseticBundle\DefaultValueSupplier" public="false">
       <argument type="service" id="service_container"/>
+    </service>
+    <service id="assetic.filter.less" class="Assetic\Filter\LessFilter">
+      <tag name="assetic.filter" alias="less"/>
+      <argument>/usr/local/bin/node</argument>
+      <argument type="collection">
+        <argument>/usr/local/lib/node_modules</argument>
+      </argument>
+      <call method="setTimeout">
+        <argument>null</argument>
+      </call>
+      <call method="setCompress">
+        <argument>null</argument>
+      </call>
     </service>
     <service id="assetic.filter.cssrewrite" class="Assetic\Filter\CssRewriteFilter">
       <tag name="assetic.filter" alias="cssrewrite"/>
@@ -3348,6 +3542,24 @@
         <service class="Symfony\Bridge\Doctrine\ContainerAwareEventManager" public="false">
           <argument type="service" id="service_container"/>
           <call method="addEventSubscriber">
+            <argument type="service" id="gedmo.listener.tree"/>
+          </call>
+          <call method="addEventSubscriber">
+            <argument type="service" id="gedmo.listener.translatable"/>
+          </call>
+          <call method="addEventSubscriber">
+            <argument type="service" id="gedmo.listener.loggable"/>
+          </call>
+          <call method="addEventSubscriber">
+            <argument type="service" id="gedmo.listener.timestampable"/>
+          </call>
+          <call method="addEventSubscriber">
+            <argument type="service" id="gedmo.listener.sortable"/>
+          </call>
+          <call method="addEventSubscriber">
+            <argument type="service" id="gedmo.listener.sluggable"/>
+          </call>
+          <call method="addEventSubscriber">
             <argument type="service">
               <service class="FOS\UserBundle\Doctrine\Orm\UserListener" public="false">
                 <tag name="doctrine.event_subscriber"/>
@@ -3385,6 +3597,7 @@
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
             <argument type="collection">
+              <argument key="Gedmo">Gedmo\Translatable\Entity</argument>
               <argument key="AtesVacationBundle">Ates\VacationBundle\Entity</argument>
               <argument key="AtesUserBundle">Ates\UserBundle\Entity</argument>
               <argument key="FOSUserBundle">FOS\UserBundle\Entity</argument>
@@ -3425,6 +3638,20 @@
                     <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
+                        <argument>D:\xampp\htdocs\employees_vacations\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translatable\Entity</argument>
+                        <argument>D:\xampp\htdocs\employees_vacations\src\Ates\VacationBundle\Entity</argument>
+                        <argument>D:\xampp\htdocs\employees_vacations\src\Ates\UserBundle\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Gedmo\Translatable\Entity</argument>
+                </call>
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>D:\xampp\htdocs\employees_vacations\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translatable\Entity</argument>
                         <argument>D:\xampp\htdocs\employees_vacations\src\Ates\VacationBundle\Entity</argument>
                         <argument>D:\xampp\htdocs\employees_vacations\src\Ates\UserBundle\Entity</argument>
                       </argument>
@@ -3437,6 +3664,7 @@
                     <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
                       <argument type="service" id="annotation_reader"/>
                       <argument type="collection">
+                        <argument>D:\xampp\htdocs\employees_vacations\vendor\gedmo\doctrine-extensions\lib\Gedmo\Translatable\Entity</argument>
                         <argument>D:\xampp\htdocs\employees_vacations\src\Ates\VacationBundle\Entity</argument>
                         <argument>D:\xampp\htdocs\employees_vacations\src\Ates\UserBundle\Entity</argument>
                       </argument>
@@ -3642,6 +3870,15 @@
       <argument type="service" id="router"/>
       <argument>86400</argument>
     </service>
+    <service id="bc_bootstrap.twig.icon_extension" class="Bc\Bundle\BootstrapBundle\Twig\BootstrapIconExtension">
+      <tag name="twig.extension"/>
+    </service>
+    <service id="bc_bootstrap.twig.label_extension" class="Bc\Bundle\BootstrapBundle\Twig\BootstrapLabelExtension">
+      <tag name="twig.extension"/>
+    </service>
+    <service id="bc_bootstrap.twig.badge_extension" class="Bc\Bundle\BootstrapBundle\Twig\BootstrapBadgeExtension">
+      <tag name="twig.extension"/>
+    </service>
     <service id="web_profiler.controller.profiler" class="Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController">
       <argument type="service" id="router" on-invalid="null"/>
       <argument type="service" id="profiler" on-invalid="null"/>
@@ -3685,7 +3922,7 @@
         </argument>
         <argument key="swiftmailer.data_collector" type="collection">
           <argument>swiftmailer</argument>
-          <argument>SwiftmailerBundle:Collector:swiftmailer</argument>
+          <argument>@Swiftmailer/Collector/swiftmailer.html.twig</argument>
         </argument>
         <argument key="data_collector.doctrine" type="collection">
           <argument>db</argument>
@@ -3974,6 +4211,10 @@
         <argument>FOSUser</argument>
       </call>
       <call method="addPath">
+        <argument>D:\xampp\htdocs\employees_vacations\vendor\braincrafted\bootstrap-bundle\Bc\Bundle\BootstrapBundle/Resources/views</argument>
+        <argument>BcBootstrap</argument>
+      </call>
+      <call method="addPath">
         <argument>D:\xampp\htdocs\employees_vacations\vendor\symfony\symfony\src\Symfony\Bundle\WebProfilerBundle/Resources/views</argument>
         <argument>WebProfiler</argument>
       </call>
@@ -4003,17 +4244,15 @@
         <argument type="service" id="monolog.handler.debug"/>
       </call>
     </service>
-    <service id="swiftmailer.transport" class="Swift_Transport_SpoolTransport">
-      <argument type="service" id="swiftmailer.transport.eventdispatcher"/>
-      <argument type="service" id="swiftmailer.spool"/>
+    <service id="swiftmailer.mailer.default.transport" class="Swift_Transport_SpoolTransport">
+      <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
+      <argument type="service" id="swiftmailer.mailer.default.spool"/>
       <call method="registerPlugin">
-        <argument type="service" id="swiftmailer.plugin.messagelogger"/>
+        <argument type="service" id="swiftmailer.mailer.default.plugin.messagelogger"/>
       </call>
     </service>
-    <service id="mailer" class="Swift_Mailer">
-      <argument type="service" id="swiftmailer.transport"/>
-    </service>
-    <service id="swiftmailer.transport.real" class="Swift_Transport_EsmtpTransport">
+    <service id="swiftmailer.mailer.default.spool" class="Swift_MemorySpool"/>
+    <service id="swiftmailer.mailer.default.transport.real" class="Swift_Transport_EsmtpTransport">
       <argument type="service">
         <service class="Swift_Transport_StreamBuffer" public="false">
           <argument type="service">
@@ -4038,7 +4277,7 @@
           </service>
         </argument>
       </argument>
-      <argument type="service" id="swiftmailer.transport.eventdispatcher"/>
+      <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
       <call method="setHost">
         <argument>smtp.gmail.com</argument>
       </call>
@@ -4064,9 +4303,8 @@
         <argument>null</argument>
       </call>
     </service>
-    <service id="swiftmailer.spool" class="Swift_MemorySpool"/>
     <service id="fos_user.mailer" class="FOS\UserBundle\Mailer\Mailer">
-      <argument type="service" id="mailer"/>
+      <argument type="service" id="swiftmailer.mailer.default"/>
       <argument type="service" id="router"/>
       <argument type="service" id="templating"/>
       <argument type="collection">
@@ -4100,6 +4338,12 @@
     <service id="session.storage" alias="session.storage.native"/>
     <service id="translator" alias="translator.default"/>
     <service id="debug.templating.engine.twig" alias="templating"/>
+    <service id="swiftmailer.spool" alias="swiftmailer.mailer.default.spool"/>
+    <service id="swiftmailer.transport.real" alias="swiftmailer.mailer.default.transport.real"/>
+    <service id="swiftmailer.plugin.messagelogger" alias="swiftmailer.mailer.default.plugin.messagelogger"/>
+    <service id="swiftmailer.mailer" alias="swiftmailer.mailer.default"/>
+    <service id="swiftmailer.transport" alias="swiftmailer.mailer.default.transport"/>
+    <service id="mailer" alias="swiftmailer.mailer.default"/>
     <service id="database_connection" alias="doctrine.dbal.default_connection"/>
     <service id="doctrine.orm.entity_manager" alias="doctrine.orm.default_entity_manager"/>
     <service id="fos_user.util.username_canonicalizer" alias="fos_user.util.email_canonicalizer"/>

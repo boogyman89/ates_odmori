@@ -41,11 +41,15 @@ class appDevDebugProjectContainer extends Container
             'assetic.cache' => 'getAssetic_CacheService',
             'assetic.controller' => 'getAssetic_ControllerService',
             'assetic.filter.cssrewrite' => 'getAssetic_Filter_CssrewriteService',
+            'assetic.filter.less' => 'getAssetic_Filter_LessService',
             'assetic.filter_manager' => 'getAssetic_FilterManagerService',
             'assetic.request_listener' => 'getAssetic_RequestListenerService',
             'assetic.value_supplier.default' => 'getAssetic_ValueSupplier_DefaultService',
             'ates_user.profile.form.type' => 'getAtesUser_Profile_Form_TypeService',
             'ates_user.registration.form.type' => 'getAtesUser_Registration_Form_TypeService',
+            'bc_bootstrap.twig.badge_extension' => 'getBcBootstrap_Twig_BadgeExtensionService',
+            'bc_bootstrap.twig.icon_extension' => 'getBcBootstrap_Twig_IconExtensionService',
+            'bc_bootstrap.twig.label_extension' => 'getBcBootstrap_Twig_LabelExtensionService',
             'cache_clearer' => 'getCacheClearerService',
             'cache_warmer' => 'getCacheWarmerService',
             'controller_name_converter' => 'getControllerNameConverterService',
@@ -66,6 +70,7 @@ class appDevDebugProjectContainer extends Container
             'doctrine.orm.validator.unique' => 'getDoctrine_Orm_Validator_UniqueService',
             'doctrine.orm.validator_initializer' => 'getDoctrine_Orm_ValidatorInitializerService',
             'event_dispatcher' => 'getEventDispatcherService',
+            'extension.listener' => 'getExtension_ListenerService',
             'file_locator' => 'getFileLocatorService',
             'filesystem' => 'getFilesystemService',
             'form.csrf_provider' => 'getForm_CsrfProviderService',
@@ -135,11 +140,16 @@ class appDevDebugProjectContainer extends Container
             'fragment.listener' => 'getFragment_ListenerService',
             'fragment.renderer.hinclude' => 'getFragment_Renderer_HincludeService',
             'fragment.renderer.inline' => 'getFragment_Renderer_InlineService',
+            'gedmo.listener.loggable' => 'getGedmo_Listener_LoggableService',
+            'gedmo.listener.sluggable' => 'getGedmo_Listener_SluggableService',
+            'gedmo.listener.sortable' => 'getGedmo_Listener_SortableService',
+            'gedmo.listener.timestampable' => 'getGedmo_Listener_TimestampableService',
+            'gedmo.listener.translatable' => 'getGedmo_Listener_TranslatableService',
+            'gedmo.listener.tree' => 'getGedmo_Listener_TreeService',
             'http_kernel' => 'getHttpKernelService',
             'kernel' => 'getKernelService',
             'locale_listener' => 'getLocaleListenerService',
             'logger' => 'getLoggerService',
-            'mailer' => 'getMailerService',
             'monolog.handler.chromephp' => 'getMonolog_Handler_ChromephpService',
             'monolog.handler.debug' => 'getMonolog_Handler_DebugService',
             'monolog.handler.firephp' => 'getMonolog_Handler_FirephpService',
@@ -192,11 +202,12 @@ class appDevDebugProjectContainer extends Container
             'session_listener' => 'getSessionListenerService',
             'streamed_response_listener' => 'getStreamedResponseListenerService',
             'swiftmailer.email_sender.listener' => 'getSwiftmailer_EmailSender_ListenerService',
-            'swiftmailer.plugin.messagelogger' => 'getSwiftmailer_Plugin_MessageloggerService',
-            'swiftmailer.spool' => 'getSwiftmailer_SpoolService',
-            'swiftmailer.transport' => 'getSwiftmailer_TransportService',
-            'swiftmailer.transport.eventdispatcher' => 'getSwiftmailer_Transport_EventdispatcherService',
-            'swiftmailer.transport.real' => 'getSwiftmailer_Transport_RealService',
+            'swiftmailer.mailer.default' => 'getSwiftmailer_Mailer_DefaultService',
+            'swiftmailer.mailer.default.plugin.messagelogger' => 'getSwiftmailer_Mailer_Default_Plugin_MessageloggerService',
+            'swiftmailer.mailer.default.spool' => 'getSwiftmailer_Mailer_Default_SpoolService',
+            'swiftmailer.mailer.default.transport' => 'getSwiftmailer_Mailer_Default_TransportService',
+            'swiftmailer.mailer.default.transport.eventdispatcher' => 'getSwiftmailer_Mailer_Default_Transport_EventdispatcherService',
+            'swiftmailer.mailer.default.transport.real' => 'getSwiftmailer_Mailer_Default_Transport_RealService',
             'templating' => 'getTemplatingService',
             'templating.asset.package_factory' => 'getTemplating_Asset_PackageFactoryService',
             'templating.filename_parser' => 'getTemplating_FilenameParserService',
@@ -257,8 +268,14 @@ class appDevDebugProjectContainer extends Container
             'debug.templating.engine.twig' => 'templating',
             'doctrine.orm.entity_manager' => 'doctrine.orm.default_entity_manager',
             'fos_user.util.username_canonicalizer' => 'fos_user.util.email_canonicalizer',
+            'mailer' => 'swiftmailer.mailer.default',
             'sensio.distribution.webconfigurator' => 'sensio_distribution.webconfigurator',
             'session.storage' => 'session.storage.native',
+            'swiftmailer.mailer' => 'swiftmailer.mailer.default',
+            'swiftmailer.plugin.messagelogger' => 'swiftmailer.mailer.default.plugin.messagelogger',
+            'swiftmailer.spool' => 'swiftmailer.mailer.default.spool',
+            'swiftmailer.transport' => 'swiftmailer.mailer.default.transport',
+            'swiftmailer.transport.real' => 'swiftmailer.mailer.default.transport.real',
             'translator' => 'translator.default',
         );
     }
@@ -299,8 +316,9 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_AssetManagerService()
     {
-        $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig')), new \Assetic\Cache\ConfigCache('D:/xampp/htdocs/employees_vacations/app/cache/dev/assetic/config'), true)));
+        $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('config' => new \Symfony\Bundle\AsseticBundle\Factory\Loader\ConfigurationLoader(), 'twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig')), new \Assetic\Cache\ConfigCache('D:/xampp/htdocs/employees_vacations/app/cache/dev/assetic/config'), true)));
 
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('bootstrap_css' => array(0 => array(0 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less', 1 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less', 2 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less', 3 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less'), 1 => array(0 => 'less', 1 => 'cssrewrite', 2 => 'less', 3 => 'cssrewrite'), 2 => array('output' => 'css/bootstrap.css')), 'bootstrap_js' => array(0 => array(0 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 1 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 2 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 3 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 4 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 5 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 6 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 7 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 8 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 9 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 10 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 11 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 12 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js', 13 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 14 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 15 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 16 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 17 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 18 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 19 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 20 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 21 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 22 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 23 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 24 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 25 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js'), 1 => array(), 2 => array('output' => 'js/bootstrap.js')), 'jquery' => array(0 => array(0 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js', 1 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js'), 1 => array(), 2 => array('output' => 'js/jquery.js')))), 'config');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($this->get('templating.loader'), '', 'D:/xampp/htdocs/employees_vacations/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
 
         return $instance;
@@ -336,6 +354,24 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'assetic.filter.less' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Assetic\Filter\LessFilter A Assetic\Filter\LessFilter instance.
+     */
+    protected function getAssetic_Filter_LessService()
+    {
+        $this->services['assetic.filter.less'] = $instance = new \Assetic\Filter\LessFilter('/usr/local/bin/node', array(0 => '/usr/local/lib/node_modules'));
+
+        $instance->setTimeout(NULL);
+        $instance->setCompress(NULL);
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'assetic.filter_manager' service.
      *
      * This service is shared.
@@ -345,7 +381,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_FilterManagerService()
     {
-        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('cssrewrite' => 'assetic.filter.cssrewrite'));
+        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('less' => 'assetic.filter.less', 'cssrewrite' => 'assetic.filter.cssrewrite'));
     }
 
     /**
@@ -385,6 +421,45 @@ class appDevDebugProjectContainer extends Container
     protected function getAtesUser_Registration_Form_TypeService()
     {
         return $this->services['ates_user.registration.form.type'] = new \Ates\UserBundle\Form\Type\RegistrationFormType('Ates\\UserBundle\\Entity\\User');
+    }
+
+    /**
+     * Gets the 'bc_bootstrap.twig.badge_extension' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Bc\Bundle\BootstrapBundle\Twig\BootstrapBadgeExtension A Bc\Bundle\BootstrapBundle\Twig\BootstrapBadgeExtension instance.
+     */
+    protected function getBcBootstrap_Twig_BadgeExtensionService()
+    {
+        return $this->services['bc_bootstrap.twig.badge_extension'] = new \Bc\Bundle\BootstrapBundle\Twig\BootstrapBadgeExtension();
+    }
+
+    /**
+     * Gets the 'bc_bootstrap.twig.icon_extension' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Bc\Bundle\BootstrapBundle\Twig\BootstrapIconExtension A Bc\Bundle\BootstrapBundle\Twig\BootstrapIconExtension instance.
+     */
+    protected function getBcBootstrap_Twig_IconExtensionService()
+    {
+        return $this->services['bc_bootstrap.twig.icon_extension'] = new \Bc\Bundle\BootstrapBundle\Twig\BootstrapIconExtension();
+    }
+
+    /**
+     * Gets the 'bc_bootstrap.twig.label_extension' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Bc\Bundle\BootstrapBundle\Twig\BootstrapLabelExtension A Bc\Bundle\BootstrapBundle\Twig\BootstrapLabelExtension instance.
+     */
+    protected function getBcBootstrap_Twig_LabelExtensionService()
+    {
+        return $this->services['bc_bootstrap.twig.label_extension'] = new \Bc\Bundle\BootstrapBundle\Twig\BootstrapLabelExtension();
     }
 
     /**
@@ -574,6 +649,12 @@ class appDevDebugProjectContainer extends Container
         $b->setSQLLogger($a);
 
         $c = new \Symfony\Bridge\Doctrine\ContainerAwareEventManager($this);
+        $c->addEventSubscriber($this->get('gedmo.listener.tree'));
+        $c->addEventSubscriber($this->get('gedmo.listener.translatable'));
+        $c->addEventSubscriber($this->get('gedmo.listener.loggable'));
+        $c->addEventSubscriber($this->get('gedmo.listener.timestampable'));
+        $c->addEventSubscriber($this->get('gedmo.listener.sortable'));
+        $c->addEventSubscriber($this->get('gedmo.listener.sluggable'));
         $c->addEventSubscriber(new \FOS\UserBundle\Doctrine\Orm\UserListener($this));
 
         return $this->services['doctrine.dbal.default_connection'] = $this->get('doctrine.dbal.connection_factory')->createConnection(array('dbname' => 'worktime', 'host' => '127.0.0.1', 'port' => NULL, 'user' => 'root', 'password' => NULL, 'charset' => 'UTF8', 'driver' => 'pdo_mysql', 'driverOptions' => array()), $b, $c, array());
@@ -600,19 +681,20 @@ class appDevDebugProjectContainer extends Container
         $d = new \Doctrine\Common\Cache\ArrayCache();
         $d->setNamespace('sf2orm_default_255327ac0faf820b08938017d27ffa02');
 
-        $e = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($a, array(0 => 'D:\\xampp\\htdocs\\employees_vacations\\src\\Ates\\VacationBundle\\Entity', 1 => 'D:\\xampp\\htdocs\\employees_vacations\\src\\Ates\\UserBundle\\Entity'));
+        $e = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($a, array(0 => 'D:\\xampp\\htdocs\\employees_vacations\\vendor\\gedmo\\doctrine-extensions\\lib\\Gedmo\\Translatable\\Entity', 1 => 'D:\\xampp\\htdocs\\employees_vacations\\src\\Ates\\VacationBundle\\Entity', 2 => 'D:\\xampp\\htdocs\\employees_vacations\\src\\Ates\\UserBundle\\Entity'));
 
         $f = new \Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver(array('D:\\xampp\\htdocs\\employees_vacations\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle\\Resources\\config\\doctrine' => 'FOS\\UserBundle\\Entity'));
         $f->setGlobalBasename('mapping');
 
         $g = new \Doctrine\ORM\Mapping\Driver\DriverChain();
+        $g->addDriver($e, 'Gedmo\\Translatable\\Entity');
         $g->addDriver($e, 'Ates\\VacationBundle\\Entity');
         $g->addDriver($e, 'Ates\\UserBundle\\Entity');
         $g->addDriver($f, 'FOS\\UserBundle\\Entity');
         $g->addDriver(new \Doctrine\ORM\Mapping\Driver\XmlDriver(new \Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator(array('D:\\xampp\\htdocs\\employees_vacations\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle\\Resources\\config\\doctrine\\model' => 'FOS\\UserBundle\\Model'), '.orm.xml')), 'FOS\\UserBundle\\Model');
 
         $h = new \Doctrine\ORM\Configuration();
-        $h->setEntityNamespaces(array('AtesVacationBundle' => 'Ates\\VacationBundle\\Entity', 'AtesUserBundle' => 'Ates\\UserBundle\\Entity', 'FOSUserBundle' => 'FOS\\UserBundle\\Entity'));
+        $h->setEntityNamespaces(array('Gedmo' => 'Gedmo\\Translatable\\Entity', 'AtesVacationBundle' => 'Ates\\VacationBundle\\Entity', 'AtesUserBundle' => 'Ates\\UserBundle\\Entity', 'FOSUserBundle' => 'FOS\\UserBundle\\Entity'));
         $h->setMetadataCacheImpl($b);
         $h->setQueryCacheImpl($c);
         $h->setResultCacheImpl($d);
@@ -682,6 +764,8 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['event_dispatcher'] = $instance = new \Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher($this);
 
+        $instance->addListenerService('kernel.request', array(0 => 'extension.listener', 1 => 'onLateKernelRequest'), -10);
+        $instance->addListenerService('kernel.request', array(0 => 'extension.listener', 1 => 'onKernelRequest'), 0);
         $instance->addListenerService('kernel.controller', array(0 => 'data_collector.router', 1 => 'onKernelController'), 0);
         $instance->addListenerService('kernel.response', array(0 => 'monolog.handler.firephp', 1 => 'onKernelResponse'), 0);
         $instance->addListenerService('kernel.response', array(0 => 'monolog.handler.chromephp', 1 => 'onKernelResponse'), 0);
@@ -710,6 +794,23 @@ class appDevDebugProjectContainer extends Container
         $instance->addSubscriberService('fos_user.listener.email_confirmation', 'FOS\\UserBundle\\EventListener\\EmailConfirmationListener');
         $instance->addSubscriberService('fos_user.listener.resetting', 'FOS\\UserBundle\\EventListener\\ResettingListener');
         $instance->addSubscriberService('web_profiler.debug_toolbar', 'Symfony\\Bundle\\WebProfilerBundle\\EventListener\\WebDebugToolbarListener');
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'extension.listener' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Ates\VacationBundle\Listener\DoctrineExtensionListener A Ates\VacationBundle\Listener\DoctrineExtensionListener instance.
+     */
+    protected function getExtension_ListenerService()
+    {
+        $this->services['extension.listener'] = $instance = new \Ates\VacationBundle\Listener\DoctrineExtensionListener();
+
+        $instance->setContainer($this);
 
         return $instance;
     }
@@ -1374,7 +1475,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getFosUser_MailerService()
     {
-        return $this->services['fos_user.mailer'] = new \FOS\UserBundle\Mailer\Mailer($this->get('mailer'), $this->get('router'), $this->get('templating'), array('confirmation.template' => 'FOSUserBundle:Registration:email.txt.twig', 'resetting.template' => 'FOSUserBundle:Resetting:email.txt.twig', 'from_email' => array('confirmation' => array('webmaster@example.com' => 'webmaster'), 'resetting' => array('webmaster@example.com' => 'webmaster'))));
+        return $this->services['fos_user.mailer'] = new \FOS\UserBundle\Mailer\Mailer($this->get('swiftmailer.mailer.default'), $this->get('router'), $this->get('templating'), array('confirmation.template' => 'FOSUserBundle:Registration:email.txt.twig', 'resetting.template' => 'FOSUserBundle:Resetting:email.txt.twig', 'from_email' => array('confirmation' => array('webmaster@example.com' => 'webmaster'), 'resetting' => array('webmaster@example.com' => 'webmaster'))));
     }
 
     /**
@@ -1615,6 +1716,110 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'gedmo.listener.loggable' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Gedmo\Loggable\LoggableListener A Gedmo\Loggable\LoggableListener instance.
+     */
+    protected function getGedmo_Listener_LoggableService()
+    {
+        $this->services['gedmo.listener.loggable'] = $instance = new \Gedmo\Loggable\LoggableListener();
+
+        $instance->setAnnotationReader($this->get('annotation_reader'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gedmo.listener.sluggable' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Gedmo\Sluggable\SluggableListener A Gedmo\Sluggable\SluggableListener instance.
+     */
+    protected function getGedmo_Listener_SluggableService()
+    {
+        $this->services['gedmo.listener.sluggable'] = $instance = new \Gedmo\Sluggable\SluggableListener();
+
+        $instance->setAnnotationReader($this->get('annotation_reader'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gedmo.listener.sortable' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Gedmo\Sortable\SortableListener A Gedmo\Sortable\SortableListener instance.
+     */
+    protected function getGedmo_Listener_SortableService()
+    {
+        $this->services['gedmo.listener.sortable'] = $instance = new \Gedmo\Sortable\SortableListener();
+
+        $instance->setAnnotationReader($this->get('annotation_reader'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gedmo.listener.timestampable' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Gedmo\Timestampable\TimestampableListener A Gedmo\Timestampable\TimestampableListener instance.
+     */
+    protected function getGedmo_Listener_TimestampableService()
+    {
+        $this->services['gedmo.listener.timestampable'] = $instance = new \Gedmo\Timestampable\TimestampableListener();
+
+        $instance->setAnnotationReader($this->get('annotation_reader'));
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gedmo.listener.translatable' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Gedmo\Translatable\TranslatableListener A Gedmo\Translatable\TranslatableListener instance.
+     */
+    protected function getGedmo_Listener_TranslatableService()
+    {
+        $this->services['gedmo.listener.translatable'] = $instance = new \Gedmo\Translatable\TranslatableListener();
+
+        $instance->setAnnotationReader($this->get('annotation_reader'));
+        $instance->setDefaultLocale('en');
+        $instance->setTranslationFallback(false);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'gedmo.listener.tree' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Gedmo\Tree\TreeListener A Gedmo\Tree\TreeListener instance.
+     */
+    protected function getGedmo_Listener_TreeService()
+    {
+        $this->services['gedmo.listener.tree'] = $instance = new \Gedmo\Tree\TreeListener();
+
+        $instance->setAnnotationReader($this->get('annotation_reader'));
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'http_kernel' service.
      *
      * This service is shared.
@@ -1675,19 +1880,6 @@ class appDevDebugProjectContainer extends Container
         $instance->pushHandler($this->get('monolog.handler.debug'));
 
         return $instance;
-    }
-
-    /**
-     * Gets the 'mailer' service.
-     *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
-     * @return Swift_Mailer A Swift_Mailer instance.
-     */
-    protected function getMailerService()
-    {
-        return $this->services['mailer'] = new \Swift_Mailer($this->get('swiftmailer.transport'));
     }
 
     /**
@@ -1954,7 +2146,7 @@ class appDevDebugProjectContainer extends Container
         $instance->add(new \Symfony\Component\HttpKernel\DataCollector\MemoryDataCollector());
         $instance->add($this->get('data_collector.router'));
         $instance->add(new \Symfony\Bundle\SecurityBundle\DataCollector\SecurityDataCollector($this->get('security.context', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
-        $instance->add(new \Symfony\Bridge\Swiftmailer\DataCollector\MessageDataCollector($this, true));
+        $instance->add(new \Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector($this));
         $instance->add($d);
 
         return $instance;
@@ -2152,7 +2344,7 @@ class appDevDebugProjectContainer extends Container
         $n = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($l, array('default_target_path' => '/profile', 'always_use_default_target_path' => false, 'login_path' => '/login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
         $n->setProviderKey('main');
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($k, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username_email')), 'main', $a, $c), 2 => $m, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $l, 'main', $n, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $l, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '520a340f54801', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $k, $f, $a)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $l, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $l, '/login', false), NULL, NULL, $a));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($k, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username_email')), 'main', $a, $c), 2 => $m, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $l, 'main', $n, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $l, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '520b76e48b2bd', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $k, $f, $a)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $l, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $l, '/login', false), NULL, NULL, $a));
     }
 
     /**
@@ -2434,59 +2626,72 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
-     * Gets the 'swiftmailer.plugin.messagelogger' service.
+     * Gets the 'swiftmailer.mailer.default' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Swift_Mailer A Swift_Mailer instance.
+     */
+    protected function getSwiftmailer_Mailer_DefaultService()
+    {
+        return $this->services['swiftmailer.mailer.default'] = new \Swift_Mailer($this->get('swiftmailer.mailer.default.transport'));
+    }
+
+    /**
+     * Gets the 'swiftmailer.mailer.default.plugin.messagelogger' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
      *
      * @return Swift_Plugins_MessageLogger A Swift_Plugins_MessageLogger instance.
      */
-    protected function getSwiftmailer_Plugin_MessageloggerService()
+    protected function getSwiftmailer_Mailer_Default_Plugin_MessageloggerService()
     {
-        return $this->services['swiftmailer.plugin.messagelogger'] = new \Swift_Plugins_MessageLogger();
+        return $this->services['swiftmailer.mailer.default.plugin.messagelogger'] = new \Swift_Plugins_MessageLogger();
     }
 
     /**
-     * Gets the 'swiftmailer.spool' service.
+     * Gets the 'swiftmailer.mailer.default.spool' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
      *
      * @return Swift_MemorySpool A Swift_MemorySpool instance.
      */
-    protected function getSwiftmailer_SpoolService()
+    protected function getSwiftmailer_Mailer_Default_SpoolService()
     {
-        return $this->services['swiftmailer.spool'] = new \Swift_MemorySpool();
+        return $this->services['swiftmailer.mailer.default.spool'] = new \Swift_MemorySpool();
     }
 
     /**
-     * Gets the 'swiftmailer.transport' service.
+     * Gets the 'swiftmailer.mailer.default.transport' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
      *
      * @return Swift_Transport_SpoolTransport A Swift_Transport_SpoolTransport instance.
      */
-    protected function getSwiftmailer_TransportService()
+    protected function getSwiftmailer_Mailer_Default_TransportService()
     {
-        $this->services['swiftmailer.transport'] = $instance = new \Swift_Transport_SpoolTransport($this->get('swiftmailer.transport.eventdispatcher'), $this->get('swiftmailer.spool'));
+        $this->services['swiftmailer.mailer.default.transport'] = $instance = new \Swift_Transport_SpoolTransport($this->get('swiftmailer.mailer.default.transport.eventdispatcher'), $this->get('swiftmailer.mailer.default.spool'));
 
-        $instance->registerPlugin($this->get('swiftmailer.plugin.messagelogger'));
+        $instance->registerPlugin($this->get('swiftmailer.mailer.default.plugin.messagelogger'));
 
         return $instance;
     }
 
     /**
-     * Gets the 'swiftmailer.transport.real' service.
+     * Gets the 'swiftmailer.mailer.default.transport.real' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
      *
      * @return Swift_Transport_EsmtpTransport A Swift_Transport_EsmtpTransport instance.
      */
-    protected function getSwiftmailer_Transport_RealService()
+    protected function getSwiftmailer_Mailer_Default_Transport_RealService()
     {
-        $this->services['swiftmailer.transport.real'] = $instance = new \Swift_Transport_EsmtpTransport(new \Swift_Transport_StreamBuffer(new \Swift_StreamFilters_StringReplacementFilterFactory()), array(0 => new \Swift_Transport_Esmtp_AuthHandler(array(0 => new \Swift_Transport_Esmtp_Auth_CramMd5Authenticator(), 1 => new \Swift_Transport_Esmtp_Auth_LoginAuthenticator(), 2 => new \Swift_Transport_Esmtp_Auth_PlainAuthenticator()))), $this->get('swiftmailer.transport.eventdispatcher'));
+        $this->services['swiftmailer.mailer.default.transport.real'] = $instance = new \Swift_Transport_EsmtpTransport(new \Swift_Transport_StreamBuffer(new \Swift_StreamFilters_StringReplacementFilterFactory()), array(0 => new \Swift_Transport_Esmtp_AuthHandler(array(0 => new \Swift_Transport_Esmtp_Auth_CramMd5Authenticator(), 1 => new \Swift_Transport_Esmtp_Auth_LoginAuthenticator(), 2 => new \Swift_Transport_Esmtp_Auth_PlainAuthenticator()))), $this->get('swiftmailer.mailer.default.transport.eventdispatcher'));
 
         $instance->setHost('smtp.gmail.com');
         $instance->setPort(465);
@@ -3282,10 +3487,13 @@ class appDevDebugProjectContainer extends Container
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\RoutingExtension($this->get('router')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\YamlExtension());
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\HttpKernelExtension($this->get('fragment.handler')));
-        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig')), $this->get('form.csrf_provider', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
+        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig', 1 => 'BcBootstrapBundle:Form:form_div_layout.html.twig', 2 => 'AcmeBundle:Form:form_div_layout.html.twig')), $this->get('form.csrf_provider', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
         $instance->addExtension(new \Twig_Extension_Debug());
         $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), $this->get('templating.name_parser'), true, array(), array(), $this->get('assetic.value_supplier.default', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->addExtension(new \Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension());
+        $instance->addExtension($this->get('bc_bootstrap.twig.icon_extension'));
+        $instance->addExtension($this->get('bc_bootstrap.twig.label_extension'));
+        $instance->addExtension($this->get('bc_bootstrap.twig.badge_extension'));
         $instance->addGlobal('app', $this->get('templating.globals'));
 
         return $instance;
@@ -3337,6 +3545,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addPath('D:\\xampp\\htdocs\\employees_vacations\\src\\Ates\\VacationBundle/Resources/views', 'AtesVacation');
         $instance->addPath('D:\\xampp\\htdocs\\employees_vacations\\src\\Ates\\UserBundle/Resources/views', 'AtesUser');
         $instance->addPath('D:\\xampp\\htdocs\\employees_vacations\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle/Resources/views', 'FOSUser');
+        $instance->addPath('D:\\xampp\\htdocs\\employees_vacations\\vendor\\braincrafted\\bootstrap-bundle\\Bc\\Bundle\\BootstrapBundle/Resources/views', 'BcBootstrap');
         $instance->addPath('D:\\xampp\\htdocs\\employees_vacations\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views', 'WebProfiler');
         $instance->addPath('D:\\xampp\\htdocs\\employees_vacations\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/views', 'SensioDistribution');
         $instance->addPath('D:/xampp/htdocs/employees_vacations/app/Resources/views');
@@ -3407,7 +3616,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getWebProfiler_Controller_ProfilerService()
     {
-        return $this->services['web_profiler.controller.profiler'] = new \Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController($this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('profiler', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('twig'), array('data_collector.config' => array(0 => 'config', 1 => '@WebProfiler/Collector/config.html.twig'), 'data_collector.request' => array(0 => 'request', 1 => '@WebProfiler/Collector/request.html.twig'), 'data_collector.exception' => array(0 => 'exception', 1 => '@WebProfiler/Collector/exception.html.twig'), 'data_collector.events' => array(0 => 'events', 1 => '@WebProfiler/Collector/events.html.twig'), 'data_collector.logger' => array(0 => 'logger', 1 => '@WebProfiler/Collector/logger.html.twig'), 'data_collector.time' => array(0 => 'time', 1 => '@WebProfiler/Collector/time.html.twig'), 'data_collector.memory' => array(0 => 'memory', 1 => '@WebProfiler/Collector/memory.html.twig'), 'data_collector.router' => array(0 => 'router', 1 => '@WebProfiler/Collector/router.html.twig'), 'data_collector.security' => array(0 => 'security', 1 => 'SecurityBundle:Collector:security'), 'swiftmailer.data_collector' => array(0 => 'swiftmailer', 1 => 'SwiftmailerBundle:Collector:swiftmailer'), 'data_collector.doctrine' => array(0 => 'db', 1 => 'DoctrineBundle:Collector:db')), 'bottom');
+        return $this->services['web_profiler.controller.profiler'] = new \Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController($this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('profiler', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('twig'), array('data_collector.config' => array(0 => 'config', 1 => '@WebProfiler/Collector/config.html.twig'), 'data_collector.request' => array(0 => 'request', 1 => '@WebProfiler/Collector/request.html.twig'), 'data_collector.exception' => array(0 => 'exception', 1 => '@WebProfiler/Collector/exception.html.twig'), 'data_collector.events' => array(0 => 'events', 1 => '@WebProfiler/Collector/events.html.twig'), 'data_collector.logger' => array(0 => 'logger', 1 => '@WebProfiler/Collector/logger.html.twig'), 'data_collector.time' => array(0 => 'time', 1 => '@WebProfiler/Collector/time.html.twig'), 'data_collector.memory' => array(0 => 'memory', 1 => '@WebProfiler/Collector/memory.html.twig'), 'data_collector.router' => array(0 => 'router', 1 => '@WebProfiler/Collector/router.html.twig'), 'data_collector.security' => array(0 => 'security', 1 => 'SecurityBundle:Collector:security'), 'swiftmailer.data_collector' => array(0 => 'swiftmailer', 1 => '@Swiftmailer/Collector/swiftmailer.html.twig'), 'data_collector.doctrine' => array(0 => 'db', 1 => 'DoctrineBundle:Collector:db')), 'bottom');
     }
 
     /**
@@ -3468,6 +3677,7 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['assetic.asset_factory'] = $instance = new \Symfony\Bundle\AsseticBundle\Factory\AssetFactory($this->get('kernel'), $this, $this->getParameterBag(), 'D:/xampp/htdocs/employees_vacations/app/../web', true);
 
+        $instance->addWorker(new \Assetic\Factory\Worker\EnsureFilterWorker('/\\.less$/', $this->get('assetic.filter.less')));
         $instance->addWorker(new \Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker());
 
         return $instance;
@@ -3606,7 +3816,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username_email'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('520a340f54801')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username_email'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('520b76e48b2bd')), true);
 
         $instance->setEventDispatcher($this->get('event_dispatcher'));
 
@@ -3665,7 +3875,7 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
-     * Gets the 'swiftmailer.transport.eventdispatcher' service.
+     * Gets the 'swiftmailer.mailer.default.transport.eventdispatcher' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
@@ -3676,9 +3886,9 @@ class appDevDebugProjectContainer extends Container
      *
      * @return Swift_Events_SimpleEventDispatcher A Swift_Events_SimpleEventDispatcher instance.
      */
-    protected function getSwiftmailer_Transport_EventdispatcherService()
+    protected function getSwiftmailer_Mailer_Default_Transport_EventdispatcherService()
     {
-        return $this->services['swiftmailer.transport.eventdispatcher'] = new \Swift_Events_SimpleEventDispatcher();
+        return $this->services['swiftmailer.mailer.default.transport.eventdispatcher'] = new \Swift_Events_SimpleEventDispatcher();
     }
 
     /**
@@ -3785,6 +3995,7 @@ class appDevDebugProjectContainer extends Container
                 'DoctrineMigrationsBundle' => 'Doctrine\\Bundle\\MigrationsBundle\\DoctrineMigrationsBundle',
                 'AtesUserBundle' => 'Ates\\UserBundle\\AtesUserBundle',
                 'FOSUserBundle' => 'FOS\\UserBundle\\FOSUserBundle',
+                'BcBootstrapBundle' => 'Bc\\Bundle\\BootstrapBundle\\BcBootstrapBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
                 'SensioGeneratorBundle' => 'Sensio\\Bundle\\GeneratorBundle\\SensioGeneratorBundle',
@@ -3853,6 +4064,9 @@ class appDevDebugProjectContainer extends Container
             'debug.controller_resolver.class' => 'Symfony\\Component\\HttpKernel\\Controller\\TraceableControllerResolver',
             'kernel.secret' => 'ThisTokenIsNotSoSecretChangeIt',
             'kernel.http_method_override' => true,
+            'kernel.trusted_hosts' => array(
+
+            ),
             'kernel.trusted_proxies' => array(
 
             ),
@@ -4071,6 +4285,8 @@ class appDevDebugProjectContainer extends Container
             'twig.exception_listener.controller' => 'twig.controller.exception:showAction',
             'twig.form.resources' => array(
                 0 => 'form_div_layout.html.twig',
+                1 => 'BcBootstrapBundle:Form:form_div_layout.html.twig',
+                2 => 'AcmeBundle:Form:form_div_layout.html.twig',
             ),
             'debug.templating.engine.twig.class' => 'Symfony\\Bundle\\TwigBundle\\Debug\\TimedTwigEngine',
             'twig.options' => array(
@@ -4118,28 +4334,32 @@ class appDevDebugProjectContainer extends Container
             'swiftmailer.plugin.impersonate.class' => 'Swift_Plugins_ImpersonatePlugin',
             'swiftmailer.plugin.messagelogger.class' => 'Swift_Plugins_MessageLogger',
             'swiftmailer.plugin.antiflood.class' => 'Swift_Plugins_AntiFloodPlugin',
-            'swiftmailer.plugin.antiflood.threshold' => 99,
-            'swiftmailer.plugin.antiflood.sleep' => 0,
-            'swiftmailer.data_collector.class' => 'Symfony\\Bridge\\Swiftmailer\\DataCollector\\MessageDataCollector',
             'swiftmailer.transport.smtp.class' => 'Swift_Transport_EsmtpTransport',
-            'swiftmailer.transport.smtp.encryption' => 'ssl',
-            'swiftmailer.transport.smtp.port' => 465,
-            'swiftmailer.transport.smtp.host' => 'smtp.gmail.com',
-            'swiftmailer.transport.smtp.username' => 'n.bugaric@gmail.com',
-            'swiftmailer.transport.smtp.password' => 'glupasifra',
-            'swiftmailer.transport.smtp.auth_mode' => 'login',
-            'swiftmailer.transport.smtp.timeout' => 30,
-            'swiftmailer.transport.smtp.source_ip' => NULL,
             'swiftmailer.plugin.blackhole.class' => 'Swift_Plugins_BlackholePlugin',
+            'swiftmailer.spool.file.class' => 'Swift_FileSpool',
             'swiftmailer.spool.memory.class' => 'Swift_MemorySpool',
             'swiftmailer.email_sender.listener.class' => 'Symfony\\Bundle\\SwiftmailerBundle\\EventListener\\EmailSenderListener',
-            'swiftmailer.spool.memory.path' => 'D:/xampp/htdocs/employees_vacations/app/cache/dev/swiftmailer/spool',
+            'swiftmailer.data_collector.class' => 'Symfony\\Bundle\\SwiftmailerBundle\\DataCollector\\MessageDataCollector',
+            'swiftmailer.mailer.default.transport.name' => 'smtp',
+            'swiftmailer.mailer.default.delivery.enabled' => true,
+            'swiftmailer.mailer.default.transport.smtp.encryption' => 'ssl',
+            'swiftmailer.mailer.default.transport.smtp.port' => 465,
+            'swiftmailer.mailer.default.transport.smtp.host' => 'smtp.gmail.com',
+            'swiftmailer.mailer.default.transport.smtp.username' => 'n.bugaric@gmail.com',
+            'swiftmailer.mailer.default.transport.smtp.password' => 'glupasifra',
+            'swiftmailer.mailer.default.transport.smtp.auth_mode' => 'login',
+            'swiftmailer.mailer.default.transport.smtp.timeout' => 30,
+            'swiftmailer.mailer.default.transport.smtp.source_ip' => NULL,
+            'swiftmailer.spool.default.memory.path' => 'D:/xampp/htdocs/employees_vacations/app/cache/dev/swiftmailer/spool/default',
+            'swiftmailer.mailer.default.spool.enabled' => true,
+            'swiftmailer.mailer.default.single_address' => NULL,
             'swiftmailer.spool.enabled' => true,
-            'swiftmailer.sender_address' => NULL,
+            'swiftmailer.delivery.enabled' => true,
             'swiftmailer.single_address' => NULL,
-            'swiftmailer.delivery_whitelist' => array(
-
+            'swiftmailer.mailers' => array(
+                'default' => 'swiftmailer.mailer.default',
             ),
+            'swiftmailer.default_mailer' => 'default',
             'assetic.asset_factory.class' => 'Symfony\\Bundle\\AsseticBundle\\Factory\\AssetFactory',
             'assetic.asset_manager.class' => 'Assetic\\Factory\\LazyAssetManager',
             'assetic.asset_manager_cache_warmer.class' => 'Symfony\\Bundle\\AsseticBundle\\CacheWarmer\\AssetManagerCacheWarmer',
@@ -4172,10 +4392,17 @@ class appDevDebugProjectContainer extends Container
             'assetic.variables' => array(
 
             ),
-            'assetic.java.bin' => 'c:\\Windows\\system32\\java.EXE',
-            'assetic.node.bin' => 'c:\\Program Files (x86)\\NodeJS\\node.EXE',
+            'assetic.java.bin' => 'C:\\Windows\\system32\\java.EXE',
+            'assetic.node.bin' => 'C:\\Program Files (x86)\\NodeJS\\node.EXE',
             'assetic.ruby.bin' => '/usr/bin/ruby',
             'assetic.sass.bin' => '/usr/bin/sass',
+            'assetic.filter.less.class' => 'Assetic\\Filter\\LessFilter',
+            'assetic.filter.less.node' => '/usr/local/bin/node',
+            'assetic.filter.less.node_paths' => array(
+                0 => '/usr/local/lib/node_modules',
+            ),
+            'assetic.filter.less.timeout' => NULL,
+            'assetic.filter.less.compress' => NULL,
             'assetic.filter.cssrewrite.class' => 'Assetic\\Filter\\CssRewriteFilter',
             'assetic.twig_extension.functions' => array(
 
@@ -4348,7 +4575,7 @@ class appDevDebugProjectContainer extends Container
                 ),
                 'swiftmailer.data_collector' => array(
                     0 => 'swiftmailer',
-                    1 => 'SwiftmailerBundle:Collector:swiftmailer',
+                    1 => '@Swiftmailer/Collector/swiftmailer.html.twig',
                 ),
                 'data_collector.doctrine' => array(
                     0 => 'db',
