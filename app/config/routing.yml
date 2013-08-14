@@ -6,3 +6,7 @@ ates_store:
     resource: "@AtesVacationBundle/Resources/config/routing.yml"
     prefix:   /
 
+ates_user_bundle:
+    resource: "@AtesUserBundle/Controller"
+    type:     annotation
+

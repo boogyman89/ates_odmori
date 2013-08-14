@@ -1,9 +1,12 @@
-<ul>
 {% for user in users %}
-    <li>
+    <p>
         {{ user.getFirstName() }} 
         {{ user.getLastName() }}
         <a href=' {{ path('admin_edit_user',  { 'id' : user.getId() }) }}'>Edit</a>
-    </li>
+
+        {% if user.getRoles|length == 1 %}
+            <a href=' {{ path('admin_promote_user',  { 'id' : user.getId() }) }}'>Promote to admin</a>
+        {% endif %}
+                
+    </p>
 {% endfor %}
-</ul>

@@ -61,7 +61,7 @@
         /**
          * @ORM\Column(type="integer")
          */
-        protected $last_year;
+        protected $no_days_off_last_year;
  
 
         
@@ -73,6 +73,7 @@
         $this->is_validated = false;
         $this->no_days_off = 20;
         $this->locked = true;
+        $this->no_days_off_last_year = 0;
     }
     
     /**
@@ -271,26 +272,27 @@
         return $this->date_of_slava;
     }
 
+
     /**
-     * Set last_year
+     * Set no_days_off_last_year
      *
-     * @param integer $lastYear
+     * @param integer $noDaysOffLastYear
      * @return User
      */
-    public function setLastYear($lastYear)
+    public function setNoDaysOffLastYear($noDaysOffLastYear)
     {
-        $this->last_year = $lastYear;
+        $this->no_days_off_last_year = $noDaysOffLastYear;
     
         return $this;
     }
 
     /**
-     * Get last_year
+     * Get no_days_off_last_year
      *
      * @return integer 
      */
-    public function getLastYear()
+    public function getNoDaysOffLastYear()
     {
-        return $this->last_year;
+        return $this->no_days_off_last_year;
     }
 }

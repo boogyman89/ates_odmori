@@ -17,8 +17,8 @@ class ProfileFormType extends BaseType
         $builder->add('ssn');
         $builder->add('address');
         $builder->add('phone');
-        $builder->add('date_of_employment');
-        $builder->add('no_days_off');
+        //$builder->add('date_of_employment');
+        //$builder->add('no_days_off');
         
     }
 

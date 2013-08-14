@@ -61,7 +61,7 @@
         /**
          * @ORM\Column(type="integer")
          */
-        protected $last_year;
+        protected $no_days_off_last_year;
  
 
         
@@ -73,6 +73,7 @@
         $this->is_validated = false;
         $this->no_days_off = 20;
         $this->locked = true;
+        $this->no_days_off_last_year = 0;
     }
     
     /**
@@ -270,4 +271,5 @@
     {
         return $this->date_of_slava;
     }
+
 }

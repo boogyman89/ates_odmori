@@ -5,19 +5,28 @@ namespace Ates\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ates\VacationBundle\Form\Type\HolidaysType;
 use Ates\VacationBundle\Entity\Holidays;
+use Ates\VacationBundle\Entity\VacationRequest;
 require('fpdf/fpdf.php');
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
-use FOS\UserBundle\Event\GetResponseUserEvent;
-use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\HttpFoundation\Response;
+use Ates\UserBundle\Form\Type\EditUserType;
+
+use Symfony\Component\Console\Output\OutputInterface;
+use FOS\UserBundle\Util\UserManipulator;
 
 class AdminController extends Controller
 {
     
+    /**
+     * @Route("/admin", name="show_admin_panel")
+     * @Template("AtesUserBundle:Admin:panel.html.twig", vars={"requests","holidays","users"})
+     */
     public function showAdminAction()
     {      
         $em = $this->getDoctrine()->getManager();
@@ -29,20 +38,6 @@ class AdminController extends Controller
             ->orderBy('r.start_date','ASC')
             ->getQuery();
         $requests = $query->getResult();
-        /*
-        foreach( $requests as $request)
-        {
-           //echo $request->getIdUser()."<br/>";
-           // $user = new User();
-           $user = $em->getRepository('AtesUserBundle:User')->find($request->getIdUser());
-            //$user->setFirstName('marko');
-            $ime = $user->getFirstName();
-           echo $ime;
-           //$firstLastName = $user->getFirstName().' '.$user->getLastName();
-           //$requestUserArray[$user]= $request;
-        }
-         * 
-         */
         
         $holidays = $em->getRepository('AtesVacationBundle:Holidays')->findAll();
         
@@ -54,15 +49,18 @@ class AdminController extends Controller
         ));
         
         
-        
-        return $this->Render('AtesUserBundle:Admin:panel.html.twig', 
-                array(                    
-                        'requests' => $requests,
-                        'holidays' => $holidays,
-                        'users' => $users
-                ));
+        return array(                    
+                'requests' => $requests,
+                'holidays' => $holidays,
+                'users' => $users
+            );
     }
-  
+    
+    /**
+     * @Route("/admin/approve_request/{id}", name="approve_request")
+     * @Method("GET")
+     * @Template("AtesUserBundle:Admin:panel.html.twig", vars={"requests","holidays","users"})
+     */
     public function approveRequestAction($id)
     {
          $em = $this->getDoctrine()->getManager();
@@ -96,8 +94,12 @@ class AdminController extends Controller
          return $this->redirect($this->generateUrl('show_admin_panel'));
     }
     
-
-    public function approveUserAction($id)
+    
+    /**
+     * @Route("/admin/approve_user/{id}", name="approve_user")
+     * @Method("GET")
+     */
+    public function approveUserAction($id) // and sending slava request
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AtesUserBundle:User');
@@ -105,12 +107,32 @@ class AdminController extends Controller
         
         $user->setLocked(false);
         
+        $vacationRequest = new VacationRequest();
+        $today = new \DateTime("now");
+        $date_of_slava = $user->getDateOfSlava();
+        $date_of_slava_ends = new \DateTime($user->getDateOfSlava()->format('Y-m-d'));
+        $date_of_slava_ends->modify('+1 day');
+
+        $vacationRequest->setStartDate($date_of_slava); 
+        $vacationRequest->setEndDate($date_of_slava_ends);
+        $vacationRequest->setIdUser($user->getId());
+        $vacationRequest->setSubmitted($today);
+        $vacationRequest->setState("approved");
+        $vacationRequest->setEditTime($today);
+
+        $em = $this->container->get('doctrine')->getManager();
+        $em->persist($vacationRequest);
+        
         $em->flush();
         
         return $this->redirect($this->generateUrl('show_admin_panel'));
         
     }
     
+    /**
+     * @Route("/admin/delete_user_on_approving/{id}", name="delete_user_on_approving")
+     * @Method("GET")
+     */
     public function deleteUserOnApprovingAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -121,6 +143,10 @@ class AdminController extends Controller
         
     }
     
+    /**
+     * @Route("/admin/reject_request/{id}", name="reject_request")
+     * @Method("GET")
+     */
     public function rejectRequestAction($id)
     {
           $em = $this->getDoctrine()->getManager();
@@ -134,6 +160,10 @@ class AdminController extends Controller
          return $this->redirect($this->generateUrl('show_admin_panel'));
     }
     
+    /**
+     * @Route("/admin/add_holiday", name="add_holiday")
+     * @Template("AtesVacationBundle:Request:anyForm.html.twig", vars={"form"})
+     */
     public function addHolidayAction()
     {
          $form = $this->createForm(new HolidaysType());
@@ -153,11 +183,13 @@ class AdminController extends Controller
               return $this->redirect($this->generateUrl('show_admin_panel'));
           }
           
-          return $this->Render('AtesVacationBundle:Request:anyForm.html.twig', 
-               array('form' => $form->createView()));
+          return array('form' => $form->createView());
     }
         
-    
+    /**
+     * @Route("/admin/delete_holiday/{id}", name="delete_holiday")
+     * @Method("GET")
+     */
     public function deleteHolidayAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -168,7 +200,11 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('show_admin_panel'));
     }
 
-    
+    /**
+     * @Route("/admin/edit_holiday/{id}", name="edit_holiday_form")
+     * @Method("GET")
+     * @Template("AtesVacationBundle:Request:anyForm.html.twig", vars={"form"})
+     */
     public function editHolidayAction($id)
     {
         $form = $this->createForm(new HolidaysType());
@@ -189,8 +225,7 @@ class AdminController extends Controller
         }                  
         $form->setData($holiday);
               
-        return $this->Render('AtesVacationBundle:Request:anyForm.html.twig', 
-               array('form' => $form->createView()));
+        return array('form' => $form->createView());
     }
     
 
@@ -279,59 +314,46 @@ class AdminController extends Controller
       //  return $this->redirect('http://localhost/pdf/simple.pdf');
     }
     
-    public function editUserProfileAction($id)
-    {
+     /**
+     * @Route("/admin/edit_user/{id}", name="admin_edit_user")
+     * @Template("AtesUserBundle:Admin:editUser.html.twig", vars={"form"})
+     */
+    public function editUserAction($id)
+    {   
+        
+        $user = $this->getDoctrine()->getManager()->getRepository('AtesUserBundle:User')->find($id);
+        $form = $this->createForm(new EditUserType(), $user);
+        
         $request = $this->getRequest();
+        $form->handleRequest($request);
         
-        //$user = $this->container->get('security.context')->getToken()->getUser();
-        $user = $this->container->get('doctrine')->getRepository('AtesUserBundle:User')->find($id);
+        if($form->isValid())
+        {
+            //return new Response('editovano');
+            $em = $this->container->get('doctrine')->getManager();
+            $em->persist($user);
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('show_admin_panel'));
+        }
         
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->container->get('event_dispatcher');
-
-        $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_INITIALIZE, $event);
-
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
-        }
-
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->container->get('fos_user.profile.form.factory');
-
-        $form = $formFactory->createForm();
-        $form->setData($user);
-
-        if ('POST' === $request->getMethod()) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-                $userManager = $this->container->get('fos_user.user_manager');
-
-                $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
-
-                $userManager->updateUser($user);
-
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('fos_user_profile_show');
-                    $response = new RedirectResponse($url);
-                }
-
-                $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-                return $response;
-            }
-        }
-
-        return $this->container->get('templating')->renderResponse(
-            'FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'),
-            array('form' => $form->createView())
+        return array(
+            'form' => $form->createView()
         );
+    }
+    
+    /**
+     * @Route("/admin/promote_user/{id}", name="admin_promote_user")
+     */
+    public function promoteUserAction($id)
+    {
+        //dodeli role super admina
+        $user = $this->container->get('doctrine')->getRepository('AtesUserBundle:User')->find($id);
+        $username = $user->getUsername();
+        
+        $manipulator = $this->container->get('fos_user.util.user_manipulator');
+        $manipulator->promote($username);
+        
+        return $this->redirect($this->generateUrl('show_admin_panel'));
     }
 }

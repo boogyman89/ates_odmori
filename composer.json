@@ -21,7 +21,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
 		"doctrine/migrations": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "symfony/console": "2.4.*@dev"
     },
     "scripts": {
         "post-install-cmd": [

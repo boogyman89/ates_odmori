@@ -11,39 +11,19 @@ $(document).ready(function() {
      
      $.post('ajax/admin_find_requests',{ name: workerName, last_name: workerLastName },  function(data) {
          //alert('vraceno');
-         if(data != '')
+         if(data !== '')
          {
             $('#requestResults').html(data);
          }
          else
          {
-              $('#requestResults').html('<h3>There is no requests for that user!</h3>');
+              $('#requestResults').html('<h3>There is no requests for that user OR there is no user with that name!</h3>');
          }
       });
   });
   
   
   //find users
-  $('#findUsersButton').on('click', function(){
-     
-     //get name from worker name
-     workerName = $('#searchUserName').val();
-     workerLastName = $('#searchUserLastName').val();
-     
-     $.post('ajax/admin_find_users',{ name: workerName, last_name: workerLastName },  function(data) {
-
-         if(data != '')
-         {
-            $('#usersResult').html(data);
-         }
-         else
-         {
-            $('#usersResult').html('<h3>There is no user with that name!</h3>');
-         }
-      });
-  });
-  
-  
   $('#findUsersButton').on('click', function(){
      
      //get name from worker name
@@ -63,6 +43,8 @@ $(document).ready(function() {
       });
   });
   
+  
+  
    //filter requests on profile page
    $("#requestsFilterProfile").on('change', function(){
        // alert ('promenjeno');
@@ -70,10 +52,18 @@ $(document).ready(function() {
         var filter = $(this).val();
         
         $.get('ajax/find_user_requests/'+filter, function(data){
-            $('#userRequestResults').html(data);
+            //alert(data);
+            if(data !== '')
+            {
+               $('#userRequestResults').html(data);
+                
+            }
+            else
+            {
+                $('#userRequestResults').html('<h3>There is no request with selected status ('+filter+')!</h3>');
+            }
         });
     });
     
-
   
 });

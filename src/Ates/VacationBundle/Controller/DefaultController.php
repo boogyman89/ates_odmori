@@ -18,7 +18,7 @@ class DefaultController extends Controller
        
        if($form->isValid()) 
        {                  
-           $user = $this->container->get('security.context')->getToken()->getUser();
+           $user = $this->getUser();
            $datetime = new \DateTime("NOW");
            $vacationRequest = new VacationRequest();
            
@@ -42,7 +42,11 @@ class DefaultController extends Controller
         return $this->Render('AtesVacationBundle:Request:anyForm.html.twig', 
                array('form' => $form->createView()));
     }
-    
+    /**
+     * 
+     * @param type $id
+     * @return type
+     */
     public function editRequestAction($id)
     {        
         $em = $this->getDoctrine()->getManager();

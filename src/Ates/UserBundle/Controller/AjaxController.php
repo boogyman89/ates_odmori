@@ -3,16 +3,24 @@
 namespace Ates\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Ates\VacationBundle\Entity\VacationRequest;
-use Ates\VacationBundle\Form\Type\HolidaysType;
-use Ates\VacationBundle\Entity\Holidays;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+
 class AjaxController extends Controller
 {
-
+    
+    /**
+     * @Route("/ajax/admin_find_requests", name="ajax_request_find_requests")
+     * @Template("AtesUserBundle:Ajax:requests.html.twig", vars={"all_requests"})
+     */
     public function findRequestsAction()
     {
         
@@ -59,13 +67,16 @@ class AjaxController extends Controller
         
         
         
-        return $this->Render('AtesUserBundle:Ajax:requests.html.twig', array(                    
+        return array(                    
             'all_requests' => $allRequests
-        ));
+        );
          
     }
     
-    
+    /**
+     * @Route("/ajax/admin_find_users", name="ajax_request_find_user")
+     * @Template("AtesUserBundle:Ajax:users.html.twig", vars={"users"})
+     */
      public function findUsersAction()
     {
         $request = $this->getRequest();
@@ -91,11 +102,15 @@ class AjaxController extends Controller
         $query = $repository->getQuery();
         $users = $query->getResult();
         
-        return $this->Render('AtesUserBundle:Ajax:users.html.twig', array(                    
-            'users' => $users
-        ));
+        return array(                    
+                'users' => $users
+            );
     }
     
+    /**
+     * @Route("/ajax/find_user_requests/{filter}", name="ajax_find_user_request")
+     * @Template("AtesUserBundle:Ajax:userRequests.html.twig", vars={"requests"})
+     */
     public function findRequestsForUserAction($filter)
     {
        
@@ -118,9 +133,9 @@ class AjaxController extends Controller
            $requests = $em->getRepository('AtesVacationBundle:VacationRequest')->findBy(array( 'id_user' => $user->getId()));
        }
        
-        return $this->Render('AtesUserBundle:Ajax:userRequests.html.twig', array(                    
+        return array(                    
             'requests' => $requests
-        ));
+        );
          
         //return new Response($filter);
     }

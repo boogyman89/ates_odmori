@@ -77,3 +77,14 @@ fos_user:
     profile:
         form:
             type: ates_user_profile
+
+sensio_framework_extra:
+    router:  { annotations: true }
+    request: { converters: true }
+    view:    { annotations: true }
+    cache:   { annotations: true }
+    
+services:
+    adding_days_off_class:
+        class:        Acme\UserBundle\Command\AddWorkingDaysCommand
+        arguments:    ["@doctrine.orm.entity_manager"]

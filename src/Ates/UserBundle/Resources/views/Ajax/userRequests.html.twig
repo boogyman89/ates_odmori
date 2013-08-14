@@ -1,9 +1,7 @@
-<ul>
-    {% for request in requests %}
-      <li> 
-          {{ request.getState }} 
-          {{ request.getStartDate|date('Y-m-d') }}  
-          {{ request.getEndDate|date('Y-m-d') }}  
-      </li>
-    {% endfor %}
-  </ul>
+{% for request in requests %}
+    <p> 
+        {{ request.getState }} 
+        {{ request.getStartDate|date('Y-m-d') }}  
+        {{ request.getEndDate|date('Y-m-d') }}  
+    </p>
+{% endfor %}
