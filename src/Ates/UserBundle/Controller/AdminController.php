@@ -67,7 +67,8 @@ class AdminController extends Controller
          $vacationRepository = $em->getRepository('AtesVacationBundle:VacationRequest');
          $vacationRequest = $vacationRepository->find($id);
          $userRepository = $em->getRepository('AtesUserBundle:User');
-         $user = $userRepository->find($vacationRequest->getIdUser());
+       //  $user = $userRepository->find($vacationRequest->getIdUser());
+         $user = $vacationRequest->getUser();
          $holidaysRepository = $em->getRepository('AtesVacationBundle:Holidays');
          $holidaysList = $holidaysRepository->findAll();
          
@@ -88,18 +89,20 @@ class AdminController extends Controller
          
          $vacationRequest->setState('approved');
          $noDaysOffLastYear = $user->getNoDaysOffLastYear();
-         if($noDaysOffLastYear != 0)
+         if($noDaysOffLastYear > 0)
          {
              if($noDaysOffLastYear >= $workingDays)
              {
                  $noDaysOffLastYear -= $workingDays;
-             }
+                 $workingDays = 0;
+             }            
              else
              {
-                 $noDaysOffLastYear = 0;
                  $workingDays -= $noDaysOffLastYear;
+                 $noDaysOffLastYear = 0;                 
              }
-         }
+         }         
+         
          $user->setNoDaysOffLastYear($noDaysOffLastYear);
          $user->setNoDaysOff($user->getNoDaysOff() - $workingDays);
                

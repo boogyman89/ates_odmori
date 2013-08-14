@@ -318,10 +318,10 @@
     /**
      * Add vacation_requests
      *
-     * @param \Ates\UserBundle\Entity\Product $vacationRequests
+     * @param \Ates\VacationBundle\Entity\VacationRequest $vacationRequests
      * @return User
      */
-    public function addVacationRequest(\Ates\UserBundle\Entity\Product $vacationRequests)
+    public function addVacationRequest(\Ates\VacationBundle\Entity\VacationRequest $vacationRequests)
     {
         $this->vacation_requests[] = $vacationRequests;
     
@@ -331,9 +331,9 @@
     /**
      * Remove vacation_requests
      *
-     * @param \Ates\UserBundle\Entity\Product $vacationRequests
+     * @param \Ates\VacationBundle\Entity\VacationRequest $vacationRequests
      */
-    public function removeVacationRequest(\Ates\UserBundle\Entity\Product $vacationRequests)
+    public function removeVacationRequest(\Ates\VacationBundle\Entity\VacationRequest $vacationRequests)
     {
         $this->vacation_requests->removeElement($vacationRequests);
     }

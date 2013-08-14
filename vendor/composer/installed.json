@@ -1389,12 +1389,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-            "reference": "fb0aeab1341c7e29cc76e9f3865b8c7fa7df82cf"
+            "reference": "ccaf74ffdbc62c7523be6745f42f859d6b5658e4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/fb0aeab1341c7e29cc76e9f3865b8c7fa7df82cf",
-            "reference": "fb0aeab1341c7e29cc76e9f3865b8c7fa7df82cf",
+            "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/ccaf74ffdbc62c7523be6745f42f859d6b5658e4",
+            "reference": "ccaf74ffdbc62c7523be6745f42f859d6b5658e4",
             "shasum": ""
         },
         "require": {
@@ -1415,7 +1415,7 @@
             "doctrine/mongodb-odm": ">=1.0.0-BETA7",
             "doctrine/orm": ">=2.3.2"
         },
-        "time": "2013-08-07 11:28:20",
+        "time": "2013-08-13 15:29:18",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1462,6 +1462,95 @@
             "translatable",
             "tree",
             "uploadable"
+        ]
+    },
+    {
+        "name": "braincrafted/bootstrap-bundle",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "target-dir": "Bc/Bundle/BootstrapBundle",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/braincrafted/bootstrap-bundle.git",
+            "reference": "c086ff70f6746ae4290ba50a68b6ab159925ceaa"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/braincrafted/bootstrap-bundle/zipball/c086ff70f6746ae4290ba50a68b6ab159925ceaa",
+            "reference": "c086ff70f6746ae4290ba50a68b6ab159925ceaa",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "instaclick/php-code-sniffer": "dev-master",
+            "instaclick/symfony2-coding-standard": "dev-master",
+            "knplabs/knp-markdown-bundle": "dev-master",
+            "knplabs/knp-menu": "dev-master",
+            "knplabs/knp-menu-bundle": "dev-master",
+            "knplabs/knp-paginator-bundle": "dev-master",
+            "nikic/php-parser": "dev-master",
+            "phpmd/phpmd": "1.4.*"
+        },
+        "suggest": {
+            "knplabs/knp-menu": "Required to use KnpMenuBundle.",
+            "knplabs/knp-menu-bundle": "BraincraftedBootstrapBundle styles the menus provided by KnpMenuBundle.",
+            "knplabs/knp-paginator-bundle": "BraincraftedBootstrapBundle styles the pagination provided by KnpPaginatorBundle.",
+            "twbs/bootstrap": "Twitter Bootstrap provides the assets (images, CSS and JS)"
+        },
+        "time": "2013-07-28 21:51:00",
+        "type": "symfony-bundle",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Bc\\Bundle\\BootstrapBundle": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Florian Eckerstorfer",
+                "email": "florian@eckerstorfer.co",
+                "homepage": "http://florianeckerstorfer.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Twitter Bootstrap for Symfony2",
+        "keywords": [
+            "bootstrap"
+        ]
+    },
+    {
+        "name": "twitter/bootstrap",
+        "version": "v2.3.2",
+        "version_normalized": "2.3.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/twbs/bootstrap.git",
+            "reference": "v2.3.2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/twbs/bootstrap/zipball/v2.3.2",
+            "reference": "v2.3.2",
+            "shasum": ""
+        },
+        "time": "2013-07-27 06:36:38",
+        "type": "library",
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
+        "homepage": "http://twbs.github.com/bootstrap/",
+        "keywords": [
+            "bootstrap",
+            "css"
         ]
     }
 ]
