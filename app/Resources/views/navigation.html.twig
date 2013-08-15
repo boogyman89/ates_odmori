@@ -1,0 +1,23 @@
+<div class='nav-wrapper'>
+    <h1 class='flolat-to-left'>
+        Vacation Request
+    </h1>
+    <div class='navigationLinksWrap'>
+        <div class='navCell'>
+            <a href='{{ path('fos_user_security_logout') }}'>Logout( {{user.getFirstName}} )</a>
+        </div>
+        <div class='navCell'>
+           <a href='{{ path('send_request_form') }}'>Send Request</a>
+        </div>
+        
+        {% for role in roles %}
+           {% if role == 'ROLE_ADMIN' %}
+               <div class='navCell'>
+                   <a href='{{ path('show_admin_panel') }}'> Admin</a>
+               </div>
+           {% endif %}
+        {% endfor %}
+        
+            
+    </div>
+</div>

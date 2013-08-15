@@ -6,26 +6,23 @@
 
 {% block container %}
 
- 
-{% if error %}
-    <div>{{ error|trans }}</div>
-{% endif %}
-
     
 <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     <h2 class="form-signin-heading">Vacations</h2>
+        
+    {% if error %}
+        <p class="text-error">{{ error|trans }}</p>
+    {% endif %}
 
-        <input class="input-block-level login-input-extra" type="text" id="username" placeholder="Email" name="_username" value="{{ last_username }}" required="required">
+    <input class="input-block-level login-input-extra" type="text" id="username" placeholder="Email" name="_username" value="{{ last_username }}" required="required">
 
+    <input class="input-block-level login-input-extra" type="password" id="password" name="_password" required="required" placeholder="Password">
 
-        <input class="input-block-level login-input-extra" type="password" id="password" name="_password" required="required" placeholder="Password">
-
-
-        <label class="checkbox">
-          <input type="checkbox" id="remember_me" name="_remember_me" value="on">{{ 'security.login.remember_me'|trans }}
-        </label>
-        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary btn-block btn-large" />
+    <label class="checkbox">
+      <input type="checkbox" id="remember_me" name="_remember_me" value="on">{{ 'security.login.remember_me'|trans }}
+    </label>
+    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary btn-block btn-large" />
 </form>
 
     

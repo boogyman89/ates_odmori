@@ -1,46 +1,51 @@
-<script src="{{ asset('js/jquery-1.10.2.min.js') }}"  type="text/javascript"></script>
-
-
-<link href="{{ asset('css/main.css') }}"  rel="stylesheet" />
-
-<body>
+{% extends "::base.html.twig" %}
     
 
-<select id="requestsFilterProfile">
-    <option>all</option>
-    <option>pending</option>
-    <option>approved</option>
-</select>
+{% block container %}
+{{ include('::navigation.html.twig',{ 'user': user, 'roles': roles } ) }}
+
+
+<div class="row">
+    <div class="span3">
+        
+    </div>
+    <div class="span9 box">
+        <div class="addPadding">
+            <select id="requestsFilterProfile">
+                <option>all</option>
+                <option>pending</option>
+                <option>approved</option>
+            </select>
+            <div id="userRequestResults">
+                <ul>
+                    {% for request in requests %}
+                        <li> {{ request.getState }} 
+                             {{ request.getStartDate|date('Y-m-d') }}  
+                             {{ request.getEndDate|date('Y-m-d') }}  
+                             {% if (request.getState == 'pending' )%}
+                                <a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a> 
+                             {% endif %}
+                             {% if (request.getPdf != null )%}
+                                <a href=' {{ request.getPdf }} '>PDF</a>
+                             {% endif %}
+                        </li> 
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <h5>Number of days off:</h5>
 This year: {{ user.getNoDaysOff }}  </br>
 Last year: {{user.getNoDaysOffLastYear }}
 
-<div id="userRequestResults">
-<ul>
-    {% for request in requests %}
-        <li> {{ request.getState }} 
-             {{ request.getStartDate|date('Y-m-d') }}  
-             {{ request.getEndDate|date('Y-m-d') }}  
-             {% if (request.getState == 'pending' )%}
-                <a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a> 
-             {% endif %}
-             {% if (request.getPdf != null )%}
-                <a href=' {{ request.getPdf }} '>PDF</a>
-             {% endif %}
-        </li> 
-    {% endfor %}
-</ul>
-</div>
-<a href='{{ path('send_request_form') }}'>Send Request</a> 
 
 
-{% for role in roles %}
-    {% if role == 'ROLE_ADMIN' %}
-        <a href='{{ path('show_admin_panel') }}'> Admin Panel</a>
-    {% endif %}
-{% endfor %}
 
-</body>
+{% endblock container %}
 
-<script src="{{ asset('js/ajax.js') }}"  type="text/javascript"></script>
+{% block javascripts %}
+        <script src="{{ asset('js/ajax.js') }}"  type="text/javascript"></script>
+{% endblock javascripts %}
