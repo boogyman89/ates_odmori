@@ -39,8 +39,8 @@
         "gedmo/doctrine-extensions": "dev-master",
         "braincrafted/bootstrap-bundle": "dev-master",
         "twitter/bootstrap": "2.3.*@dev",
-        "jquery/jquery": "1.9.*"
-
+        "jquery/jquery": "1.9.*",
+        "leafo/lessphp": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -65,6 +65,7 @@
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
+        "symfony-assets-install": "symlink",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         },

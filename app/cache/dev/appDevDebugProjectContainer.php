@@ -34,14 +34,13 @@ class appDevDebugProjectContainer extends Container
         $this->scopes = array('request' => 'container');
         $this->scopeChildren = array('request' => array());
         $this->methodMap = array(
-            'adding_days_off_class' => 'getAddingDaysOffClassService',
             'annotation_reader' => 'getAnnotationReaderService',
             'assetic.asset_factory' => 'getAssetic_AssetFactoryService',
             'assetic.asset_manager' => 'getAssetic_AssetManagerService',
             'assetic.cache' => 'getAssetic_CacheService',
             'assetic.controller' => 'getAssetic_ControllerService',
             'assetic.filter.cssrewrite' => 'getAssetic_Filter_CssrewriteService',
-            'assetic.filter.less' => 'getAssetic_Filter_LessService',
+            'assetic.filter.lessphp' => 'getAssetic_Filter_LessphpService',
             'assetic.filter_manager' => 'getAssetic_FilterManagerService',
             'assetic.request_listener' => 'getAssetic_RequestListenerService',
             'assetic.value_supplier.default' => 'getAssetic_ValueSupplier_DefaultService',
@@ -281,19 +280,6 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
-     * Gets the 'adding_days_off_class' service.
-     *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
-     * @return Acme\UserBundle\Command\AddWorkingDaysCommand A Acme\UserBundle\Command\AddWorkingDaysCommand instance.
-     */
-    protected function getAddingDaysOffClassService()
-    {
-        return $this->services['adding_days_off_class'] = new \Acme\UserBundle\Command\AddWorkingDaysCommand($this->get('doctrine.orm.default_entity_manager'));
-    }
-
-    /**
      * Gets the 'annotation_reader' service.
      *
      * This service is shared.
@@ -318,7 +304,7 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('config' => new \Symfony\Bundle\AsseticBundle\Factory\Loader\ConfigurationLoader(), 'twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig')), new \Assetic\Cache\ConfigCache('D:/xampp/htdocs/employees_vacations/app/cache/dev/assetic/config'), true)));
 
-        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('bootstrap_css' => array(0 => array(0 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less', 1 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less', 2 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less', 3 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less'), 1 => array(0 => 'less', 1 => 'cssrewrite', 2 => 'less', 3 => 'cssrewrite'), 2 => array('output' => 'css/bootstrap.css')), 'bootstrap_js' => array(0 => array(0 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 1 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 2 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 3 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 4 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 5 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 6 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 7 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 8 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 9 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 10 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 11 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 12 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js', 13 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 14 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 15 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 16 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 17 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 18 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 19 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 20 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 21 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 22 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 23 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 24 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 25 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js'), 1 => array(), 2 => array('output' => 'js/bootstrap.js')), 'jquery' => array(0 => array(0 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js', 1 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js'), 1 => array(), 2 => array('output' => 'js/jquery.js')))), 'config');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('bootstrap_css' => array(0 => array(0 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less', 1 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less', 2 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less', 3 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less'), 1 => array(0 => 'lessphp', 1 => 'cssrewrite', 2 => 'lessphp'), 2 => array('output' => 'css/bootstrap.css')), 'bootstrap_js' => array(0 => array(0 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 1 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 2 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 3 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 4 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 5 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 6 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 7 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 8 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 9 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 10 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 11 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 12 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js', 13 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 14 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 15 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 16 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 17 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 18 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 19 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 20 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 21 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 22 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 23 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 24 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 25 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js'), 1 => array(), 2 => array('output' => 'js/bootstrap.js')), 'jquery' => array(0 => array(0 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js', 1 => 'D:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js'), 1 => array(), 2 => array('output' => 'js/jquery.js')))), 'config');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($this->get('templating.loader'), '', 'D:/xampp/htdocs/employees_vacations/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
 
         return $instance;
@@ -354,19 +340,23 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
-     * Gets the 'assetic.filter.less' service.
+     * Gets the 'assetic.filter.lessphp' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @return Assetic\Filter\LessFilter A Assetic\Filter\LessFilter instance.
+     * @return Assetic\Filter\LessphpFilter A Assetic\Filter\LessphpFilter instance.
      */
-    protected function getAssetic_Filter_LessService()
+    protected function getAssetic_Filter_LessphpService()
     {
-        $this->services['assetic.filter.less'] = $instance = new \Assetic\Filter\LessFilter('/usr/local/bin/node', array(0 => '/usr/local/lib/node_modules'));
+        require_once 'D:/xampp/htdocs/employees_vacations/app/../vendor/leafo/lessphp/lessc.inc.php';
 
-        $instance->setTimeout(NULL);
-        $instance->setCompress(NULL);
+        $this->services['assetic.filter.lessphp'] = $instance = new \Assetic\Filter\LessphpFilter();
+
+        $instance->setPresets(array());
+        $instance->setLoadPaths(array());
+        $instance->setFormatter(NULL);
+        $instance->setPreserveComments(NULL);
 
         return $instance;
     }
@@ -381,7 +371,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_FilterManagerService()
     {
-        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('less' => 'assetic.filter.less', 'cssrewrite' => 'assetic.filter.cssrewrite'));
+        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('lessphp' => 'assetic.filter.lessphp', 'cssrewrite' => 'assetic.filter.cssrewrite'));
     }
 
     /**
@@ -2344,7 +2334,7 @@ class appDevDebugProjectContainer extends Container
         $n = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($l, array('default_target_path' => '/profile', 'always_use_default_target_path' => false, 'login_path' => '/login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
         $n->setProviderKey('main');
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($k, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username_email')), 'main', $a, $c), 2 => $m, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $l, 'main', $n, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $l, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '520b76e48b2bd', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $k, $f, $a)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $l, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $l, '/login', false), NULL, NULL, $a));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($k, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username_email')), 'main', $a, $c), 2 => $m, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $l, 'main', $n, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $l, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '520ccc023d59d', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $k, $f, $a)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $l, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $l, '/login', false), NULL, NULL, $a));
     }
 
     /**
@@ -3487,7 +3477,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\RoutingExtension($this->get('router')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\YamlExtension());
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\HttpKernelExtension($this->get('fragment.handler')));
-        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig', 1 => 'BcBootstrapBundle:Form:form_div_layout.html.twig', 2 => 'AcmeBundle:Form:form_div_layout.html.twig')), $this->get('form.csrf_provider', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
+        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig', 1 => 'BcBootstrapBundle:Form:form_div_layout.html.twig')), $this->get('form.csrf_provider', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
         $instance->addExtension(new \Twig_Extension_Debug());
         $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), $this->get('templating.name_parser'), true, array(), array(), $this->get('assetic.value_supplier.default', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->addExtension(new \Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension());
@@ -3677,7 +3667,7 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['assetic.asset_factory'] = $instance = new \Symfony\Bundle\AsseticBundle\Factory\AssetFactory($this->get('kernel'), $this, $this->getParameterBag(), 'D:/xampp/htdocs/employees_vacations/app/../web', true);
 
-        $instance->addWorker(new \Assetic\Factory\Worker\EnsureFilterWorker('/\\.less$/', $this->get('assetic.filter.less')));
+        $instance->addWorker(new \Assetic\Factory\Worker\EnsureFilterWorker('/\\.less$/', $this->get('assetic.filter.lessphp')));
         $instance->addWorker(new \Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker());
 
         return $instance;
@@ -3816,7 +3806,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username_email'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('520b76e48b2bd')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username_email'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('520ccc023d59d')), true);
 
         $instance->setEventDispatcher($this->get('event_dispatcher'));
 
@@ -4286,7 +4276,6 @@ class appDevDebugProjectContainer extends Container
             'twig.form.resources' => array(
                 0 => 'form_div_layout.html.twig',
                 1 => 'BcBootstrapBundle:Form:form_div_layout.html.twig',
-                2 => 'AcmeBundle:Form:form_div_layout.html.twig',
             ),
             'debug.templating.engine.twig.class' => 'Symfony\\Bundle\\TwigBundle\\Debug\\TimedTwigEngine',
             'twig.options' => array(
@@ -4392,17 +4381,19 @@ class appDevDebugProjectContainer extends Container
             'assetic.variables' => array(
 
             ),
-            'assetic.java.bin' => 'C:\\Windows\\system32\\java.EXE',
-            'assetic.node.bin' => 'C:\\Program Files (x86)\\NodeJS\\node.EXE',
+            'assetic.java.bin' => 'c:\\Windows\\system32\\java.EXE',
+            'assetic.node.bin' => 'c:\\Program Files (x86)\\NodeJS\\node.EXE',
             'assetic.ruby.bin' => '/usr/bin/ruby',
             'assetic.sass.bin' => '/usr/bin/sass',
-            'assetic.filter.less.class' => 'Assetic\\Filter\\LessFilter',
-            'assetic.filter.less.node' => '/usr/local/bin/node',
-            'assetic.filter.less.node_paths' => array(
-                0 => '/usr/local/lib/node_modules',
+            'assetic.filter.lessphp.class' => 'Assetic\\Filter\\LessphpFilter',
+            'assetic.filter.lessphp.presets' => array(
+
             ),
-            'assetic.filter.less.timeout' => NULL,
-            'assetic.filter.less.compress' => NULL,
+            'assetic.filter.lessphp.paths' => array(
+
+            ),
+            'assetic.filter.lessphp.formatter' => NULL,
+            'assetic.filter.lessphp.preserve_comments' => NULL,
             'assetic.filter.cssrewrite.class' => 'Assetic\\Filter\\CssRewriteFilter',
             'assetic.twig_extension.functions' => array(
 
