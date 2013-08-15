@@ -41,11 +41,15 @@ class appDevDebugProjectContainer extends Container
             'assetic.cache' => 'getAssetic_CacheService',
             'assetic.controller' => 'getAssetic_ControllerService',
             'assetic.filter.cssrewrite' => 'getAssetic_Filter_CssrewriteService',
+            'assetic.filter.lessphp' => 'getAssetic_Filter_LessphpService',
             'assetic.filter_manager' => 'getAssetic_FilterManagerService',
             'assetic.request_listener' => 'getAssetic_RequestListenerService',
             'assetic.value_supplier.default' => 'getAssetic_ValueSupplier_DefaultService',
             'ates_user.profile.form.type' => 'getAtesUser_Profile_Form_TypeService',
             'ates_user.registration.form.type' => 'getAtesUser_Registration_Form_TypeService',
+            'bc_bootstrap.twig.badge_extension' => 'getBcBootstrap_Twig_BadgeExtensionService',
+            'bc_bootstrap.twig.icon_extension' => 'getBcBootstrap_Twig_IconExtensionService',
+            'bc_bootstrap.twig.label_extension' => 'getBcBootstrap_Twig_LabelExtensionService',
             'cache_clearer' => 'getCacheClearerService',
             'cache_warmer' => 'getCacheWarmerService',
             'controller_name_converter' => 'getControllerNameConverterService',
@@ -312,8 +316,9 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_AssetManagerService()
     {
-        $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig')), new \Assetic\Cache\ConfigCache('C:/xampp/htdocs/employees_vacations/app/cache/dev/assetic/config'), true)));
+        $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('config' => new \Symfony\Bundle\AsseticBundle\Factory\Loader\ConfigurationLoader(), 'twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig')), new \Assetic\Cache\ConfigCache('C:/xampp/htdocs/employees_vacations/app/cache/dev/assetic/config'), true)));
 
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('bootstrap_css' => array(0 => array(0 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less', 1 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less', 2 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/bootstrap.less', 3 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/less/responsive.less'), 1 => array(0 => 'lessphp', 1 => 'cssrewrite', 2 => 'lessphp'), 2 => array('output' => 'css/bootstrap.css')), 'bootstrap_js' => array(0 => array(0 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 1 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 2 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 3 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 4 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 5 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 6 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 7 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 8 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 9 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 10 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 11 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 12 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js', 13 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 14 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 15 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 16 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 17 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 18 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 19 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 20 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 21 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 22 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 23 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 24 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 25 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js'), 1 => array(), 2 => array('output' => 'js/bootstrap.js')), 'jquery' => array(0 => array(0 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js', 1 => 'C:/xampp/htdocs/employees_vacations/app/../vendor/jquery/jquery/jquery-1.9.1.js'), 1 => array(), 2 => array('output' => 'js/jquery.js')))), 'config');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($this->get('templating.loader'), '', 'C:/xampp/htdocs/employees_vacations/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
 
         return $instance;
@@ -349,6 +354,28 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'assetic.filter.lessphp' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Assetic\Filter\LessphpFilter A Assetic\Filter\LessphpFilter instance.
+     */
+    protected function getAssetic_Filter_LessphpService()
+    {
+        require_once 'C:/xampp/htdocs/employees_vacations/app/../vendor/leafo/lessphp/lessc.inc.php';
+
+        $this->services['assetic.filter.lessphp'] = $instance = new \Assetic\Filter\LessphpFilter();
+
+        $instance->setPresets(array());
+        $instance->setLoadPaths(array());
+        $instance->setFormatter(NULL);
+        $instance->setPreserveComments(NULL);
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'assetic.filter_manager' service.
      *
      * This service is shared.
@@ -358,7 +385,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_FilterManagerService()
     {
-        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('cssrewrite' => 'assetic.filter.cssrewrite'));
+        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('lessphp' => 'assetic.filter.lessphp', 'cssrewrite' => 'assetic.filter.cssrewrite'));
     }
 
     /**
@@ -398,6 +425,45 @@ class appDevDebugProjectContainer extends Container
     protected function getAtesUser_Registration_Form_TypeService()
     {
         return $this->services['ates_user.registration.form.type'] = new \Ates\UserBundle\Form\Type\RegistrationFormType('Ates\\UserBundle\\Entity\\User');
+    }
+
+    /**
+     * Gets the 'bc_bootstrap.twig.badge_extension' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Bc\Bundle\BootstrapBundle\Twig\BootstrapBadgeExtension A Bc\Bundle\BootstrapBundle\Twig\BootstrapBadgeExtension instance.
+     */
+    protected function getBcBootstrap_Twig_BadgeExtensionService()
+    {
+        return $this->services['bc_bootstrap.twig.badge_extension'] = new \Bc\Bundle\BootstrapBundle\Twig\BootstrapBadgeExtension();
+    }
+
+    /**
+     * Gets the 'bc_bootstrap.twig.icon_extension' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Bc\Bundle\BootstrapBundle\Twig\BootstrapIconExtension A Bc\Bundle\BootstrapBundle\Twig\BootstrapIconExtension instance.
+     */
+    protected function getBcBootstrap_Twig_IconExtensionService()
+    {
+        return $this->services['bc_bootstrap.twig.icon_extension'] = new \Bc\Bundle\BootstrapBundle\Twig\BootstrapIconExtension();
+    }
+
+    /**
+     * Gets the 'bc_bootstrap.twig.label_extension' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Bc\Bundle\BootstrapBundle\Twig\BootstrapLabelExtension A Bc\Bundle\BootstrapBundle\Twig\BootstrapLabelExtension instance.
+     */
+    protected function getBcBootstrap_Twig_LabelExtensionService()
+    {
+        return $this->services['bc_bootstrap.twig.label_extension'] = new \Bc\Bundle\BootstrapBundle\Twig\BootstrapLabelExtension();
     }
 
     /**
@@ -2282,7 +2348,7 @@ class appDevDebugProjectContainer extends Container
         $n = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($l, array('default_target_path' => '/profile', 'always_use_default_target_path' => false, 'login_path' => '/login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
         $n->setProviderKey('main');
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($k, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username_email')), 'main', $a, $c), 2 => $m, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $l, 'main', $n, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $l, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '520b75f0afa9f', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $k, $f, $a)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $l, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $l, '/login', false), NULL, NULL, $a));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($k, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username_email')), 'main', $a, $c), 2 => $m, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $l, 'main', $n, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $l, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '520cb60fe2754', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $k, $f, $a)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $l, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $l, '/login', false), NULL, NULL, $a));
     }
 
     /**
@@ -3426,10 +3492,13 @@ class appDevDebugProjectContainer extends Container
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\RoutingExtension($this->get('router')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\YamlExtension());
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\HttpKernelExtension($this->get('fragment.handler')));
-        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig')), $this->get('form.csrf_provider', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
+        $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig', 1 => 'BcBootstrapBundle:Form:form_div_layout.html.twig')), $this->get('form.csrf_provider', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
         $instance->addExtension(new \Twig_Extension_Debug());
         $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), $this->get('templating.name_parser'), true, array(), array(), $this->get('assetic.value_supplier.default', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->addExtension(new \Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension());
+        $instance->addExtension($this->get('bc_bootstrap.twig.icon_extension'));
+        $instance->addExtension($this->get('bc_bootstrap.twig.label_extension'));
+        $instance->addExtension($this->get('bc_bootstrap.twig.badge_extension'));
         $instance->addGlobal('app', $this->get('templating.globals'));
 
         return $instance;
@@ -3481,6 +3550,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addPath('C:\\xampp\\htdocs\\employees_vacations\\src\\Ates\\VacationBundle/Resources/views', 'AtesVacation');
         $instance->addPath('C:\\xampp\\htdocs\\employees_vacations\\src\\Ates\\UserBundle/Resources/views', 'AtesUser');
         $instance->addPath('C:\\xampp\\htdocs\\employees_vacations\\vendor\\friendsofsymfony\\user-bundle\\FOS\\UserBundle/Resources/views', 'FOSUser');
+        $instance->addPath('C:\\xampp\\htdocs\\employees_vacations\\vendor\\braincrafted\\bootstrap-bundle\\Bc\\Bundle\\BootstrapBundle/Resources/views', 'BcBootstrap');
         $instance->addPath('C:\\xampp\\htdocs\\employees_vacations\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views', 'WebProfiler');
         $instance->addPath('C:\\xampp\\htdocs\\employees_vacations\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/views', 'SensioDistribution');
         $instance->addPath('C:/xampp/htdocs/employees_vacations/app/Resources/views');
@@ -3612,6 +3682,7 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['assetic.asset_factory'] = $instance = new \Symfony\Bundle\AsseticBundle\Factory\AssetFactory($this->get('kernel'), $this, $this->getParameterBag(), 'C:/xampp/htdocs/employees_vacations/app/../web', true);
 
+        $instance->addWorker(new \Assetic\Factory\Worker\EnsureFilterWorker('/\\.less$/', $this->get('assetic.filter.lessphp')));
         $instance->addWorker(new \Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker());
 
         return $instance;
@@ -3750,7 +3821,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username_email'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('520b75f0afa9f')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username_email'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('520cb60fe2754')), true);
 
         $instance->setEventDispatcher($this->get('event_dispatcher'));
 
@@ -3929,6 +4000,7 @@ class appDevDebugProjectContainer extends Container
                 'DoctrineMigrationsBundle' => 'Doctrine\\Bundle\\MigrationsBundle\\DoctrineMigrationsBundle',
                 'AtesUserBundle' => 'Ates\\UserBundle\\AtesUserBundle',
                 'FOSUserBundle' => 'FOS\\UserBundle\\FOSUserBundle',
+                'BcBootstrapBundle' => 'Bc\\Bundle\\BootstrapBundle\\BcBootstrapBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
                 'SensioGeneratorBundle' => 'Sensio\\Bundle\\GeneratorBundle\\SensioGeneratorBundle',
@@ -4218,6 +4290,7 @@ class appDevDebugProjectContainer extends Container
             'twig.exception_listener.controller' => 'twig.controller.exception:showAction',
             'twig.form.resources' => array(
                 0 => 'form_div_layout.html.twig',
+                1 => 'BcBootstrapBundle:Form:form_div_layout.html.twig',
             ),
             'debug.templating.engine.twig.class' => 'Symfony\\Bundle\\TwigBundle\\Debug\\TimedTwigEngine',
             'twig.options' => array(
@@ -4323,10 +4396,19 @@ class appDevDebugProjectContainer extends Container
             'assetic.variables' => array(
 
             ),
-            'assetic.java.bin' => 'c:\\Windows\\system32\\java.EXE',
+            'assetic.java.bin' => 'C:\\Windows\\system32\\java.EXE',
             'assetic.node.bin' => '/usr/bin/node',
             'assetic.ruby.bin' => '/usr/bin/ruby',
             'assetic.sass.bin' => '/usr/bin/sass',
+            'assetic.filter.lessphp.class' => 'Assetic\\Filter\\LessphpFilter',
+            'assetic.filter.lessphp.presets' => array(
+
+            ),
+            'assetic.filter.lessphp.paths' => array(
+
+            ),
+            'assetic.filter.lessphp.formatter' => NULL,
+            'assetic.filter.lessphp.preserve_comments' => NULL,
             'assetic.filter.cssrewrite.class' => 'Assetic\\Filter\\CssRewriteFilter',
             'assetic.twig_extension.functions' => array(
 

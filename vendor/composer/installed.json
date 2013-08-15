@@ -1383,88 +1383,6 @@
         "description": "This bundle generates code for you"
     },
     {
-        "name": "gedmo/doctrine-extensions",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-            "reference": "ccaf74ffdbc62c7523be6745f42f859d6b5658e4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/ccaf74ffdbc62c7523be6745f42f859d6b5658e4",
-            "reference": "ccaf74ffdbc62c7523be6745f42f859d6b5658e4",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/common": ">=2.2,<2.5-dev",
-            "php": ">=5.3.2"
-        },
-        "require-dev": {
-            "doctrine/common": ">=2.4.0-RC3",
-            "doctrine/dbal": ">=2.4.0-RC1",
-            "doctrine/mongodb": ">=1.0.3",
-            "doctrine/mongodb-odm": ">=1.0.0-BETA9",
-            "doctrine/orm": ">=2.4.0-RC1",
-            "symfony/yaml": "2.3.1"
-        },
-        "suggest": {
-            "doctrine/dbal": ">=2.3.2",
-            "doctrine/mongodb": ">=1.0.1",
-            "doctrine/mongodb-odm": ">=1.0.0-BETA7",
-            "doctrine/orm": ">=2.3.2"
-        },
-        "time": "2013-08-13 15:29:18",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.3.x-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "Gedmo\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "David Buchmann",
-                "email": "david@liip.ch"
-            },
-            {
-                "name": "Gediminas Morkevicius",
-                "email": "gediminas.morkevicius@gmail.com"
-            },
-            {
-                "name": "Gustavo Falco",
-                "email": "comfortablynumb84@gmail.com"
-            }
-        ],
-        "description": "Doctrine2 behavioral extensions",
-        "homepage": "http://gediminasm.org/",
-        "keywords": [
-            "Blameable",
-            "behaviors",
-            "doctrine2",
-            "extensions",
-            "gedmo",
-            "loggable",
-            "nestedset",
-            "sluggable",
-            "sortable",
-            "timestampable",
-            "translatable",
-            "tree",
-            "uploadable"
-        ]
-    },
-    {
         "name": "braincrafted/bootstrap-bundle",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -1565,5 +1483,130 @@
         },
         "type": "library",
         "installation-source": "dist"
+    },
+    {
+        "name": "leafo/lessphp",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/leafo/lessphp.git",
+            "reference": "v0.4.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/leafo/lessphp/zipball/v0.4.0",
+            "reference": "v0.4.0",
+            "shasum": ""
+        },
+        "time": "2013-08-09 17:09:19",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.3-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "lessc.inc.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT",
+            "GPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Leaf Corcoran",
+                "email": "leafot@gmail.com",
+                "homepage": "http://leafo.net"
+            }
+        ],
+        "description": "lessphp is a compiler for LESS written in PHP.",
+        "homepage": "http://leafo.net/lessphp/"
+    },
+    {
+        "name": "gedmo/doctrine-extensions",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
+            "reference": "e96cbd02225541821cebd0f4a3fc8e1fe9e1c71e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/e96cbd02225541821cebd0f4a3fc8e1fe9e1c71e",
+            "reference": "e96cbd02225541821cebd0f4a3fc8e1fe9e1c71e",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/common": ">=2.2,<2.5-dev",
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "doctrine/common": ">=2.4.0-RC3",
+            "doctrine/dbal": ">=2.4.0-RC1",
+            "doctrine/mongodb": ">=1.0.3",
+            "doctrine/mongodb-odm": ">=1.0.0-BETA9",
+            "doctrine/orm": ">=2.4.0-RC1",
+            "symfony/yaml": "2.3.1"
+        },
+        "suggest": {
+            "doctrine/dbal": ">=2.3.2",
+            "doctrine/mongodb": ">=1.0.1",
+            "doctrine/mongodb-odm": ">=1.0.0-BETA7",
+            "doctrine/orm": ">=2.3.2"
+        },
+        "time": "2013-08-14 20:38:51",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Gedmo\\": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "David Buchmann",
+                "email": "david@liip.ch"
+            },
+            {
+                "name": "Gediminas Morkevicius",
+                "email": "gediminas.morkevicius@gmail.com"
+            },
+            {
+                "name": "Gustavo Falco",
+                "email": "comfortablynumb84@gmail.com"
+            }
+        ],
+        "description": "Doctrine2 behavioral extensions",
+        "homepage": "http://gediminasm.org/",
+        "keywords": [
+            "Blameable",
+            "behaviors",
+            "doctrine2",
+            "extensions",
+            "gedmo",
+            "loggable",
+            "nestedset",
+            "sluggable",
+            "sortable",
+            "timestampable",
+            "translatable",
+            "tree",
+            "uploadable"
+        ]
     }
 ]

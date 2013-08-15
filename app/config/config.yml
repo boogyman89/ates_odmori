@@ -26,10 +26,7 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    form:
-        resources:
-            - "AcmeBundle:Form:form_div_layout.html.twig"
-    
+
 
 # Assetic Configuration
 assetic:
@@ -38,9 +35,8 @@ assetic:
     bundles:        [ ]
     #java: /usr/bin/java
     filters:
-        less:
-            node:       /usr/local/bin/node
-            node_paths: [/usr/local/lib/node_modules]
+        lessphp:
+            file: %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
             apply_to:   "\.less$"
         cssrewrite: ~
     assets:
@@ -49,8 +45,7 @@ assetic:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/less/bootstrap.less
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/less/responsive.less
             filters:
-                - less
-                - cssrewrite
+                - lessphp
             output: css/bootstrap.css
         bootstrap_js:
             inputs:
@@ -133,5 +128,6 @@ services:
         arguments:    ["@doctrine.orm.entity_manager"]
         
 bc_bootstrap:
+    less_filter: lessphp
     assets_dir:  %kernel.root_dir%/../vendor/twitter/bootstrap
     jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.9.1.js
