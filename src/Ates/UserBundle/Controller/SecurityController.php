@@ -27,19 +27,6 @@ class SecurityController extends BaseControler
             $uri = $this->container->get('router')->generate('fos_user_profile_show');
             return new RedirectResponse($uri);
         }
-        /*
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $path = $request->getPathInfo();
-        if($path != '/logout')
-        {
-            if(($user != null) && ($path == '/' || $path == '/login') )        
-            {
-                $uri = $this->container->get('router')->generate('fos_user_profile_show');
-                return new RedirectResponse($uri);
-            }
-        }
-         * 
-         */
         
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
         $session = $request->getSession();

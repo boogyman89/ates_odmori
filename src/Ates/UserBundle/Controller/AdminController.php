@@ -48,11 +48,15 @@ class AdminController extends Controller
             'locked' => true
         ));
         
+        $activeUser = $this->getUser();
+        $roles = $activeUser->getRoles();
         
         return array(                    
                 'requests' => $requests,
                 'holidays' => $holidays,
-                'users' => $users
+                'users' => $users,
+                'user' => $activeUser,
+                'roles' => $roles
             );
     }
     
@@ -200,7 +204,7 @@ class AdminController extends Controller
               return $this->redirect($this->generateUrl('show_admin_panel'));
           }
           
-          return array('form' => $form->createView());
+          return array('form' => $form->createView(), 'user' => $this->getUser(), 'roles' => $this->getUser()->getRoles() );
     }
         
     /**

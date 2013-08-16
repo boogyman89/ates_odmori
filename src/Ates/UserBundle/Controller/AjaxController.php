@@ -22,8 +22,9 @@ class AjaxController extends Controller
      * @Template("AtesUserBundle:Ajax:requests.html.twig", vars={"all_requests"})
      */
     public function findRequestsAction()
-    {
-        
+    {       
+         echo "pocetak";
+         
         $request = $this->getRequest();
         
         $first_name = $request->request->get('name');
@@ -48,9 +49,7 @@ class AjaxController extends Controller
         $query = $repository->getQuery();
         $users = $query->getResult();
         
-        
-        
-        
+               
         $allRequests = array();
         foreach($users as $user)
         {
@@ -78,7 +77,7 @@ class AjaxController extends Controller
      * @Template("AtesUserBundle:Ajax:users.html.twig", vars={"users"})
      */
      public function findUsersAction()
-    {
+    {         
         $request = $this->getRequest();
         
         $first_name = $request->request->get('name');

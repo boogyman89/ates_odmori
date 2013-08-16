@@ -39,7 +39,7 @@ class DefaultController extends Controller
           
            return $this->redirect($this->generateUrl('fos_user_profile_show'));
        } 
-       return array('form' => $form->createView());
+       return array('form' => $form->createView(), 'user' => $this->getUser(), 'roles' => $this->getUser()->getRoles());
 
     }
 
