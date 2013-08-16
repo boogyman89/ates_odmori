@@ -635,9 +635,6 @@
         <argument type="service" id="annotation_reader"/>
       </call>
     </service>
-    <service id="adding_days_off_class" class="Acme\UserBundle\Command\AddWorkingDaysCommand">
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-    </service>
     <service id="controller_name_converter" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser" public="false">
       <tag name="monolog.logger" channel="request"/>
       <argument type="service" id="kernel"/>
@@ -2768,7 +2765,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>520cb60fe2754</argument>
+            <argument>520cd25bd1ddc</argument>
           </service>
         </argument>
       </argument>
@@ -3034,7 +3031,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>520cb60fe2754</argument>
+            <argument>520cd25bd1ddc</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>

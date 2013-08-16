@@ -28,6 +28,7 @@ twig:
     strict_variables: %kernel.debug%
 
 
+
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
@@ -121,11 +122,6 @@ sensio_framework_extra:
     request: { converters: true }
     view:    { annotations: true }
     cache:   { annotations: true }
-    
-services:
-    adding_days_off_class:
-        class:        Acme\UserBundle\Command\AddWorkingDaysCommand
-        arguments:    ["@doctrine.orm.entity_manager"]
         
 bc_bootstrap:
     less_filter: lessphp

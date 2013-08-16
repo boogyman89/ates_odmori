@@ -38,7 +38,7 @@ class DefaultController extends Controller
            $em->flush();
           
            return $this->redirect($this->generateUrl('fos_user_profile_show'));
-       }
+       } 
        return array('form' => $form->createView());
 
     }

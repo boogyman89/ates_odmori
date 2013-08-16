@@ -15,7 +15,7 @@ class DefaultController extends Controller
 {
     
     /**
-     * @Route("/", name="employees_vacations_homepage")
+     * @Route("/aaa", name="employees_vacations_homepage")
      * @Template("AtesUserBundle:Default:index.html.twig", vars={"post"})
      */
     public function indexAction()
