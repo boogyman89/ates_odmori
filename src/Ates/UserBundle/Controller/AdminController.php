@@ -31,13 +31,14 @@ class AdminController extends Controller
     {      
         $em = $this->getDoctrine()->getManager();
         
-        $requestUserArray = array();
         $query = $em->getRepository('AtesVacationBundle:VacationRequest')->createQueryBuilder('r')
             ->where('r.state = :s')
             ->setParameter('s','pending')
             ->orderBy('r.start_date','ASC')
             ->getQuery();
         $requests = $query->getResult();
+        
+        
         
         $holidays = $em->getRepository('AtesVacationBundle:Holidays')->findAll();
         

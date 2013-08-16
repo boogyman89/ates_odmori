@@ -56,31 +56,29 @@ h1,h2,h3,h4{
     border-radius: 5px;
 }
 
-/*------------------------------------------
-                Navigation
-------------------------------------------*/
-.nav-wrapper{
-    width: 1160px;
-    height: auto;
-    overflow: hidden;
-    padding: 5px;
-    margin: 5px auto 50px;
-}
-.navigationLinksWrap{
-    width: auto;
-    height: auto;
-    overflow: hidden;
-    float: right;
-}
-.navCell{
-    margin-top: 5px;
-    margin-left: 15px;
-    float: right;
-    font-size: 16px;
-}
-.box{
+
+.white-box{
+    padding: 10px;
     background: #fff;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+.marginLeft20{
+    margin-left: 20px;
+}
+.marginTop-10{
+    margin-top: -10px;
+}
+.marginTop20{
+    margin-top: 20px;
+}
+.find-box{
+    padding: 10px 0 0;
+    margin: 0 0 20px;
+}
+h2.underline{
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px #aaa solid;
 }
