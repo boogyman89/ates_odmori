@@ -48,11 +48,15 @@ class AdminController extends Controller
             'locked' => true
         ));
         
+        $activeUser = $this->getUser();
+        $roles = $activeUser->getRoles();
         
         return array(                    
                 'requests' => $requests,
                 'holidays' => $holidays,
-                'users' => $users
+                'users' => $users,
+                'user' => $activeUser,
+                'roles' => $roles
             );
     }
     

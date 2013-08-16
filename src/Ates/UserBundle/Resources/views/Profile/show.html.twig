@@ -1,47 +1,89 @@
 {% extends "::base.html.twig" %}
-    
+
+{% block title %} Welcome {{user.getFirstName}}! {% endblock title %}
+
+{% block stylesheets %}
+<style type="text/css">
+    body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+    .sidebar-nav {
+      padding: 9px 0;
+    }
+
+    @media (max-width: 980px) {
+      /* Enable use of floated navbar text */
+      .navbar-text.pull-right {
+        float: none;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    }
+</style>
+{% endblock stylesheets %}
+
+
+{% block navigation %}
+    {{ include('::navigation.html.twig',{ 'user': user, 'roles': roles } ) }}
+{% endblock navigation %}
 
 {% block container %}
-{{ include('::navigation.html.twig',{ 'user': user, 'roles': roles } ) }}
 
 
-<div class="row">
+<div class="row-fluid">
     <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li class="nav-header">Days Off From This Year</li>
+          <li class="active"><a href="#">{{ user.getNoDaysOff }}</a></li>
+          
+          <li class="nav-header">Days Off From Last Year</li>
+          <li class="active"><a href="#">{{user.getNoDaysOffLastYear }}</a></li>
+          
+        </ul>
+      </div><!--/.well -->
+    </div><!--/span-->
+    
+    <div class="span9">
         
-    </div>
-    <div class="span9 box">
-        <div class="addPadding">
-            <select id="requestsFilterProfile">
-                <option>all</option>
-                <option>pending</option>
-                <option>approved</option>
-            </select>
-            <div id="userRequestResults">
-                <ul>
-                    {% for request in requests %}
-                        <li> {{ request.getState }} 
-                             {{ request.getStartDate|date('Y-m-d') }}  
-                             {{ request.getEndDate|date('Y-m-d') }}  
-                             {% if (request.getState == 'pending' )%}
-                                <a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a> 
-                             {% endif %}
-                             {% if (request.getPdf != null )%}
-                                <a href=' {{ request.getPdf }} '>PDF</a>
-                             {% endif %}
-                        </li> 
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+          <select id="requestsFilterProfile inout-block-level">
+            <option>all</option>
+            <option>pending</option>
+            <option>approved</option>
+          </select>
+          
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                  <th>Status</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th></th>
+                  <th></th>
+              </tr>   
+            </thead>
+            <tbody>
+              {% for request in requests %}
+                    <tr> 
+                        <td>{{ request.getState }}</td> 
+                        <td>{{ request.getStartDate|date('Y-m-d') }} </td>  
+                        <td>{{ request.getEndDate|date('Y-m-d') }} </td> 
+                        {% if (request.getPdf != null )%}
+                            <td><a href=' {{ request.getPdf }} '>PDF</a></td>
+                         {% endif %}
+                         {% if (request.getState == 'pending' )%}
+                            <td><a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a></td>  
+                         {% endif %}
+
+                    </tr> 
+                {% endfor %}
+            </tbody>
+          </table>
+        
+
     </div>
 </div>
-
-
-<h5>Number of days off:</h5>
-This year: {{ user.getNoDaysOff }}  </br>
-Last year: {{user.getNoDaysOffLastYear }}
-
-
 
 
 {% endblock container %}

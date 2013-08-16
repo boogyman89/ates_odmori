@@ -1,23 +1,32 @@
-<div class='nav-wrapper'>
-    <h1 class='flolat-to-left'>
-        Vacation Request
-    </h1>
-    <div class='navigationLinksWrap'>
-        <div class='navCell'>
-            <a href='{{ path('fos_user_security_logout') }}'>Logout( {{user.getFirstName}} )</a>
-        </div>
-        <div class='navCell'>
-           <a href='{{ path('send_request_form') }}'>Send Request</a>
-        </div>
-        
-        {% for role in roles %}
-           {% if role == 'ROLE_ADMIN' %}
-               <div class='navCell'>
-                   <a href='{{ path('show_admin_panel') }}'> Admin</a>
-               </div>
-           {% endif %}
-        {% endfor %}
-        
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="{{ path('home_page') }}">Vacation Request</a>
+        <div class="nav-collapse collapse">
+          <p class="navbar-text pull-right marginLeft20">
+             <a href="{{ path('fos_user_security_logout') }}" class="navbar-link"> Logout</a>
+          </p>
+          <p class="navbar-text pull-right">
+            Logged in as <a href="{{ path('fos_user_security_logout') }}" class="navbar-link">{{user.getFirstName}}</a>
+          </p>
+          <ul class="nav">
+            <li class="active"><a href="{{ path('home_page') }}">Home</a></li>
+            <li><a href='{{ path('send_request_form') }}'>Send Request</a></li>
+            {% for role in roles %}
+                {% if role == 'ROLE_ADMIN' %}
+                    <li>
+                        <a href='{{ path('show_admin_panel') }}'> Admin</a>
+                    </li>
+                {% endif %}
+             {% endfor %}
             
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
     </div>
 </div>

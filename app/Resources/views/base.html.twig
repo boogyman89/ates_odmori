@@ -10,7 +10,10 @@
     </head>
     <body>
         {% block body %}
-            <div class='container'>
+            
+            {% block navigation %}{% endblock navigation %}
+            
+            <div class='container-fluid'>
                 {% block container %}
                 {% endblock  %}
             </div>
