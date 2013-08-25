@@ -10,10 +10,9 @@ class VacationRequestType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('start_date', 'date', array( 'label' => 'From'))
-                ->add('end_date', 'date', array( 'label' => 'To'))
-                ->add('Submit', 'submit')
-               ;
+        $builder->add('start_date', 'date', array( 'label' => null, 'widget' => 'single_text'))
+                ->add('end_date', 'date', array( 'label' => null, 'widget' => 'single_text'))
+                ->add('Send Request', 'submit', array('attr' => array('class' => 'btn btn-primary btn-block')));
                 
              //   ->add('submitted', 'datetime', array('label' => " ", 'data' =>
              //       (new \DateTime("NOW")), 'attr' => array('style' => 'display:none;')));

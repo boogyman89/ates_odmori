@@ -18,7 +18,7 @@ class DefaultController extends Controller
     }
     /**
      * @Route("/request", name="send_request_form")
-     * @Template("AtesVacationBundle:Request:anyForm.html.twig")
+     * @Template("AtesVacationBundle:Request:requestForm.html.twig")
      */    
     public function sendRequestAction()
     {
@@ -38,15 +38,22 @@ class DefaultController extends Controller
            $em->flush();
           
            return $this->redirect($this->generateUrl('fos_user_profile_show'));
-       } 
-       return array('form' => $form->createView());
+       }
+       
+        $activeUser = $this->getUser();
+        $roles = $activeUser->getRoles();
+        return array(
+            'form' => $form->createView(),
+            'user' => $activeUser,
+            'roles' => $roles
+        );
 
     }
 
     
     /**
      * @Route("/edit_request/{id}", name="edit_request_form")
-     * @Template("AtesVacationBundle:Request:anyForm.html.twig")
+     * @Template("AtesVacationBundle:Request:requestForm.html.twig")
      */  
     public function editRequestAction($id)
     {        
@@ -65,23 +72,18 @@ class DefaultController extends Controller
           $vacationRequest->setEndDate($form->get('end_date')->getData());
           
           $em->flush();     //kraj edita
-                            //sledi provera ROLE-a
-          $user = $this->getUser();
-          $roles = $user->getRoles();
           
-          foreach ($roles as $role)
-          {
-              if($role == 'ROLE_ADMIN')
-              {
-                  return $this->redirect($this->generateUrl('show_admin_panel')); //ROLE_ADMIN return
-              }
-          }
-          
-          return $this->redirect($this->generateUrl('fos_user_profile_show'));   // ROLE_USER return
+          return $this->redirect($this->generateUrl('fos_user_profile_show'));
           
         }            
         $form->setData($vacationRequest);        
         
-        return array('form' => $form->createView());       
+        $activeUser = $this->getUser();
+        $roles = $activeUser->getRoles();
+        return array(
+            'form' => $form->createView(),
+            'user' => $activeUser,
+            'roles' => $roles
+        );       
     }
 }

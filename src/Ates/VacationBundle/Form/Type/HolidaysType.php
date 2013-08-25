@@ -10,9 +10,9 @@ class HolidaysType extends AbstractType
 {
       public function buildForm(FormBuilderInterface $builder, array $options)
       {
-          $builder->add('date', 'date', array( 'label' => 'Date', 'attr' => array('display' => 'none')))
-                  ->add('name', 'text', array( 'label' => 'Name'))
-                  ->add('Submit', 'submit')
+          $builder->add('date', 'date', array( 'label' => 'Date', 'widget' => 'single_text'))
+                  ->add('name', 'text', array( 'label' => 'Name', 'attr' => array('placeholder' => 'Name', 'class' => 'input-block-level')))
+                  ->add('Add Holiday', 'submit', array('attr' => array('class' => 'btn btn-primary btn-block')))
               ;
           
       }

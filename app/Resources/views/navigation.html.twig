@@ -11,11 +11,14 @@
           <p class="navbar-text pull-right marginLeft20">
              <a href="{{ path('fos_user_security_logout') }}" class="navbar-link"> Logout</a>
           </p>
+          <p class="navbar-text pull-right marginLeft20">
+             <a href="{{ path('fos_user_profile_edit') }}" class="navbar-link"> Edit Profile</a>
+          </p>
           <p class="navbar-text pull-right">
             Logged in as <a href="{{ path('home_page') }}" class="navbar-link">{{user.getFirstName}}</a>
           </p>
           <ul class="nav">
-            <li class="active"><a href="{{ path('home_page') }}">Home</a></li>
+            <li ><a href="{{ path('home_page') }}">Home</a></li>
             <li><a href='{{ path('send_request_form') }}'>Send Request</a></li>
             {% for role in roles %}
                 {% if role == 'ROLE_ADMIN' %}

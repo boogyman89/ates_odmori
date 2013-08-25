@@ -78,29 +78,6 @@ class VacationRequest
     }
 
     /**
-     * Set id_user
-     *
-     * @param integer $idUser
-     * @return Request
-     */
-    public function setIdUser($idUser)
-    {
-        $this->id_user = $idUser;
-    
-        return $this;
-    }
-
-    /**
-     * Get id_user
-     *
-     * @return integer 
-     */
-    public function getIdUser()
-    {
-        return $this->id_user;
-    }
-
-    /**
      * Set id_admin
      *
      * @param integer $idAdmin
