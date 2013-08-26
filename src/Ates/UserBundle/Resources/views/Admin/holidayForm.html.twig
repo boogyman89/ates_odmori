@@ -30,21 +30,22 @@
 {% endblock navigation %}
 
 {% block container %}
+   
     <div class="form-signin">
         <h2 class="form-signin-heading text-center">Holiday</h2>
-        
-        <input class="holiday_date_help input-block-level" type="text" placeholder="Date" />
 
         {{ form_start(form) }}
             {{ form_errors(form) }}
 
-            <div class="hidden">
-                {{ form_label(form.date) }}
+            <div>
+                <div class="hidden">
+                    {{ form_label(form.date) }}
+                </div>
                 {{ form_errors(form.date) }}
                 {{ form_widget(form.date) }}
             </div>
 
-            <div class="">
+            <div>
                 <div class="hidden">
                     {{ form_label(form.name) }}
                 </div>
@@ -64,31 +65,22 @@
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script>
         $(document).ready(function(){
-            
-            $('.holiday_date_help').datepicker();
-            
-            $('.btn').click(function(){
+                        
+            $('.holiday_date').datepicker().on('changeDate', function(ev){
+                
+                var date = new Date(ev.date.valueOf());
+                var dd = date.getDate();
+                var mm = date.getMonth()+1; //January is 0!
 
-                var holiday = new Date($('.holiday_date_help').val());
-                var dd = holiday.getDate();
-                var mm = holiday.getMonth()+1; //January is 0!
-
-                var yyyy = holiday.getFullYear();
+                var yyyy = date.getFullYear();
                 if(dd<10){dd='0'+dd} 
                 if(mm<10){mm='0'+mm} 
-                holiday = yyyy+'-'+mm+'-'+dd;
+                date = yyyy+'-'+mm+'-'+dd;
                 
-                $('#holidays_date').val(holiday);
-                
-
+                $(this).val(date);
             });
             
-            $(function(){
-                if($('#holidays_date').val() != '')
-                {
-                    $('.holiday_date_help').val($('#holidays_date').val());
-                }
-            });
+           
             
         });
     </script>

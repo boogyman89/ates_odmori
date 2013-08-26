@@ -63,11 +63,11 @@ class AdminController extends Controller
     
     /**
      * @Route("/admin/approve_request/{id}", name="approve_request")
-     * @Method("GET")
      * @Template("AtesUserBundle:Admin:panel.html.twig", vars={"requests","holidays","users"})
      */
     public function approveRequestAction($id)
     {
+        
          $em = $this->getDoctrine()->getManager();
          $vacationRepository = $em->getRepository('AtesVacationBundle:VacationRequest');
          $vacationRequest = $vacationRepository->find($id);
@@ -75,6 +75,9 @@ class AdminController extends Controller
          $user = $userRepository->find($vacationRequest->getUser()->getId());
          $holidaysRepository = $em->getRepository('AtesVacationBundle:Holidays');
          $holidaysList = $holidaysRepository->findAll();
+         
+         //send email 
+         $this->sendEmail($user, $vacationRequest, 'approve');
          
          $holidays = array();
          $i = 0;
@@ -89,7 +92,7 @@ class AdminController extends Controller
                
          $workingDays = $this->getWorkingDays($days, $startDate,$endDate, $holidays);
   
-         $this->createPDF($user,$vacationRequest,$workingDays);
+         //$this->createPDF($user,$vacationRequest,$workingDays);
          
          $vacationRequest->setState('approved');
          $noDaysOffLastYear = $user->getNoDaysOffLastYear();
@@ -116,7 +119,6 @@ class AdminController extends Controller
     
     /**
      * @Route("/admin/approve_user/{id}", name="approve_user")
-     * @Method("GET")
      */
     public function approveUserAction($id) // and sending slava request
     {
@@ -150,7 +152,6 @@ class AdminController extends Controller
     
     /**
      * @Route("/admin/delete_user_on_approving/{id}", name="delete_user_on_approving")
-     * @Method("GET")
      */
     public function deleteUserOnApprovingAction($id)
     {
@@ -164,7 +165,6 @@ class AdminController extends Controller
     
     /**
      * @Route("/admin/reject_request/{id}", name="reject_request")
-     * @Method("GET")
      */
     public function rejectRequestAction($id)
     {
@@ -175,6 +175,11 @@ class AdminController extends Controller
          $vacationRequest->setState('rejected');
           
          $em->flush();
+         
+         
+        //send email
+        $user = $em->getRepository('AtesUserBundle:User')->find($vacationRequest->getUser()->getId());
+        $this->sendEmail($user, $vacationRequest, 'reject');
           
          return $this->redirect($this->generateUrl('show_admin_panel'));
     }
@@ -213,7 +218,6 @@ class AdminController extends Controller
         
     /**
      * @Route("/admin/delete_holiday/{id}", name="delete_holiday")
-     * @Method("GET")
      */
     public function deleteHolidayAction($id)
     {
@@ -227,7 +231,6 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/edit_holiday/{id}", name="edit_holiday_form")
-     * @Method("GET")
      * @Template("AtesUserBundle:Admin:holidayForm.html.twig", vars={"form"})
      */
     public function editHolidayAction($id)
@@ -392,17 +395,24 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('show_admin_panel'));
     }
     
-    
-    /**
-     * @Route("/admin/pom", name="admin_pom")
-     */
-    public function pomAction()
-    {
-        $thisYear = new \DateTime("now");
-        
-        $slavaUserInfo = new \DateTime('2068-06-15');
-        $finalDate = $thisYear->format("Y").'-'.$slavaUserInfo->format("m").'-'.$slavaUserInfo->format("d");
-        
-        return new Response($finalDate);
+    function sendEmail($user, $vacationRequest, $requestState)
+    {        
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Ates - Vacation Request')
+            ->setFrom('vacations@ates.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'AtesUserBundle:Admin:emaiRequestAction.html.twig',
+                    array(
+                        'user' => $user,
+                        'request' => $vacationRequest,
+                        'request_state' => $requestState
+                    )
+                )
+            )
+        ;
+        $this->get('mailer')->send($message);
     }
+   
 }
