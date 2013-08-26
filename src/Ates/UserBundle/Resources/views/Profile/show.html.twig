@@ -47,20 +47,20 @@
     
     <div class="span9">
         
-          <select id="requestsFilterProfile inout-block-level">
+          <select id="requestsFilterProfile">
             <option>all</option>
             <option>pending</option>
             <option>approved</option>
           </select>
           
+        <div id="userRequestResults">
           <table class="table table-striped">
             <thead>
               <tr>
                   <th>Status</th>
                   <th>From</th>
                   <th>To</th>
-                  <th></th>
-                  <th></th>
+                  <th>Edit / Pdf</th>
               </tr>   
             </thead>
             <tbody>
@@ -74,12 +74,15 @@
                          {% endif %}
                          {% if (request.getState == 'pending' )%}
                             <td><a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a></td>  
-                         {% endif %}
+                        {% else %}
+                            <td></td>
+                        {% endif %}
 
                     </tr> 
                 {% endfor %}
             </tbody>
           </table>
+        </div>
         
 
     </div>

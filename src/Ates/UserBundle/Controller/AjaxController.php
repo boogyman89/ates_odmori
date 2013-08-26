@@ -22,9 +22,8 @@ class AjaxController extends Controller
      * @Template("AtesUserBundle:Ajax:requests.html.twig", vars={"all_requests"})
      */
     public function findRequestsAction()
-    {       
-         echo "pocetak";
-         
+    {
+
         $request = $this->getRequest();
         
         $first_name = $request->request->get('name');
@@ -49,27 +48,37 @@ class AjaxController extends Controller
         $query = $repository->getQuery();
         $users = $query->getResult();
         
-               
+       
+        
+        
         $allRequests = array();
         foreach($users as $user)
         {
+            /*
             $query = $em->getRepository('AtesVacationBundle:VacationRequest')->createQueryBuilder('r')
-                ->where('r.id_user = :id_u')
+                ->where('r.user_id = :id_u')
                 ->setParameter('id_u', $user->getId())
                 ->orderBy('r.start_date','ASC')
                 ->getQuery();
             $requests = $query->getResult();
             
+            return new Response(count($requests));
+             * 
+             */
+            
+            $requests = $user->getVacationRequests();
+
             $userName = $user->getFirstName().' '.$user->getLastName();
             $allRequests[$userName] = $requests;
         }
         
         
-        
         return array(                    
             'all_requests' => $allRequests
         );
+
          
+        
     }
     
     /**
@@ -77,7 +86,10 @@ class AjaxController extends Controller
      * @Template("AtesUserBundle:Ajax:users.html.twig", vars={"users"})
      */
      public function findUsersAction()
-    {         
+    {
+         
+         
+         //
         $request = $this->getRequest();
         
         $first_name = $request->request->get('name');
@@ -101,9 +113,11 @@ class AjaxController extends Controller
         $query = $repository->getQuery();
         $users = $query->getResult();
         
+        
         return array(                    
                 'users' => $users
             );
+          
     }
     
     /**
@@ -114,26 +128,34 @@ class AjaxController extends Controller
     {
        
        $user = $this->container->get('security.context')->getToken()->getUser();
+       $requests = $user->getVacationRequests();
        
-       $em = $this->getDoctrine()->getManager();
+       /*
+        * $em = $this->getDoctrine()->getManager();
        if($filter != 'all')
        {
+           //return new Response('ssssssss');
             $query = $em->getRepository('AtesVacationBundle:VacationRequest')->createQueryBuilder('r')
-                 ->where('r.id_user = :id_u')
+                 ->where('r.user_id = :id_u')
                  ->andWhere('r.state = :filter')
                  ->setParameter('id_u', $user->getId())
                  ->setParameter('filter', $filter)
                  ->orderBy('r.start_date','ASC')
                  ->getQuery();
              $requests = $query->getResult();
+             
+             return new Response(count($requests));
        }
        else
        {
-           $requests = $em->getRepository('AtesVacationBundle:VacationRequest')->findBy(array( 'id_user' => $user->getId()));
+           $requests = $user->getVacationRequests();
        }
+        * 
+        */
        
         return array(                    
-            'requests' => $requests
+            'requests' => $requests,
+            'filter' => $filter
         );
          
         //return new Response($filter);

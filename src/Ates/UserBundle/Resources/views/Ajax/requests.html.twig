@@ -1,15 +1,28 @@
 {% for name, requests in all_requests %}
-  <h3>{{ name }}</h3>
-  <ul>
-    {% for request in requests %}
-      <li> 
-          {{ request.getState }} 
-          {{ request.getStartDate|date('Y-m-d') }}  
-          {{ request.getEndDate|date('Y-m-d') }}  
-          <a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> 
-          <a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a>
-          <a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a>
-      </li>
-    {% endfor %}
-  </ul>
+    <h3>{{ name }}</h3>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Edit</th>
+                <th>Approve</th>
+                <th>Reject</th>
+            </tr>   
+        </thead>
+        <tbody>
+            {% for request in requests %}
+                <tr> 
+                    <td>{{ request.getState }} </td>
+                    <td>{{ request.getStartDate|date('Y-m-d') }} </td> 
+                    <td>{{ request.getEndDate|date('Y-m-d') }}  </td>
+                    <td><a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> </td>
+                    <td><a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a></td>
+                    <td><a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endfor %}

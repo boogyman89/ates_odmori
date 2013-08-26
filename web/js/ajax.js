@@ -30,8 +30,9 @@ $(document).ready(function() {
      workerName = $('#searchUserName').val();
      workerLastName = $('#searchUserLastName').val();
      
+     //alert(workerName);
      $.post('ajax/admin_find_users',{ name: workerName, last_name: workerLastName },  function(data) {
-
+         //alert(data);
          if(data !== '')
          {
             $('#usersResult').html(data);
@@ -47,11 +48,11 @@ $(document).ready(function() {
   
    //filter requests on profile page
    $("#requestsFilterProfile").on('change', function(){
-       // alert ('promenjeno');
+      //alert ('promenjeno');
         
         var filter = $(this).val();
         
-        $.get('ajax/find_user_requests/'+filter, function(data){
+        $.get('../ajax/find_user_requests/'+filter, function(data){
             //alert(data);
             if(data !== '')
             {
@@ -64,6 +65,7 @@ $(document).ready(function() {
             }
         });
     });
+    
     
   
 });

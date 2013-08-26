@@ -1,7 +1,31 @@
-{% for request in requests %}
-    <p> 
-        {{ request.getState }} 
-        {{ request.getStartDate|date('Y-m-d') }}  
-        {{ request.getEndDate|date('Y-m-d') }}  
-    </p>
-{% endfor %}
+<table class="table table-striped">
+    <thead>
+      <tr>
+          <th>Status</th>
+          <th>From</th>
+          <th>To</th>
+          <th></th>
+          <th></th>
+      </tr>   
+    </thead>
+    <tbody>
+      {% for request in requests %}
+            {% if request.getState == filter or filter == 'all' %}
+                <tr> 
+                    <td>{{ request.getState }}</td> 
+                    <td>{{ request.getStartDate|date('Y-m-d') }} </td>  
+                    <td>{{ request.getEndDate|date('Y-m-d') }} </td> 
+                    {% if (request.getPdf != null )%}
+                        <td><a href=' {{ request.getPdf }} '>PDF</a></td>
+                     {% endif %}
+                     {% if (request.getState == 'pending' )%}
+                        <td><a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a></td>  
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                </tr> 
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
