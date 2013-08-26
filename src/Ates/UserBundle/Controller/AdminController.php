@@ -19,6 +19,8 @@ use Ates\UserBundle\Form\Type\EditUserType;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use FOS\UserBundle\Util\UserManipulator;
+use Knp\Snappy\Pdf;
+
 
 class AdminController extends Controller
 {
@@ -72,12 +74,11 @@ class AdminController extends Controller
          $vacationRepository = $em->getRepository('AtesVacationBundle:VacationRequest');
          $vacationRequest = $vacationRepository->find($id);
          $userRepository = $em->getRepository('AtesUserBundle:User');
+
          $user = $userRepository->find($vacationRequest->getUser()->getId());
+
          $holidaysRepository = $em->getRepository('AtesVacationBundle:Holidays');
-         $holidaysList = $holidaysRepository->findAll();
-         
-         //send email 
-         $this->sendEmail($user, $vacationRequest, 'approve');
+         $holidaysList = $holidaysRepository->findAll();         
          
          $holidays = array();
          $i = 0;
@@ -91,28 +92,44 @@ class AdminController extends Controller
          $days = $endDate->diff($startDate)->days;
                
          $workingDays = $this->getWorkingDays($days, $startDate,$endDate, $holidays);
-  
-         //$this->createPDF($user,$vacationRequest,$workingDays);
-         
+
          $vacationRequest->setState('approved');
+         $vacationRequest->setPdf($user->getID() . "req" . $vacationRequest->getId() . ".pdf");
+          
          $noDaysOffLastYear = $user->getNoDaysOffLastYear();
-         if($noDaysOffLastYear != 0)
+         if($noDaysOffLastYear > 0)
          {
              if($noDaysOffLastYear >= $workingDays)
              {
                  $noDaysOffLastYear -= $workingDays;
-             }
+                 $workingDays = 0;
+             }            
              else
              {
-                 $noDaysOffLastYear = 0;
                  $workingDays -= $noDaysOffLastYear;
+                 $noDaysOffLastYear = 0;                 
              }
-         }
+         }         
+         
          $user->setNoDaysOffLastYear($noDaysOffLastYear);
          $user->setNoDaysOff($user->getNoDaysOff() - $workingDays);
                
          $em->flush();
           
+         $path = "PDF/" . $user->getID() . "req" . $vacationRequest->getId() . ".pdf";
+                  
+         $this->get('knp_snappy.pdf')->generateFromHtml(
+            $this->renderView(
+                'AtesVacationBundle:Request:pdfTemplate.html.twig'
+            ),
+            $path
+         );
+         
+         
+         //send email 
+         $this->sendEmail($user, $vacationRequest, 'approve');        
+        
+         
          return $this->redirect($this->generateUrl('show_admin_panel'));
     }
     
@@ -207,13 +224,10 @@ class AdminController extends Controller
               return $this->redirect($this->generateUrl('show_admin_panel'));
           }
           
-            $activeUser = $this->getUser();
-            $roles = $activeUser->getRoles();
-            return array(
-                'form' => $form->createView(),
-                'user' => $activeUser,
-                'roles' => $roles
-            );
+          return array(
+              'form' => $form->createView(), 
+              'user' => $this->getUser(), 
+              'roles' => $this->getUser()->getRoles() );
     }
         
     /**

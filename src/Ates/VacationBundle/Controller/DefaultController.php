@@ -38,16 +38,11 @@ class DefaultController extends Controller
            $em->flush();
           
            return $this->redirect($this->generateUrl('fos_user_profile_show'));
-       }
-       
-        $activeUser = $this->getUser();
-        $roles = $activeUser->getRoles();
-        return array(
-            'form' => $form->createView(),
-            'user' => $activeUser,
-            'roles' => $roles
-        );
-
+       } 
+       return array(
+           'form' => $form->createView(), 
+           'user' => $this->getUser(), 
+           'roles' => $this->getUser()->getRoles());
     }
 
     
