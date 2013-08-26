@@ -19,6 +19,8 @@ use Ates\UserBundle\Form\Type\EditUserType;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use FOS\UserBundle\Util\UserManipulator;
+use Knp\Snappy\Pdf;
+
 
 class AdminController extends Controller
 {
@@ -90,10 +92,10 @@ class AdminController extends Controller
          $days = $endDate->diff($startDate)->days;
                
          $workingDays = $this->getWorkingDays($days, $startDate,$endDate, $holidays);
-  
-         $this->createPDF($user,$vacationRequest,$workingDays);
-         
+          
          $vacationRequest->setState('approved');
+         $vacationRequest->setPdf($user->getID() . "req" . $vacationRequest->getId() . ".pdf");
+          
          $noDaysOffLastYear = $user->getNoDaysOffLastYear();
          if($noDaysOffLastYear > 0)
          {
@@ -114,6 +116,17 @@ class AdminController extends Controller
                
          $em->flush();
           
+         $path = "PDF/" . $user->getID() . "req" . $vacationRequest->getId() . ".pdf";
+                  
+         $this->get('knp_snappy.pdf')->generateFromHtml(
+            $this->renderView(
+                'AtesVacationBundle:Request:pdfTemplate.html.twig'
+            ),
+            $path
+                 );
+         
+        
+         
          return $this->redirect($this->generateUrl('show_admin_panel'));
     }
     

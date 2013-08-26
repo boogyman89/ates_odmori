@@ -21,6 +21,7 @@
       <parameter key="AtesUserBundle">Ates\UserBundle\AtesUserBundle</parameter>
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
       <parameter key="BcBootstrapBundle">Bc\Bundle\BootstrapBundle\BcBootstrapBundle</parameter>
+      <parameter key="KnpSnappyBundle">Knp\Bundle\SnappyBundle\KnpSnappyBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
@@ -530,6 +531,16 @@
       <parameter>ResetPassword</parameter>
       <parameter>Default</parameter>
     </parameter>
+    <parameter key="knp_snappy.pdf.internal_generator.class">Knp\Snappy\Pdf</parameter>
+    <parameter key="knp_snappy.pdf.class">Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator</parameter>
+    <parameter key="knp_snappy.pdf.binary">C:\"Program Files (x86)"\wkhtmltopdf\wkhtmltopdf.exe</parameter>
+    <parameter key="knp_snappy.pdf.options" type="collection"/>
+    <parameter key="knp_snappy.pdf.env" type="collection"/>
+    <parameter key="knp_snappy.image.internal_generator.class">Knp\Snappy\Image</parameter>
+    <parameter key="knp_snappy.image.class">Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator</parameter>
+    <parameter key="knp_snappy.image.binary">wkhtmltoimage</parameter>
+    <parameter key="knp_snappy.image.options" type="collection"/>
+    <parameter key="knp_snappy.image.env" type="collection"/>
     <parameter key="web_profiler.controller.profiler.class">Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController</parameter>
     <parameter key="web_profiler.controller.router.class">Symfony\Bundle\WebProfilerBundle\Controller\RouterController</parameter>
     <parameter key="web_profiler.controller.exception.class">Symfony\Bundle\WebProfilerBundle\Controller\ExceptionController</parameter>
@@ -2765,7 +2776,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>520cd25bd1ddc</argument>
+            <argument>521b32256fb6d</argument>
           </service>
         </argument>
       </argument>
@@ -3031,7 +3042,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>520cd25bd1ddc</argument>
+            <argument>521b32256fb6d</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3880,6 +3891,28 @@
     <service id="bc_bootstrap.twig.badge_extension" class="Bc\Bundle\BootstrapBundle\Twig\BootstrapBadgeExtension">
       <tag name="twig.extension"/>
     </service>
+    <service id="knp_snappy.pdf" class="Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator">
+      <tag name="monolog.logger" channel="snappy"/>
+      <argument type="service">
+        <service class="Knp\Snappy\Pdf" public="false">
+          <argument>C:\"Program Files (x86)"\wkhtmltopdf\wkhtmltopdf.exe</argument>
+          <argument type="collection"/>
+          <argument type="collection"/>
+        </service>
+      </argument>
+      <argument type="service" id="monolog.logger.snappy" on-invalid="null"/>
+    </service>
+    <service id="knp_snappy.image" class="Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator">
+      <tag name="monolog.logger" channel="snappy"/>
+      <argument type="service">
+        <service class="Knp\Snappy\Image" public="false">
+          <argument>wkhtmltoimage</argument>
+          <argument type="collection"/>
+          <argument type="collection"/>
+        </service>
+      </argument>
+      <argument type="service" id="monolog.logger.snappy" on-invalid="null"/>
+    </service>
     <service id="web_profiler.controller.profiler" class="Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController">
       <argument type="service" id="router" on-invalid="null"/>
       <argument type="service" id="profiler" on-invalid="null"/>
@@ -4074,6 +4107,21 @@
     </service>
     <service id="monolog.logger.doctrine" class="Symfony\Bridge\Monolog\Logger">
       <argument>doctrine</argument>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.chromephp"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.firephp"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.debug"/>
+      </call>
+    </service>
+    <service id="monolog.logger.snappy" class="Symfony\Bridge\Monolog\Logger">
+      <argument>snappy</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.chromephp"/>
       </call>

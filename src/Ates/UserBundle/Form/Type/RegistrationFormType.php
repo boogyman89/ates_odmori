@@ -12,7 +12,7 @@ class RegistrationFormType extends BaseType
         parent::buildForm($builder, $options);
 
         // add your custom field
-        $builder->add('first_name', 'text', array('attr' => array('class' => 'input-block-level login-input-extra')));
+        $builder->add('first_name');
         $builder->add('last_name');
         $builder->add('ssn');
         $builder->add('address');
