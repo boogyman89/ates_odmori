@@ -8,7 +8,7 @@
     {{ parent() }}
     <style type="text/css">
         body {
-          padding-top: 60px;
+          padding-top: 20px;
           padding-bottom: 40px;
         }
         
@@ -16,20 +16,19 @@
     <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}">
 {% endblock stylesheets %}
     
-{% block navigation %}
-    {{ include('::navigation.html.twig',{ 'user': user, 'roles': roles } ) }}
-{% endblock navigation %}
-    
 {% block container %}
 
 
-<div class="form-signin registration-input-width" >
-    <h2 class="form-signin-heading text-center">Edit User</h2>
+<form class="form-signin registration-input-width" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    <h2 class="form-signin-heading text-center">Registration</h2>
     
-    {{ form(form) }}
+    {{ form_widget(form) }}
     
     
-</div>
+    <div>
+        <input class="btn btn-primary btn-block btn-large marginTop20" type="submit" value="{{ 'registration.submit'|trans }}" />
+    </div>
+</form>
 {% endblock container %}
 
 {% block javascripts %}
@@ -70,4 +69,3 @@
         });
     </script>
 {% endblock javascripts %}
-

@@ -72,8 +72,9 @@ class AdminController extends Controller
          $vacationRepository = $em->getRepository('AtesVacationBundle:VacationRequest');
          $vacationRequest = $vacationRepository->find($id);
          $userRepository = $em->getRepository('AtesUserBundle:User');
-       //  $user = $userRepository->find($vacationRequest->getIdUser());
-         $user = $vacationRequest->getUser();
+
+         $user = $userRepository->find($vacationRequest->getUser()->getId());
+
          $holidaysRepository = $em->getRepository('AtesVacationBundle:Holidays');
          $holidaysList = $holidaysRepository->findAll();
          
@@ -171,7 +172,7 @@ class AdminController extends Controller
      */
     public function rejectRequestAction($id)
     {
-          $em = $this->getDoctrine()->getManager();
+         $em = $this->getDoctrine()->getManager();
          $repository = $em->getRepository('AtesVacationBundle:VacationRequest');
          $vacationRequest = $repository->find($id);
           
@@ -184,7 +185,7 @@ class AdminController extends Controller
     
     /**
      * @Route("/admin/add_holiday", name="add_holiday")
-     * @Template("AtesVacationBundle:Request:anyForm.html.twig", vars={"form"})
+     * @Template("AtesUserBundle:Admin:holidayForm.html.twig", vars={"form"})
      */
     public function addHolidayAction()
     {
@@ -205,7 +206,10 @@ class AdminController extends Controller
               return $this->redirect($this->generateUrl('show_admin_panel'));
           }
           
-          return array('form' => $form->createView(), 'user' => $this->getUser(), 'roles' => $this->getUser()->getRoles() );
+          return array(
+              'form' => $form->createView(), 
+              'user' => $this->getUser(), 
+              'roles' => $this->getUser()->getRoles() );
     }
         
     /**
@@ -225,7 +229,7 @@ class AdminController extends Controller
     /**
      * @Route("/admin/edit_holiday/{id}", name="edit_holiday_form")
      * @Method("GET")
-     * @Template("AtesVacationBundle:Request:anyForm.html.twig", vars={"form"})
+     * @Template("AtesUserBundle:Admin:holidayForm.html.twig", vars={"form"})
      */
     public function editHolidayAction($id)
     {
@@ -247,7 +251,13 @@ class AdminController extends Controller
         }                  
         $form->setData($holiday);
               
-        return array('form' => $form->createView());
+        $activeUser = $this->getUser();
+        $roles = $activeUser->getRoles();
+        return array(
+            'form' => $form->createView(),
+            'user' => $activeUser,
+            'roles' => $roles
+        );
     }
     
 
@@ -331,7 +341,7 @@ class AdminController extends Controller
         $pdf->Output($path,"F");
        
         $url = "http://localhost/" . $path;
-        echo $url;
+        //echo $url;
         $vacationRequest->setPdf($url);
       //  return $this->redirect('http://localhost/pdf/simple.pdf');
     }
@@ -359,8 +369,12 @@ class AdminController extends Controller
             return $this->redirect($this->generateUrl('show_admin_panel'));
         }
         
+        $activeUser = $this->getUser();
+        $roles = $activeUser->getRoles();
         return array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $activeUser,
+            'roles' => $roles
         );
     }
     
@@ -377,5 +391,19 @@ class AdminController extends Controller
         $manipulator->promote($username);
         
         return $this->redirect($this->generateUrl('show_admin_panel'));
+    }
+    
+    
+    /**
+     * @Route("/admin/pom", name="admin_pom")
+     */
+    public function pomAction()
+    {
+        $thisYear = new \DateTime("now");
+        
+        $slavaUserInfo = new \DateTime('2068-06-15');
+        $finalDate = $thisYear->format("Y").'-'.$slavaUserInfo->format("m").'-'.$slavaUserInfo->format("d");
+        
+        return new Response($finalDate);
     }
 }

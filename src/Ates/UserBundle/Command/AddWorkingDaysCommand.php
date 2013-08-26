@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Ates\VacationBundle\Entity\VacationRequest;
 
 
 class AddWorkingDaysCommand extends ContainerAwareCommand
@@ -37,8 +38,29 @@ class AddWorkingDaysCommand extends ContainerAwareCommand
             $user->setNoDaysOffLastYear($user->getNoDaysOff());
             $user->setNoDaysOff($nbr_days_off);
             
-           // $em->persist($user);
-           // $em->flush();
+            //send slava request for this year
+            $thisYear = new \DateTime("now");   
+            $date_of_slava = $user->getDateOfSlava();
+            $this_year_slava_date = $thisYear->format("Y").'-'.$date_of_slava->format("m").'-'.$date_of_slava->format("d");
+            
+            $vacationRequest = new VacationRequest();
+            $date_of_slava = new \DateTime($this_year_slava_date);
+            $date_of_slava_ends = new \DateTime($this_year_slava_date);
+            $date_of_slava_ends->modify('+1 day');
+            
+            $today = new \DateTime("now");
+            $vacationRequest->setStartDate($date_of_slava); 
+            $vacationRequest->setEndDate($date_of_slava_ends);
+            $vacationRequest->setIdUser($user->getId());
+            $vacationRequest->setSubmitted($today);
+            $vacationRequest->setState("approved");
+            $vacationRequest->setEditTime($today);
+
+            
+            $em->persist($vacationRequest);
+
+            //$em->flush();
+            
         }
         
         $em->flush();
