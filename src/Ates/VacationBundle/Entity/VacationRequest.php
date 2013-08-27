@@ -65,7 +65,11 @@ class VacationRequest
      */
     protected $comment;
     
-
+    /**
+     * @ORM\Column(type="integer", nullable = true)
+     */
+    protected $number_of_working_days;
+    
     public function __construct()
     {
         $this->state = 'pending';
@@ -332,5 +336,28 @@ class VacationRequest
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Set numberOfWorkingDays
+     *
+     * @param integer $numberOfWorkingDays
+     * @return VacationRequest
+     */
+    public function setNumberOfWorkingDays($numberOfWorkingDays)
+    {
+        $this->number_of_working_days = $numberOfWorkingDays;
+    
+        return $this;
+    }
+
+    /**
+     * Get numberOfWorkingDays
+     *
+     * @return integer 
+     */
+    public function getNumberOfWorkingDays()
+    {
+        return $this->number_of_working_days;
     }
 }

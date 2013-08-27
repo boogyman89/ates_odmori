@@ -1,5 +1,12 @@
 $(document).ready(function() {
   
+  //popup for vacationrequest comment
+  $('.comment').hover(function(){
+     $('.comment').popover('destroy'); 
+     $(this).popover('show');      
+  }
+  );
+  
   //find requests  
   $('#filterRequestButton').on('click', function(){
      

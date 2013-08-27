@@ -27,13 +27,30 @@ class DefaultController extends Controller
        $form->handleRequest($request);
        
        if($form->isValid()) 
-       {                  
-                               
+       {     
+           $em = $this->getDoctrine()->getManager();                              
            $user = $this->getUser();         
            $vacationRequest = $form->getData();
            $vacationRequest->setUser($user);      
-                                       
-           $em = $this->getDoctrine()->getManager();
+                               
+           $startDate = $vacationRequest->getStartDate();
+           $endDate = $vacationRequest->getEndDate();
+           $days = $endDate->diff($startDate)->days;
+
+           $holidaysRepository = $em->getRepository('AtesVacationBundle:Holidays');
+           $holidaysList = $holidaysRepository->findAll();
+           
+            $holidays = array();
+            $i = 0;
+            foreach ($holidaysList as $holiday)
+            {
+               $holidays[] = $holiday->getDate();
+            }
+         
+           $workingDays = $this->getWorkingDays($days, $startDate,$endDate, $holidays);
+           
+           $vacationRequest->setNumberOfWorkingDays($workingDays);
+         
            $em->persist($vacationRequest);
            $em->flush();
           
@@ -62,9 +79,30 @@ class DefaultController extends Controller
         if($form->isValid()) 
         {    
           $vacationRequest = $repository->find($id);
-               
+           
+       //   $vacationRequest = $form->getData();
+       
           $vacationRequest->setStartDate($form->get('start_date')->getData());
           $vacationRequest->setEndDate($form->get('end_date')->getData());
+          $vacationRequest->setComment($form->get('comment')->getData());
+          
+          $holidaysRepository = $em->getRepository('AtesVacationBundle:Holidays');
+          $holidaysList = $holidaysRepository->findAll();
+         
+          $holidays = array();
+          $i = 0;
+          foreach ($holidaysList as $holiday)
+          {
+            $holidays[] = $holiday->getDate();
+          }
+          
+          $startDate = $form->get('start_date')->getData();
+          $endDate = $form->get('end_date')->getData();
+          $days = $endDate->diff($startDate)->days;
+               
+          $workingDays = $this->getWorkingDays($days, $startDate,$endDate, $holidays);
+         
+          $vacationRequest->setNumberOfWorkingDays($workingDays);
           
           $em->flush();     //kraj edita
           
@@ -80,5 +118,67 @@ class DefaultController extends Controller
             'user' => $activeUser,
             'roles' => $roles
         );       
+    }
+    
+    public function getWorkingDays($days,$startDate,$endDate,$holidays)
+    {                     
+        //floor — Round fractions down
+        //fmod — Returns the floating point remainder (modulo) of the division of the arguments
+        $no_full_weeks = floor($days / 7);
+        $no_remaining_days = fmod($days, 7);
+
+        //It will return 1 if it's Monday,.. ,7 for Sunday
+        $the_first_day_of_week = $startDate->format('w');
+        $the_last_day_of_week = $endDate->format('w');
+                
+        if ($the_first_day_of_week <= $the_last_day_of_week) 
+        {
+            if ($the_first_day_of_week <= 6 && 6 <= $the_last_day_of_week) $no_remaining_days--;
+            if ($the_first_day_of_week <= 7 && 7 <= $the_last_day_of_week) $no_remaining_days--;
+        }
+        else
+        {
+            if ($the_first_day_of_week == 7) 
+            {
+                // if the start date is a Sunday, then we definitely subtract 1 day
+                $no_remaining_days--;
+
+                if ($the_last_day_of_week == 6)
+                {
+                    // if the end date is a Saturday, then we subtract another day
+                    $no_remaining_days--;
+                }
+            }
+            else
+            {
+                // the start date was a Saturday (or earlier), and the end date was (Mon..Fri)
+                // so we skip an entire weekend and subtract 2 days
+                $no_remaining_days -= 2;
+            }
+        }                
+        $workingDays = $no_full_weeks * 5;
+        if ($no_remaining_days > 0 )
+        {
+            $workingDays += $no_remaining_days;
+        }
+
+        $startDate = strtotime($startDate->format('T-m-d H:i:s'));
+        $endDate = strtotime($endDate->format('T-m-d H:i:s'));
+        
+        //We subtract the holidays
+        foreach($holidays as $holiday)
+        {         
+            $holidayDayOfTheWeek = $holiday->format('w');
+            $time_stamp=strtotime($holiday->format('T-m-d H:i:s'));
+            //If the holiday doesn't fall in weekend
+            if ($startDate <= $time_stamp 
+                    && $time_stamp <= $endDate 
+                    && $holidayDayOfTheWeek != 6 
+                    && $holidayDayOfTheWeek != 7)
+            {
+                $workingDays--;
+            }
+        }         
+        return $workingDays;
     }
 }

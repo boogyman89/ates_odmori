@@ -49,9 +49,10 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Status</th>
                                     <th>From</th>
                                     <th>To</th>
+                                    <th>Days</th>
+                                    <th>Comment</th>
                                     <th>Edit</th>
                                     <th>Approve</th>
                                     <th>Reject</th>
@@ -61,9 +62,10 @@
                                 {% for  request in requests %}
                                     <tr> 
                                         <td>{{ request.getUser.getFirstName }} {{ request.getUser.getLastName }}</td>
-                                        <td>{{ request.getState }} </td>
-                                        <td>{{ request.getStartDate|date('Y-m-d') }} </td> 
-                                        <td>{{ request.getEndDate|date('Y-m-d') }}  </td>
+                                        <td>{{ request.getStartDate|date('d.m.Y') }} </td> 
+                                        <td>{{ request.getEndDate|date('d.m.Y') }}  </td>
+                                        <td>{{ request.getNumberOfWorkingDays }} </td>
+                                        <td><a class="comment" data-trigger="hover" data-toggle="popover" data-placement="top" data-content={{ request.getComment }} title="" data-original-title="">Show</a></td>
                                         <td><a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> </td>
                                         <td><a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a></td>
                                         <td><a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a></td>
@@ -112,7 +114,7 @@
                                     {% for holiday in holidays %}
                                         <tr> 
                                             <td>{{ holiday.getName }}</td>
-                                            <td>{{ holiday.getDate|date('Y-m-d') }} </td>
+                                            <td>{{ holiday.getDate|date('d.m.Y') }} </td>
                                             <td><a href=' {{ path('edit_holiday_form', {'id' : holiday.id}) }}'>Edit</a></td> 
                                             <td><a href=' {{ path('delete_holiday',  {'id' : holiday.id}) }}'>Delete</a></td>
                                         </tr> 
@@ -163,4 +165,6 @@
 
 {% block javascripts %}
         <script src="{{ asset('js/ajax.js') }}"  type="text/javascript"></script>
+        <script src="{{ asset('js/bootstrap-popover.js') }}"  type="text/javascript"></script>
+        <script src="{{ asset('js/bootstrap-tooltip.js') }}"  type="text/javascript"></script>
 {% endblock javascripts %}

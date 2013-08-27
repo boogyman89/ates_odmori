@@ -77,7 +77,7 @@ class AdminController extends Controller
 
          $user = $userRepository->find($vacationRequest->getUser()->getId());
 
-         $holidaysRepository = $em->getRepository('AtesVacationBundle:Holidays');
+   /*      $holidaysRepository = $em->getRepository('AtesVacationBundle:Holidays');
          $holidaysList = $holidaysRepository->findAll();
          
          $holidays = array();
@@ -87,12 +87,15 @@ class AdminController extends Controller
             $holidays[] = $holiday->getDate();
          }
           
-         $startDate = $vacationRequest->getStartDate();
-         $endDate = $vacationRequest->getEndDate();
-         $days = $endDate->diff($startDate)->days;
-               
+     
          $workingDays = $this->getWorkingDays($days, $startDate,$endDate, $holidays);
-          
+       */
+    
+         $startDate = $vacationRequest->getStartDate();
+                     
+        
+         
+         $workingDays = $vacationRequest->getNumberOfWorkingDays();
          $vacationRequest->setState('approved');
          $vacationRequest->setPdf($user->getID() . "req" . $vacationRequest->getId() . ".pdf");
           
