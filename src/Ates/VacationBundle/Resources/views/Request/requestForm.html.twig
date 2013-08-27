@@ -35,10 +35,12 @@
         
         <input class="start_date_help input-block-level" type="text" placeholder="Start date" /><br/>
         <input class="end_date_help input-block-level" type="text" placeholder="End date" />
-
+              
         {{ form_start(form) }}
             {{ form_errors(form) }}
 
+         {{ form_widget(form.comment) }}
+        
             <div class="hidden">
                 {{ form_label(form.start_date) }}
                 {{ form_errors(form.start_date) }}

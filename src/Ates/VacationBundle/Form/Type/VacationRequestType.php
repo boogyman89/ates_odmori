@@ -12,6 +12,7 @@ class VacationRequestType extends AbstractType
     {
         $builder->add('start_date', 'date', array( 'label' => null, 'widget' => 'single_text'))
                 ->add('end_date', 'date', array( 'label' => null, 'widget' => 'single_text'))
+                ->add('comment', 'textarea', array('attr' => array('class' => 'input-block-level','placeholder' => "Comment", 'rows' => '4')))
                 ->add('Send Request', 'submit', array('attr' => array('class' => 'btn btn-primary btn-block')));
 
                 

@@ -60,6 +60,10 @@ class VacationRequest
      */
     protected $pdf;
     
+    /**
+     * @ORM\Column(type="string", length=300)
+     */
+    protected $comment;
     
 
     public function __construct()
@@ -75,29 +79,6 @@ class VacationRequest
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set id_user
-     *
-     * @param integer $idUser
-     * @return Request
-     */
-    public function setIdUser($idUser)
-    {
-        $this->id_user = $idUser;
-    
-        return $this;
-    }
-
-    /**
-     * Get id_user
-     *
-     * @return integer 
-     */
-    public function getIdUser()
-    {
-        return $this->id_user;
     }
 
     /**

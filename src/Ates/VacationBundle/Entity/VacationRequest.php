@@ -60,6 +60,10 @@ class VacationRequest
      */
     protected $pdf;
     
+    /**
+     * @ORM\Column(type="string", length=300)
+     */
+    protected $comment;
     
 
     public function __construct()
@@ -305,5 +309,28 @@ class VacationRequest
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return VacationRequest
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

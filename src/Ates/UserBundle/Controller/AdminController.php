@@ -116,11 +116,18 @@ class AdminController extends Controller
                
          $em->flush();
           
+         $year = $startDate->format('Y');
          $path = "PDF/" . $user->getID() . "req" . $vacationRequest->getId() . ".pdf";
                   
          $this->get('knp_snappy.pdf')->generateFromHtml(
             $this->renderView(
-                'AtesVacationBundle:Request:pdfTemplate.html.twig'
+                'AtesVacationBundle:Request:pdfTemplate.html.twig',
+                    array(
+                        'user' => $user,
+                        'year' => $year,
+                        'request' => $vacationRequest,
+                        'numberOfDays' => $workingDays
+                    )
             ),
             $path
                  );
