@@ -22,13 +22,8 @@ class ProfileController extends BaseController
             throw new AccessDeniedException('This user does not have access to this section.');
         }
         $roles = $user->getRoles();
-        
-        $repository = $this->container->get('doctrine')
-          ->getRepository('AtesVacationBundle:VacationRequest');
-        
         $requests = $user->getVacationRequests();
-       
-                        
+
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'), array(
             'user' => $user, 
             'requests' => $requests,

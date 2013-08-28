@@ -60,11 +60,8 @@
          */
         protected $date_of_slava;
         
-        /**
-         * @ORM\Column(type="integer")
-         */
         protected $no_days_off_last_year;
- 
+
         /**
          *
          * @ORM\OneToMany(targetEntity="Ates\VacationBundle\Entity\VacationRequest", mappedBy="user")
@@ -92,7 +89,6 @@
         $this->no_days_off = 20;
         $this->no_days_off_last_year = 0;
         $this->locked = true;
-        $this->vacation_requests = new ArrayCollection();
     }
     
     /**

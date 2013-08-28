@@ -11,15 +11,12 @@ class ProfileFormType extends BaseType
     {
         parent::buildForm($builder, $options);
 
-        // add your custom field
         $builder->add('first_name');
         $builder->add('last_name');
         $builder->add('ssn');
         $builder->add('address');
         $builder->add('phone');
-        //$builder->add('date_of_employment');
-        //$builder->add('no_days_off');
-        
+
     }
 
     public function getName()

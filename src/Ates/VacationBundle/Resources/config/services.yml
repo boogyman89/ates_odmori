@@ -2,6 +2,7 @@ parameters:
 #    ates_store.example.class: Ates\StoreBundle\Example
 
 services:
-#    ates_store.example:
-#        class: %ates_store.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    worktime.form.type.vacation_request:
+        class: \Ates\VacationBundle\Form\Type\VacationRequestType
+        tags:
+            - { name: form.type, alias: vacation_request }
