@@ -518,12 +518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "e96cbd02225541821cebd0f4a3fc8e1fe9e1c71e"
+                "reference": "763c8406f0e07f912911d6dc113f210125cf38e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/e96cbd02225541821cebd0f4a3fc8e1fe9e1c71e",
-                "reference": "e96cbd02225541821cebd0f4a3fc8e1fe9e1c71e",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/763c8406f0e07f912911d6dc113f210125cf38e1",
+                "reference": "763c8406f0e07f912911d6dc113f210125cf38e1",
                 "shasum": ""
             },
             "require": {
@@ -590,7 +590,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2013-08-14 20:38:51"
+            "time": "2013-08-24 17:38:36"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -885,12 +885,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafo/lessphp.git",
-                "reference": "v0.4.0"
+                "reference": "51f3f06f0fe78a722dabfd14578444bdd078d9de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/lessphp/zipball/v0.4.0",
-                "reference": "v0.4.0",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/51f3f06f0fe78a722dabfd14578444bdd078d9de",
+                "reference": "51f3f06f0fe78a722dabfd14578444bdd078d9de",
                 "shasum": ""
             },
             "type": "library",

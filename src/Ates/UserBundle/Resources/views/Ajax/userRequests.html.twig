@@ -9,12 +9,13 @@
       </tr>   
     </thead>
     <tbody>
-      {% for request in requests %}
+        
+      {% for request in requests.currentPageResults %}
             {% if request.getState == filter or filter == 'all' %}
                 <tr> 
                     <td>{{ request.getState }}</td> 
-                    <td>{{ request.getStartDate|date('Y-m-d') }} </td>  
-                    <td>{{ request.getEndDate|date('Y-m-d') }} </td> 
+                    <td>{{ request.getStartDate|date('d-m-Y') }} </td>  
+                    <td>{{ request.getEndDate|date('d-m-Y') }} </td> 
                     {% if (request.getPdf != null )%}
                         <td><a href=' {{ request.getPdf }} '>PDF</a></td>
                      {% endif %}
@@ -27,5 +28,7 @@
                 </tr> 
             {% endif %}
         {% endfor %}
+                
     </tbody>
 </table>
+{{ pagerfanta(requests, 'default') }}

@@ -13,9 +13,27 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 class ProfileController extends BaseController
 {    
-    public function showAction()
+    const MAX = 5;
+    
+    /**
+    * @Route("/profile/{page}", name="fos_user_profile_show", requirements={"page" = "\d+"}, defaults={"page" = 1} )
+    * @Template("AtesUserBundle:Profile:show.html.twig", vars={"requests","roles","user"})
+    * @param int $page 
+    */
+    public function showAction($page = null)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -23,20 +41,45 @@ class ProfileController extends BaseController
         }
         $roles = $user->getRoles();
         
-        $repository = $this->container->get('doctrine')
-          ->getRepository('AtesVacationBundle:VacationRequest');
+        $em = $this->container->get('doctrine')->getManager();
+        $queryBuilder = $em->createQueryBuilder()
+            ->select('r')
+            ->from('AtesVacationBundle:VacationRequest', 'r')
+            ->where('r.user = :user')
+            ->setParameter('user', $user);
+
         
-        $requests = $user->getVacationRequests();
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+//        $requests = $repository->findAll();
        
+        //$adapter = new DoctrineORMAdapter($requests);
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setMaxPerPage(self::MAX);    // We fix the number of results to 15 in each page.
+        $pagerfanta->setCurrentPage(1);  
+
+        // if $page doesn't exist, we fix it to 1
+       if( !$page ) {
+            $page = 1;
+       }
+
+        try {
+            $pagerfanta->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
+        }
                         
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'), array(
+        return array(
             'user' => $user, 
-            'requests' => $requests,
+            'requests' => $pagerfanta,
             'roles' => $roles
-        ));
+        );
     } 
     
     
+    /**
+    * @Route("/profile/edit", name="fos_user_profile_edit")
+    * @Template("AtesUserBundle:Profile:edit.html.twig", vars={"form","roles","user"})
+    */
     public function editAction(Request $request)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();

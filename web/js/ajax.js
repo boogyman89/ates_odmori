@@ -52,7 +52,7 @@ $(document).ready(function() {
         
         var filter = $(this).val();
         
-        $.get('../ajax/find_user_requests/'+filter, function(data){
+        $.get(EmpoloyeeVacation.routes.ajax_find_user_request_base + '/' + filter, function(data){
             //alert(data);
             if(data !== '')
             {
@@ -65,6 +65,9 @@ $(document).ready(function() {
             }
         });
     });
+    
+    
+    
     
     
   

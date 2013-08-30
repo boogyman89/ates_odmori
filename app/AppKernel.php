@@ -21,7 +21,8 @@ class AppKernel extends Kernel
             new Ates\UserBundle\AtesUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
-			new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
