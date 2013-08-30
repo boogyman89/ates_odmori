@@ -13,10 +13,6 @@ class VacationRequestType extends AbstractType
         $builder->add('start_date', 'date', array( 'label' => null, 'widget' => 'single_text'))
                 ->add('end_date', 'date', array( 'label' => null, 'widget' => 'single_text'))
                 ->add('Send Request', 'submit', array('attr' => array('class' => 'btn btn-primary btn-block')));
-
-                
-             //   ->add('submitted', 'datetime', array('label' => " ", 'data' =>
-             //       (new \DateTime("NOW")), 'attr' => array('style' => 'display:none;')));
     }
     
     public function setDefaultOptions(OptionsResolverInterface $resolver)

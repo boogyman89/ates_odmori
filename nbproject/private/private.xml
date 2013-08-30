@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/D:/xampp/htdocs/employees_vacations/src/Ates/UserBundle/Controller/AjaxController.php</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/app/config/config.yml</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/app/config/security.yml</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/web/js/ajax.js</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/src/Ates/UserBundle/Resources/views/layout.html.twig</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/app/Resources/views/base.html.twig</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/src/Ates/VacationBundle/Model/vacationRequestModel.php</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/src/Ates/VacationBundle/Form/Type/VacationRequestType.php</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/app/Resources/views/navigation.html.twig</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/web/js/jquery_jquery-1.9.1_1.js</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/composer.json</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/src/Ates/UserBundle/Resources/views/Security/login.html.twig</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/src/Ates/UserBundle/Controller/DefaultController.php</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/src/Ates/UserBundle/Controller/SecurityController.php</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/src/Ates/UserBundle/Controller/AdminController.php</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ProfileController.php</file>
+        <file>file:/D:/xampp/htdocs/employees_vacations/src/Ates/UserBundle/Entity/User.php</file>
+    </open-files>
 </project-private>

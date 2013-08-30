@@ -50,14 +50,10 @@ class ProfileController extends BaseController
 
         
         $adapter = new DoctrineORMAdapter($queryBuilder);
-//        $requests = $repository->findAll();
-       
-        //$adapter = new DoctrineORMAdapter($requests);
         $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(self::MAX);    // We fix the number of results to 15 in each page.
+        $pagerfanta->setMaxPerPage(self::MAX);
         $pagerfanta->setCurrentPage(1);  
 
-        // if $page doesn't exist, we fix it to 1
        if( !$page ) {
             $page = 1;
        }

@@ -6,8 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ates\VacationBundle\Form\Type\HolidaysType;
 use Ates\VacationBundle\Entity\Holidays;
 use Ates\VacationBundle\Entity\VacationRequest;
-require('fpdf/fpdf.php');
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
