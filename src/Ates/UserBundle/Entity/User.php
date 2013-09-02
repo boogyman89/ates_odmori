@@ -5,6 +5,7 @@
     use Doctrine\ORM\Mapping as ORM;
     use Doctrine\Common\Collections\ArrayCollection;
     use Gedmo\Mapping\Annotation as Gedmo;
+    use Symfony\Component\Validator\Constraints as Assert;
 
     /**
      * @ORM\Entity
@@ -22,41 +23,64 @@
 
         /**
         * @ORM\Column(type="string", length=50)
+        * @Assert\Length(
+        *      min = "2",
+        *      max = "50",
+        *      minMessage = "Your first name must be at least {{ limit }} characters length",
+        *      maxMessage = "Your first name cannot be longer than {{ limit }} characters length"
+        * )
         */
         protected $first_name;
 
         /**
         * @ORM\Column(type="string", length=50)
+        * @Assert\Length(
+        *      min = "2",
+        *      max = "50",
+        *      minMessage = "Your first name must be at least {{ limit }} characters length",
+        *      maxMessage = "Your first name cannot be longer than {{ limit }} characters length"
+        * )
         */
         protected $last_name;
 
         /**
          * @ORM\Column(type="string", length=20)
+         * @Assert\NotBlank()
          */
         protected $ssn;
 
         /**
          * @ORM\Column(type="string", length=50)
+         * @Assert\NotBlank()
          */
         protected $address;
 
         /**
          * @ORM\Column(type="string", length=20)
+         * @Assert\NotNull()
          */
         protected $phone;
 
         /**
          * @ORM\Column(type="date")
+         * @Assert\DateTime()
          */
         protected $date_of_employment;
 
         /**
          * @ORM\Column(type="integer")
+         * @Assert\Range(
+         *      min = 120,
+         *      max = 180,
+         *      minMessage = "You must be at least 120cm tall to enter",
+         *      maxMessage = "You cannot be taller than 180cm to enter"
+         * )
          */
         protected $no_days_off;
         
         /**
          * @ORM\Column(type="date")
+         * @Assert\DateTime()
          */
         protected $date_of_slava;
         

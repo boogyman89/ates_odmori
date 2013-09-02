@@ -24,17 +24,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+use Ates\VacationBundle\Model\vacationRequestModel;
+
 class ProfileController extends BaseController
 {    
     const MAX = 5;
     
     /**
-    * @Route("/profile/{page}", name="fos_user_profile_show", requirements={"page" = "\d+"}, defaults={"page" = 1} )
+    * @Route("/profile/", name="fos_user_profile_show" )
     * @Template("AtesUserBundle:Profile:show.html.twig", vars={"requests","roles","user"})
-    * @param int $page 
     */
-    public function showAction($page = null)
+    public function showAction()
     {
+        $page = 1;
+                
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
@@ -42,28 +45,10 @@ class ProfileController extends BaseController
         $roles = $user->getRoles();
         
         $em = $this->container->get('doctrine')->getManager();
-        $queryBuilder = $em->createQueryBuilder()
-            ->select('r')
-            ->from('AtesVacationBundle:VacationRequest', 'r')
-            ->where('r.user = :user')
-            ->setParameter('user', $user);
-
         
-        $adapter = new DoctrineORMAdapter($queryBuilder);
-        $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(self::MAX);
-        $pagerfanta->setCurrentPage(1);  
-
-       if( !$page ) {
-            $page = 1;
-       }
-
-        try {
-            $pagerfanta->setCurrentPage($page);
-        } catch (NotValidCurrentPageException $e) {
-            throw new NotFoundHttpException();
-        }
-                        
+        $vRModel = new vacationRequestModel();
+        $pagerfanta = $vRModel->getUserRequests($em, $user, $page);
+                                
         return array(
             'user' => $user, 
             'requests' => $pagerfanta,

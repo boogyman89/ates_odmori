@@ -20,10 +20,12 @@ use Pagerfanta\Adapter\DoctrineORMAdapter;
 
 use Ates\UserBundle\Entity\User;
 
+use Ates\VacationBundle\Model\vacationRequestModel;
+
 
 class AjaxController extends Controller
 {
-    const MAX = 5;
+    //const MAX = 5;
     
     /**
      * @Route("/ajax/admin_find_requests", name="ajax_request_find_requests")
@@ -134,12 +136,16 @@ class AjaxController extends Controller
      * @Template("AtesUserBundle:Ajax:userRequests.html.twig", vars={"requests","filter"})
      * @param int $page
      */
-    public function findRequestsForUserAction($filter, $page = 1)
+    public function findRequestsForUserAction($filter, $page )
     {
         $user = $this->getUser();
 //        \Doctrine\Common\Util\Debug::dump($user,2);exit;
        
         $em = $this->getDoctrine()->getManager();
+        
+        $vRModel = new vacationRequestModel();
+        $pagerfanta = $vRModel->getUserRequests($em, $user, $page, $filter);
+        /*
         $queryBuilder = $em->createQueryBuilder();
         
         $queryBuilder->select('r')
@@ -164,7 +170,7 @@ class AjaxController extends Controller
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
         }
-       
+       */
         return array(                    
             'requests' => $pagerfanta,
             'filter' => $filter

@@ -151,7 +151,7 @@ class AdminController extends Controller
 
         $vacationRequest->setStartDate($date_of_slava); 
         $vacationRequest->setEndDate($date_of_slava_ends);
-        $vacationRequest->setIdUser($user->getId());
+        $vacationRequest->setUser($user);
         $vacationRequest->setSubmitted($today);
         $vacationRequest->setState("approved");
         $vacationRequest->setEditTime($today);
