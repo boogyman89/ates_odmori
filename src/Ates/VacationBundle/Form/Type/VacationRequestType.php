@@ -14,10 +14,6 @@ class VacationRequestType extends AbstractType
                 ->add('end_date', 'date', array( 'label' => null, 'widget' => 'single_text'))
                 ->add('comment', 'textarea', array('attr' => array('class' => 'input-block-level','placeholder' => "Comment", 'rows' => '4')))
                 ->add('Send Request', 'submit', array('attr' => array('class' => 'btn btn-primary btn-block')));
-
-                
-             //   ->add('submitted', 'datetime', array('label' => " ", 'data' =>
-             //       (new \DateTime("NOW")), 'attr' => array('style' => 'display:none;')));
     }
     
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -20,14 +20,13 @@
           <ul class="nav">
             <li ><a href="{{ path('home_page') }}">Home</a></li>
             <li><a href='{{ path('send_request_form') }}'>Send Request</a></li>
-            {% for role in roles %}
-                {% if role == 'ROLE_ADMIN' %}
-                    <li>
-                        <a href='{{ path('show_admin_panel') }}'> Admin</a>
-                    </li>
-                {% endif %}
-             {% endfor %}
             
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href='{{ path('show_admin_panel') }}'> Admin</a>
+                </li>
+            {% endif %}
+                
           </ul>
         </div><!--/.nav-collapse -->
       </div>

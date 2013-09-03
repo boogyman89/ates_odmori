@@ -37,6 +37,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "symfony/console": "2.3.*@dev",
         "gedmo/doctrine-extensions": "dev-master",
+        "pagerfanta/pagerfanta": "dev-master",
+        "white-october/pagerfanta-bundle": "dev-master",
         "braincrafted/bootstrap-bundle": "dev-master",
         "twitter/bootstrap": "2.3.*@dev",
         "jquery/jquery": "1.9.*",

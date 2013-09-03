@@ -13,30 +13,54 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Ates\VacationBundle\Model\vacationRequestModel;
+
 class ProfileController extends BaseController
 {    
+    const MAX = 5;
+    
+    /**
+    * @Route("/profile/", name="fos_user_profile_show" )
+    * @Template("AtesUserBundle:Profile:show.html.twig", vars={"requests","roles","user"})
+    */
     public function showAction()
     {
+        $page = 1;
+                
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
         $roles = $user->getRoles();
         
-        $repository = $this->container->get('doctrine')
-          ->getRepository('AtesVacationBundle:VacationRequest');
+        $em = $this->container->get('doctrine')->getManager();
         
-        $requests = $user->getVacationRequests();
-       
-                        
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'), array(
+        $vRModel = new vacationRequestModel();
+        $pagerfanta = $vRModel->getUserRequests($em, $user, $page);
+                                
+        return array(
             'user' => $user, 
-            'requests' => $requests,
+            'requests' => $pagerfanta,
             'roles' => $roles
-        ));
+        );
     } 
     
     
+    /**
+    * @Route("/profile/edit", name="fos_user_profile_edit")
+    * @Template("AtesUserBundle:Profile:edit.html.twig", vars={"form","roles","user"})
+    */
     public function editAction(Request $request)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();

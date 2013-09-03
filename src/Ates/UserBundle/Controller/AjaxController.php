@@ -13,9 +13,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+
+use Ates\UserBundle\Entity\User;
+
+use Ates\VacationBundle\Model\vacationRequestModel;
+
 
 class AjaxController extends Controller
 {
+    //const MAX = 5;
     
     /**
      * @Route("/ajax/admin_find_requests", name="ajax_request_find_requests")
@@ -140,40 +150,48 @@ class AjaxController extends Controller
     }
     
     /**
-     * @Route("/ajax/find_user_requests/{filter}", name="ajax_find_user_request")
-     * @Template("AtesUserBundle:Ajax:userRequests.html.twig", vars={"requests"})
+     * @Route("/ajax/find_user_requests/{filter}/{page}", name="ajax_find_user_request",  requirements={"page" = "\d+"}, defaults={ "page" = 1} )
+     * @Route("/ajax/find_user_requests", name="ajax_find_user_request_base" )
+     * @Template("AtesUserBundle:Ajax:userRequests.html.twig", vars={"requests","filter"})
+     * @param int $page
      */
-    public function findRequestsForUserAction($filter)
+    public function findRequestsForUserAction($filter, $page )
     {
+        $user = $this->getUser();
+//        \Doctrine\Common\Util\Debug::dump($user,2);exit;
        
-       $user = $this->container->get('security.context')->getToken()->getUser();
-       $requests = $user->getVacationRequests();
-       
-       /*
-        * $em = $this->getDoctrine()->getManager();
-       if($filter != 'all')
-       {
-           //return new Response('ssssssss');
-            $query = $em->getRepository('AtesVacationBundle:VacationRequest')->createQueryBuilder('r')
-                 ->where('r.user_id = :id_u')
-                 ->andWhere('r.state = :filter')
-                 ->setParameter('id_u', $user->getId())
-                 ->setParameter('filter', $filter)
-                 ->orderBy('r.start_date','ASC')
-                 ->getQuery();
-             $requests = $query->getResult();
-             
-             return new Response(count($requests));
-       }
-       else
-       {
-           $requests = $user->getVacationRequests();
-       }
-        * 
-        */
-       
+        $em = $this->getDoctrine()->getManager();
+        
+        $vRModel = new vacationRequestModel();
+        $pagerfanta = $vRModel->getUserRequests($em, $user, $page, $filter);
+        /*
+        $queryBuilder = $em->createQueryBuilder();
+        
+        $queryBuilder->select('r')
+            ->from('AtesVacationBundle:VacationRequest', 'r')
+            ->where('r.user = :user')
+            ->setParameter('user', $user);
+            
+        if('all' != $filter)
+        {
+            $queryBuilder->andWhere('r.state = :filter')
+                        ->setParameter('filter', $filter);
+        }
+
+        
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setMaxPerPage(self::MAX);   
+
+        try {
+            $pagerfanta->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
+        }
+       */
         return array(                    
-            'requests' => $requests,
+            'requests' => $pagerfanta,
             'filter' => $filter
         );
          

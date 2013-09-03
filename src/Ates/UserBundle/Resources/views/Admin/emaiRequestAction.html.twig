@@ -1,0 +1,10 @@
+Pozdrav {{ user.getFirstName }},
+
+{% if request_state == 'approve' %}
+    Obaveštavamo vas da je Vaš zahtev za odmor u trajanju od {{ request.getStartDate|date('d-m-Y') }} do {{ request.getEndDate|date('d-m-Y') }} , ODOBREN !
+{% elseif request_state == 'reject' %}
+    Obaveštavamo vas da je Vaš zahtev za odmor u trajanju od {{ request.getStartDate|date('d-m-Y') }} do {{ request.getEndDate|date('d-m-Y') }} , ODBIJEN !
+{% endif %}
+    
+S poštovanjem, 
+AtesNearsourcing
