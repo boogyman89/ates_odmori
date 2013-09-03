@@ -160,10 +160,7 @@ class AjaxController extends Controller
         $user = $this->getUser();
 //        \Doctrine\Common\Util\Debug::dump($user,2);exit;
        
-        $em = $this->getDoctrine()->getManager();
-        
-        $vRModel = new vacationRequestModel();
-        $pagerfanta = $vRModel->getUserRequests($em, $user, $page, $filter);
+        $pagerfanta = $this->container->get('vacation_request.model')->getUserRequests($user, $page, $filter);
         /*
         $queryBuilder = $em->createQueryBuilder();
         

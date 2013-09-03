@@ -133,3 +133,9 @@ knp_snappy:
         enabled:    true
         binary:     C:\"Program Files (x86)"\wkhtmltopdf\wkhtmltopdf.exe
         options:    []
+
+services:
+  vacation_request.model:
+    class: Ates\VacationBundle\Model\vacationRequestModel
+    arguments:
+      entityManager: "@doctrine.orm.entity_manager"

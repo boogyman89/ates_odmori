@@ -161,6 +161,7 @@ class AdminController extends Controller
     
     /**
      * @Route("/admin/delete_user_on_approving/{id}", name="delete_user_on_approving")
+     * @Route("/admin/delete_user_on_approving", name="delete_user_on_approving_base")
      */
     public function deleteUserOnApprovingAction($id)
     {
@@ -176,6 +177,7 @@ class AdminController extends Controller
     
     /**
      * @Route("/admin/reject_request/{id}", name="reject_request")
+     * @Route("/admin/reject_request", name="reject_request_base")
      */
     public function rejectRequestAction($id)
     {
@@ -226,6 +228,7 @@ class AdminController extends Controller
         
     /**
      * @Route("/admin/delete_holiday/{id}", name="delete_holiday")
+     * @Route("/admin/delete_holiday", name="delete_holiday_base")
      */
     public function deleteHolidayAction($id)
     {

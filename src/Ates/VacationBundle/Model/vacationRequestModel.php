@@ -10,13 +10,20 @@ use Pagerfanta\Adapter\DoctrineORMAdapter;
 
 use Symfony\Component\HttpFoundation\Response;
 
+use Doctrine\ORM\EntityManager;
+
 class vacationRequestModel 
 {
-    const MAX = 3;
+    const MAX = 5;
+    private $entityManager;
+
+    public function __construct(EntityManager $entityManager) {
+        $this->entityManager = $entityManager;
+    }
     
-    public function getUserRequests($em, $user, $page, $filter = null)
+    public function getUserRequests($user, $page, $filter = null)
     {
-        $requestRepository = $em->getRepository('AtesVacationBundle:VacationRequest');
+        $requestRepository = $this->entityManager->getRepository('AtesVacationBundle:VacationRequest');
         
         $queryBuilder = $requestRepository->createQueryBuilder('r')
             ->where('r.user = :user')

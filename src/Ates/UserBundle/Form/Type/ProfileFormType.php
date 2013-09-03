@@ -9,8 +9,10 @@ class ProfileFormType extends BaseType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
+        //parent::buildForm($builder, $options);
+        
+        $builder->add('username');
+        $builder->add('email');
         $builder->add('first_name');
         $builder->add('last_name');
         $builder->add('ssn');

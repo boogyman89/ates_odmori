@@ -106,46 +106,46 @@ $(document).ready(function() {
     
     
     
-    
+
    
-   $('.request-details a').on('click', function() {
-       id = $(this).attr('id');
-                  
-       $.post('ajax/find_request_by_id', { id: id}, function(data){
+   $(document).on('click', '.showRequestInfo', function(){
+        id = $(this).attr('id');
+        
+        $.post(EmpoloyeeVacation.routes.ajax_find_request_by_id, { id: id}, function(data){
            
             if(data !== '')
             {  
-                $('#requestModal').html(data);           
+                $('#requestModal').html(data);
+                $('#commentModal').modal('toggle');
             }
-       });                
+       });        
    });
    
-   
-   $('.rejectRequestLink').click(function(){
+   $(document).on('click', '.rejectRequestLink', function(){
         id = $(this).attr('id');
-        $('#confirmRejectModal').modal('toggle')
+        $('#rejectRequestModal').modal('toggle');
         
         $('.confirmRejectRequestButton').click(function(){
-            window.location.href = 'http://localhost/app_dev.php/admin/reject_request/'+id;
+            window.location.href = EmpoloyeeVacation.routes.reject_request_base + '/' + id;
         });
    });
    
     
-   $('.deleteHoliday').click(function(){
+   $(document).on('click', '.deleteHoliday', function(){
         id = $(this).attr('id');
-        $('#confirmDeleteHolidayModal').modal('toggle')
+        $('#confirmDeleteHolidayModal').modal('toggle');
 
         $('.confirmDeleteHolidayButton').click(function(){
-            window.location.href = 'http://localhost/app_dev.php/admin/delete_holiday/'+id;
+            window.location.href = EmpoloyeeVacation.routes.delete_holiday_base + '/' + id;
         });
    });
    
-   $('.deleteUser').click(function(){
+   $(document).on('click', '.deleteUser', function(){
         id = $(this).attr('id');
-        $('#userDeleteModal').modal('toggle')
+        $('#userDeleteModal').modal('toggle');
 
         $('.confirmDeleteUserButton').click(function(){
-            window.location.href = 'http://localhost/app_dev.php/admin/delete_user_on_approving/'+id;
+            window.location.href = EmpoloyeeVacation.routes.delete_user_on_approving_base + '/' + id;
         });
    });
 });

@@ -44,10 +44,8 @@ class ProfileController extends BaseController
         }
         $roles = $user->getRoles();
         
-        $em = $this->container->get('doctrine')->getManager();
         
-        $vRModel = new vacationRequestModel();
-        $pagerfanta = $vRModel->getUserRequests($em, $user, $page);
+        $pagerfanta = $this->container->get('vacation_request.model')->getUserRequests($user, $page);
                                 
         return array(
             'user' => $user, 

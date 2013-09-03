@@ -31,4 +31,6 @@
                 
     </tbody>
 </table>
-{{ pagerfanta(requests, 'twitter_bootstrap') }}
+{% if 1 != requests.getNbPages %}
+    {{ pagerfanta(requests, 'twitter_bootstrap') }}
+{% endif %}

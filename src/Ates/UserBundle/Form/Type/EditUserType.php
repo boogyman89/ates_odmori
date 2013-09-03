@@ -19,7 +19,7 @@ class EditUserType extends AbstractType
             ->add('date_of_employment', 'date', array( 'widget' => 'single_text', 'attr' => array('class' => 'employment-date')))
             ->add('date_of_slava', 'date', array( 'widget' => 'single_text', 'attr' => array('class' => 'slava-date')))
             ->add('no_days_off')
-            ->add('Save', 'submit', array('attr' => array('class' => 'btn btn-primary btn-block btn-large marginTop20')));
+            ->add('save', 'submit', array('attr' => array('class' => 'btn btn-primary btn-block btn-large marginTop20')));
     }
 
     public function getName()

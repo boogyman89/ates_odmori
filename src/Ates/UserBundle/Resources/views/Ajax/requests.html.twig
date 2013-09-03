@@ -7,6 +7,8 @@
                 <th>Status</th>
                 <th>From</th>
                 <th>To</th>
+                <th>Days</th>
+                <th>Details</th>
                 <th>Edit</th>
                 <th>Approve</th>
                 <th>Reject</th>
@@ -16,12 +18,14 @@
             {% for request in requests %}
                 <tr> 
                     <td>{{ request.getState }} </td>
-                    <td>{{ request.getStartDate|date('Y-m-d') }} </td> 
-                    <td>{{ request.getEndDate|date('Y-m-d') }}  </td>
+                    <td>{{ request.getStartDate|date('d-m-Y') }} </td> 
+                    <td>{{ request.getEndDate|date('d-m-Y') }}  </td>
+                    <td>{{ request.getNumberOfWorkingDays }} </td>                                        
+                    <td><a href="#commentModal" id='{{ request.getId }}' role="button" class="btn showRequestInfo">Show</a></td>
                     <td><a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> </td>
                     <td><a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a></td>
-                    <td><a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a></td>
-                </tr>
+                     <td><a class="rejectRequestLink" href="#rejectRequestModal" id='{{ request.getId }}' role="button">Reject</a></td>
+                </tr> 
             {% endfor %}
         </tbody>
     </table>
