@@ -22,6 +22,7 @@
       <parameter key="FOSUserBundle">FOS\UserBundle\FOSUserBundle</parameter>
       <parameter key="BcBootstrapBundle">Bc\Bundle\BootstrapBundle\BcBootstrapBundle</parameter>
       <parameter key="KnpSnappyBundle">Knp\Bundle\SnappyBundle\KnpSnappyBundle</parameter>
+      <parameter key="WhiteOctoberPagerfantaBundle">WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
       <parameter key="SensioGeneratorBundle">Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle</parameter>
@@ -401,7 +402,7 @@
     <parameter key="assetic.read_from">C:/xampp/htdocs/employees_vacations/app/../web</parameter>
     <parameter key="assetic.write_to">C:/xampp/htdocs/employees_vacations/app/../web</parameter>
     <parameter key="assetic.variables" type="collection"/>
-    <parameter key="assetic.java.bin">C:\Windows\system32\java.EXE</parameter>
+    <parameter key="assetic.java.bin">c:\Windows\system32\java.EXE</parameter>
     <parameter key="assetic.node.bin">/usr/bin/node</parameter>
     <parameter key="assetic.ruby.bin">/usr/bin/ruby</parameter>
     <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
@@ -541,6 +542,8 @@
     <parameter key="knp_snappy.image.binary">wkhtmltoimage</parameter>
     <parameter key="knp_snappy.image.options" type="collection"/>
     <parameter key="knp_snappy.image.env" type="collection"/>
+    <parameter key="white_october_pagerfanta.default_view">default</parameter>
+    <parameter key="white_october_pagerfanta.view_factory.class">Pagerfanta\View\ViewFactory</parameter>
     <parameter key="web_profiler.controller.profiler.class">Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController</parameter>
     <parameter key="web_profiler.controller.router.class">Symfony\Bundle\WebProfilerBundle\Controller\RouterController</parameter>
     <parameter key="web_profiler.controller.exception.class">Symfony\Bundle\WebProfilerBundle\Controller\ExceptionController</parameter>
@@ -2019,6 +2022,96 @@
         <argument>validators</argument>
       </call>
       <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.ar.xliff</argument>
+        <argument>ar</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.ca.xliff</argument>
+        <argument>ca</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.da.xliff</argument>
+        <argument>da</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.de.xliff</argument>
+        <argument>de</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.en.xliff</argument>
+        <argument>en</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.es.xliff</argument>
+        <argument>es</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.fr.xliff</argument>
+        <argument>fr</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.it.xliff</argument>
+        <argument>it</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.nl.xliff</argument>
+        <argument>nl</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.pl.xliff</argument>
+        <argument>pl</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.pt.xliff</argument>
+        <argument>pt</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.ru.xliff</argument>
+        <argument>ru</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.sr_Cyrl.xliff</argument>
+        <argument>sr_Cyrl</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.sr_Latn.xliff</argument>
+        <argument>sr_Latn</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
+        <argument>xliff</argument>
+        <argument>C:\xampp\htdocs\employees_vacations\vendor\white-october\pagerfanta-bundle\WhiteOctober\PagerfantaBundle/Resources/translations\pagerfanta.zh_CN.xliff</argument>
+        <argument>zh_CN</argument>
+        <argument>pagerfanta</argument>
+      </call>
+      <call method="addResource">
         <argument>yml</argument>
         <argument>C:/xampp/htdocs/employees_vacations/app/Resources/translations\FOSUserBundle.en.yml</argument>
         <argument>en</argument>
@@ -2776,7 +2869,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>521c82b0d11ad</argument>
+            <argument>5225f588dde76</argument>
           </service>
         </argument>
       </argument>
@@ -3042,7 +3135,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>521c82b0d11ad</argument>
+            <argument>5225f588dde76</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3275,6 +3368,14 @@
       </call>
       <call method="addExtension">
         <argument type="service" id="bc_bootstrap.twig.badge_extension"/>
+      </call>
+      <call method="addExtension">
+        <argument type="service">
+          <service class="WhiteOctober\PagerfantaBundle\Twig\PagerfantaExtension" public="false">
+            <tag name="twig.extension"/>
+            <argument type="service" id="service_container"/>
+          </service>
+        </argument>
       </call>
       <call method="addGlobal">
         <argument>app</argument>
@@ -3912,6 +4013,45 @@
         </service>
       </argument>
       <argument type="service" id="monolog.logger.snappy" on-invalid="null"/>
+    </service>
+    <service id="white_october_pagerfanta.view_factory" class="Pagerfanta\View\ViewFactory">
+      <argument type="collection"/>
+      <call method="add">
+        <argument type="collection">
+          <argument key="default" type="service">
+            <service class="Pagerfanta\View\DefaultView" public="false">
+              <tag name="pagerfanta.view" alias="default"/>
+            </service>
+          </argument>
+          <argument key="default_translated" type="service">
+            <service class="WhiteOctober\PagerfantaBundle\View\DefaultTranslatedView" public="false">
+              <tag name="pagerfanta.view" alias="default_translated"/>
+              <argument type="service">
+                <service class="Pagerfanta\View\DefaultView" public="false">
+                  <tag name="pagerfanta.view" alias="default"/>
+                </service>
+              </argument>
+              <argument type="service" id="translator.default"/>
+            </service>
+          </argument>
+          <argument key="twitter_bootstrap" type="service">
+            <service class="Pagerfanta\View\TwitterBootstrapView" public="false">
+              <tag name="pagerfanta.view" alias="twitter_bootstrap"/>
+            </service>
+          </argument>
+          <argument key="twitter_bootstrap_translated" type="service">
+            <service class="WhiteOctober\PagerfantaBundle\View\TwitterBootstrapTranslatedView" public="false">
+              <tag name="pagerfanta.view" alias="twitter_bootstrap_translated"/>
+              <argument type="service">
+                <service class="Pagerfanta\View\TwitterBootstrapView" public="false">
+                  <tag name="pagerfanta.view" alias="twitter_bootstrap"/>
+                </service>
+              </argument>
+              <argument type="service" id="translator.default"/>
+            </service>
+          </argument>
+        </argument>
+      </call>
     </service>
     <service id="web_profiler.controller.profiler" class="Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController">
       <argument type="service" id="router" on-invalid="null"/>
