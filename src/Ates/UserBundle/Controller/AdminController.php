@@ -186,7 +186,9 @@ class AdminController extends Controller
         $user = $repository->find($id);
         
         $em->remove($user);
+        $em->flush();
         
+        return $this->redirect($this->generateUrl('show_admin_panel'));
     }
     
     /**

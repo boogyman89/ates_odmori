@@ -1,0 +1,17 @@
+  <table class="table table-striped margieBottom0px">
+        <thead>
+            <tr>
+                <th>From</th><td>{{ request.getStartDate|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                 <th>To</th><td>{{ request.getEndDate|date('Y-m-d') }}  </td>
+            </tr>
+            <tr>
+                <th>Comment</th><td> {{ request.getComment }}</td>
+            </tr>
+            <tr>
+                <td class="marginTop20"> <a id = "rejectLink" class="btn btn-warning btn-block" href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a> </td>
+                <td class="marginTop20"> <a id="approveLink" class="btn btn-primary btn-block" href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a> </td>
+              
+            </tr>               
+    </table>

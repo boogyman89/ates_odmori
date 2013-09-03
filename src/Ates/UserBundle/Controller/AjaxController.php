@@ -47,9 +47,7 @@ class AjaxController extends Controller
 
         $query = $repository->getQuery();
         $users = $query->getResult();
-        
-       
-        
+              
         
         $allRequests = array();
         foreach($users as $user)
@@ -78,9 +76,30 @@ class AjaxController extends Controller
         );
 
          
-        
+       
     }
     
+    /**
+     * @Route("/ajax/find_request_by_id", name="ajax_find_request_by_id")
+     * @Template("AtesUserBundle:Ajax:singleRequest.html.twig", vars={"request"})
+     */
+    
+    public function findRequestByIdAction()
+    {
+        $request = $this->getRequest();
+        
+        $id = $request->request->get('id');
+        
+         $em = $this->getDoctrine()->getManager();
+         $repository = $em->getRepository('AtesVacationBundle:VacationRequest');
+         $vacationRequest = $repository->find($id);
+         
+         return array(
+             'request' => $vacationRequest
+         );
+    }
+
+
     /**
      * @Route("/ajax/admin_find_users", name="ajax_request_find_user")
      * @Template("AtesUserBundle:Ajax:users.html.twig", vars={"users"})

@@ -1,12 +1,5 @@
 $(document).ready(function() {
-  
-  //popup for vacationrequest comment
-  $('.comment').hover(function(){
-     $('.comment').popover('destroy'); 
-     $(this).popover('show');      
-  }
-  );
-  
+     
   //find requests  
   $('#filterRequestButton').on('click', function(){
      
@@ -74,5 +67,45 @@ $(document).ready(function() {
     });
     
     
-  
+   
+   $('.request-details a').on('click', function() {
+       id = $(this).attr('id');
+                  
+       $.post('ajax/find_request_by_id', { id: id}, function(data){
+           
+            if(data !== '')
+            {  
+                $('#requestModal').html(data);           
+            }
+       });                
+   });
+   
+   
+   $('.rejectRequestLink').click(function(){
+        id = $(this).attr('id');
+        $('#confirmRejectModal').modal('toggle')
+        
+        $('.confirmRejectRequestButton').click(function(){
+            window.location.href = 'http://localhost/app_dev.php/admin/reject_request/'+id;
+        });
+   });
+   
+    
+   $('.deleteHoliday').click(function(){
+        id = $(this).attr('id');
+        $('#confirmDeleteHolidayModal').modal('toggle')
+
+        $('.confirmDeleteHolidayButton').click(function(){
+            window.location.href = 'http://localhost/app_dev.php/admin/delete_holiday/'+id;
+        });
+   });
+   
+   $('.deleteUser').click(function(){
+        id = $(this).attr('id');
+        $('#userDeleteModal').modal('toggle')
+
+        $('.confirmDeleteUserButton').click(function(){
+            window.location.href = 'http://localhost/app_dev.php/admin/delete_user_on_approving/'+id;
+        });
+   });
 });
