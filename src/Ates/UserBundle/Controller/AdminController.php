@@ -149,6 +149,7 @@ class AdminController extends Controller
         $vacationRequest->setSubmitted($today);
         $vacationRequest->setState("approved");
         $vacationRequest->setEditTime($today);
+        $vacationRequest->setComment('slava');
 
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($vacationRequest);

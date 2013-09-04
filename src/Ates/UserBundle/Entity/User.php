@@ -84,6 +84,10 @@
          */
         protected $date_of_slava;
         
+        /**
+         * @ORM\Column(type="integer")
+         *
+         */
         protected $no_days_off_last_year;
 
         /**
