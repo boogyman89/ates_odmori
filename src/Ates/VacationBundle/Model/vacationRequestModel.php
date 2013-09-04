@@ -1,20 +1,17 @@
 <?php
 namespace Ates\VacationBundle\Model;
 
-use Ates\UserBundle\Entity\User;
-use Ates\VacationBundle\Entity\VacationRequest;
-
 use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
-
-use Symfony\Component\HttpFoundation\Response;
 
 use Doctrine\ORM\EntityManager;
 
 class vacationRequestModel 
 {
-    const MAX = 5;
+    const MAX_PROFILE = 10;
+    const MAX_PENDING = 5;
+    const MAX_SEARCH = 5;
+    
     private $entityManager;
 
     public function __construct(EntityManager $entityManager) {
@@ -27,7 +24,8 @@ class vacationRequestModel
         
         $queryBuilder = $requestRepository->createQueryBuilder('r')
             ->where('r.user = :user')
-            ->setParameter('user', $user);
+            ->setParameter('user', $user)
+            ->orderBy('r.created','DESC');
         
         if( null != $filter && 'all' != $filter )
         {
@@ -37,7 +35,34 @@ class vacationRequestModel
         
         $adapter = new DoctrineORMAdapter($queryBuilder);
         $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(self::MAX);
+        $pagerfanta->setMaxPerPage(self::MAX_PROFILE);
+        $pagerfanta->setCurrentPage(1);  
+
+       if( !$page ) {
+            $page = 1;
+       }
+
+        try {
+            $pagerfanta->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
+        }
+        
+        return $pagerfanta;
+    }
+    
+    public function getPendingRequests($page = null)
+    {
+        $requestRepository = $this->entityManager->getRepository('AtesVacationBundle:VacationRequest');
+        
+        $queryBuilder = $requestRepository->createQueryBuilder('r')
+            ->where('r.state = :s')
+            ->setParameter('s','pending')
+            ->orderBy('r.created','DESC');
+        
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setMaxPerPage(self::MAX_PENDING);
         $pagerfanta->setCurrentPage(1);  
 
        if( !$page ) {

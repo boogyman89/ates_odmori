@@ -161,37 +161,25 @@ class AjaxController extends Controller
 //        \Doctrine\Common\Util\Debug::dump($user,2);exit;
        
         $pagerfanta = $this->container->get('vacation_request.model')->getUserRequests($user, $page, $filter);
-        /*
-        $queryBuilder = $em->createQueryBuilder();
         
-        $queryBuilder->select('r')
-            ->from('AtesVacationBundle:VacationRequest', 'r')
-            ->where('r.user = :user')
-            ->setParameter('user', $user);
-            
-        if('all' != $filter)
-        {
-            $queryBuilder->andWhere('r.state = :filter')
-                        ->setParameter('filter', $filter);
-        }
-
-        
-        $adapter = new DoctrineORMAdapter($queryBuilder);
-
-        $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(self::MAX);   
-
-        try {
-            $pagerfanta->setCurrentPage($page);
-        } catch (NotValidCurrentPageException $e) {
-            throw new NotFoundHttpException();
-        }
-       */
         return array(                    
             'requests' => $pagerfanta,
             'filter' => $filter
         );
-         
-        //return new Response($filter);
+    }
+    
+    /**
+     * @Route("/ajax/get_pending_requests/{page}", name="ajax_get_pending_requests",  requirements={"page" = "\d+"}, defaults={ "page" = 1} )
+     * @Route("/ajax/get_pending_requests", name="ajax_get_pending_requests_base" )
+     * @Template("AtesUserBundle:Ajax:pendingRequests.html.twig", vars={"requests"})
+     * @param int $page
+     */
+    public function getPendingRequests( $page )
+    {
+        $pagerfanta = $this->container->get('vacation_request.model')->getPendingRequests($page);
+        
+        return array(
+            'requests' => $pagerfanta
+        );
     }
 }

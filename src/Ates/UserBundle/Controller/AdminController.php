@@ -31,20 +31,12 @@ class AdminController extends Controller
     {      
         $em = $this->getDoctrine()->getManager();
         
-        $query = $em->getRepository('AtesVacationBundle:VacationRequest')->createQueryBuilder('r')
-            ->where('r.state = :s')
-            ->setParameter('s','pending')
-            ->orderBy('r.start_date','ASC')
-            ->getQuery();
-        $requests = $query->getResult();
-        
-        
-        
+        $pagerfanta = $this->container->get('vacation_request.model')->getPendingRequests();
+          
         $holidays = $em->getRepository('AtesVacationBundle:Holidays')->findAll();
         
-
         //get all user with confirmed email ( for account approving )
-        $users = $this->getDoctrine()->getRepository('AtesUserBundle:User')->findBy(array(
+        $users = $em->getRepository('AtesUserBundle:User')->findBy(array(
             'enabled' => true,
             'locked' => true
         ));
@@ -53,7 +45,7 @@ class AdminController extends Controller
         $roles = $activeUser->getRoles();
         
         return array(                    
-                'requests' => $requests,
+                'requests' => $pagerfanta,
                 'holidays' => $holidays,
                 'users' => $users,
                 'user' => $activeUser,

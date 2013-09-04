@@ -74,9 +74,13 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <!--ul id="requestResults">
-
-                        </ul-->
+                        
+                        {% if 1 != requests.getNbPages %}
+                            <div class="pagerfantaPendingRequest">
+                                {{ pagerfanta(requests, 'twitter_bootstrap') }}
+                            </div>
+                        {% endif %}
+                            
                     </div>
                 </div>
             </div>

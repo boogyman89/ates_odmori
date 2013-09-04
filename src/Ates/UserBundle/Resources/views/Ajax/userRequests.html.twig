@@ -33,5 +33,7 @@
     </tbody>
 </table>
 {% if 1 != requests.getNbPages %}
-    {{ pagerfanta(requests, 'twitter_bootstrap') }}
+    <div class="pagerfantaProfile">
+        {{ pagerfanta(requests, 'twitter_bootstrap') }}
+    </div>
 {% endif %}

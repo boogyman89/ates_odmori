@@ -100,9 +100,29 @@ $(document).ready(function() {
                 }
             }            
         }
-       getUserRequests( filter, page );
+       
+       var divWrapp = $(this).parent().parent().parent().parent();
+       if(divWrapp.hasClass('pagerfantaProfile'))
+       {
+           getUserRequests( filter, page );
+       }
+       else if(divWrapp.hasClass('pagerfantaPendingRequest'))
+        {
+            getPendingRequests( page );
+        }
        return false;
    });
+   
+   function getPendingRequests( page )
+   {
+       $.get(EmpoloyeeVacation.routes.ajax_get_pending_requests_base + '/' + page, function(data){
+            //alert(data);
+            if(data !== '')
+            {
+               $('#requestResults').html(data);                
+            }
+        });
+   }
     
     
     
