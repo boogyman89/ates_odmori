@@ -28,7 +28,6 @@ use Ates\VacationBundle\Model\vacationRequestModel;
 
 class ProfileController extends BaseController
 {    
-    const MAX = 5;
     
     /**
     * @Route("/profile/", name="fos_user_profile_show" )
@@ -108,14 +107,11 @@ class ProfileController extends BaseController
         $activeUser = $this->container->get('security.context')->getToken()->getUser();
         $roles = $activeUser->getRoles();
         
-        return $this->container->get('templating')->renderResponse(
-            'FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'),
-            array(
+        return array(
                 'form' => $form->createView(),
                 'user' => $activeUser,
                 'roles' => $roles
-            )
-        );
+            );
     }
      
 }

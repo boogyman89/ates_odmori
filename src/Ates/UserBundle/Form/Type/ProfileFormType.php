@@ -11,14 +11,10 @@ class ProfileFormType extends BaseType
     {
         //parent::buildForm($builder, $options);
         
-        $builder->add('username');
-        $builder->add('email');
         $builder->add('first_name');
         $builder->add('last_name');
-        $builder->add('ssn');
         $builder->add('address');
         $builder->add('phone');
-
     }
 
     public function getName()
