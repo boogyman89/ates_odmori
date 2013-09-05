@@ -37,56 +37,62 @@ class AjaxController extends Controller
         $request = $this->getRequest();
         
         $first_name = $request->request->get('name');
-        $last_name = $request->request->get('last_name');
+        $last_name = $request->request->get('last_name');        
+        $filter = $request->request->get('filter');
         
+        if(null != $request->request->get('page'))
+        {
+            $page = $request->request->get('page');
+        }
+        else
+        {
+            $page = 1;
+        }
         
         $em = $this->getDoctrine()->getManager();
         
-        $repository = $em->getRepository('AtesUserBundle:User')->createQueryBuilder('u');
+        $requestRepository = $em->getRepository('AtesVacationBundle:VacationRequest');
+        $queryBuilder = $requestRepository->createQueryBuilder('r')
+                        ->orderBy('r.created','DESC');
         
-        if($first_name != null)
+        if(null != $first_name || null != $last_name)
         {
-            $repository->where('u.first_name LIKE :f_name')
+            $queryBuilder->leftJoin('r.user', 'u');
+        }
+        
+        if(null != $first_name)
+        {
+            //leftJoin('u.Phonenumbers p WITH u.id = 2');
+            $queryBuilder->where('u.first_name LIKE :f_name')
                 ->setParameter('f_name', '%'.$first_name.'%');
         }
-        if($last_name != null)
+        if(null != $last_name)
         {
-            $repository->andWhere('u.last_name LIKE :l_name')
+            $queryBuilder->andWhere('u.last_name LIKE :l_name')
                 ->setParameter('l_name', '%'.$last_name.'%');
         }
-
-        $query = $repository->getQuery();
-        $users = $query->getResult();
-              
-        
-        $allRequests = array();
-        foreach($users as $user)
+        if('all' != $filter)
         {
-            /*
-            $query = $em->getRepository('AtesVacationBundle:VacationRequest')->createQueryBuilder('r')
-                ->where('r.user_id = :id_u')
-                ->setParameter('id_u', $user->getId())
-                ->orderBy('r.start_date','ASC')
-                ->getQuery();
-            $requests = $query->getResult();
-            
-            return new Response(count($requests));
-             * 
-             */
-            
-            $requests = $user->getVacationRequests();
+            $queryBuilder->andWhere('r.state = :state')
+                ->setParameter('state', $filter);
+        }
 
-            $userName = $user->getFirstName().' '.$user->getLastName();
-            $allRequests[$userName] = $requests;
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setMaxPerPage(7);
+        $pagerfanta->setCurrentPage(1);  
+
+       
+
+        try {
+            $pagerfanta->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
         }
         
-        
         return array(                    
-            'all_requests' => $allRequests
+            'requests' => $pagerfanta
         );
-
-         
-       
     }
     
     /**

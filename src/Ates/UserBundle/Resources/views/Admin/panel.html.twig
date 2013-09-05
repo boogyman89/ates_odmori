@@ -36,11 +36,19 @@
         <div class="row-fluid">
             <div class="span6 ">
                 <div class="white-box">
-                    <h2 class='underline'>Pending Requests</h2>
+                    <h2 class='underline requestsTitle'>Pending Requests</h2>
 
-                    <div class="find-box">
-                        <input id="requestWorkerName" type="text" name="name" value="" placeholder="First Name"/>
-                        <input id="requestWorkerLastName" type="text" name="lastname" value="" placeholder="Last Name"/>
+                    <div class="find-box">                        
+                            
+                        <input id="requestWorkerName" class="width190px" type="text" name="name" value="" placeholder="First Name"/>
+                        <input id="requestWorkerLastName" class="width190px" type="text" name="lastname" value="" placeholder="Last Name"/>
+                        
+                        <select id="requestsFilterProfile" class="width100px">
+                            <option>all</option>
+                            <option>pending</option>
+                            <option>approved</option>
+                        </select>
+                        
                         <button id="filterRequestButton" class="btn btn-primary marginTop-10">Find</button>
                     </div>
                     

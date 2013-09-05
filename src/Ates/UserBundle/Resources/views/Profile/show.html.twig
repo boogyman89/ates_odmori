@@ -66,9 +66,9 @@
             <tbody>
               {% for request in requests.currentPageResults %}
                     <tr> 
-                        <td>{{ request.state }}</td> 
-                        <td>{{ request.startDate|date('Y-m-d') }} </td>  
-                        <td>{{ request.endDate|date('Y-m-d') }} </td> 
+                        <td>{{ request.state }}</td>
+                        <td>{{ request.startDate|date('d-m-Y') }} </td>  
+                        <td>{{ request.endDate|date('d-m-Y') }} </td> 
                         {% if (request.pdf != null )%}
                             {% set pdfUrl = 'PDF/' ~ request.getPdf %}
                             <td><a href='{{ asset(pdfUrl) }}' target="_blank">PDF</a></td>

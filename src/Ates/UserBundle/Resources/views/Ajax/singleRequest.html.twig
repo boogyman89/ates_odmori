@@ -1,10 +1,10 @@
   <table class="table table-striped margieBottom0px">
         <thead>
             <tr>
-                <th>From</th><td>{{ request.getStartDate|date('Y-m-d') }}</td>
+                <th>From</th><td>{{ request.getStartDate|date('d-m-Y') }}</td>
             </tr>
             <tr>
-                 <th>To</th><td>{{ request.getEndDate|date('Y-m-d') }}  </td>
+                 <th>To</th><td>{{ request.getEndDate|date('d-m-Y') }}  </td>
             </tr>
             <tr>
                 <th>Comment</th><td> {{ request.getComment }}</td>

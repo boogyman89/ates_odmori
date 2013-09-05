@@ -2,24 +2,32 @@ $(document).ready(function() {
      
   //find requests  
   $('#filterRequestButton').on('click', function(){
+     //rename title Pending Request to Request
+     $('.requestsTitle').text('Requests');
      
      //get name from worker name
      workerName = $('#requestWorkerName').val();
      workerLastName = $('#requestWorkerLastName').val();
+     filter = $('#requestsFilterProfile').val();
      
-     //alert(workerName+" "+workerLastName);
-     
-     $.post(EmpoloyeeVacation.routes.ajax_request_find_requests,{ name: workerName, last_name: workerLastName },  function(data) {
-         //alert('vraceno');
-         if(data !== '')
-         {
-            $('#requestResults').html(data);
-         }
-         else
-         {
-              $('#requestResults').html('<h3>There is no requests for that user OR there is no user with that name!</h3>');
-         }
-      });
+     if('' == workerName && '' == workerLastName )
+    {
+        alert('Both field for search are empty!');
+    }
+    else
+    {
+        $.post(EmpoloyeeVacation.routes.ajax_request_find_requests,{ name: workerName, last_name: workerLastName, filter: filter },  function(data) {
+
+            if(data !== '')
+            {
+               $('#requestResults').html(data);
+            }
+            else
+            {
+                 $('#requestResults').html('<h3>There is no requests for that user OR there is no user with that name!</h3>');
+            }
+         });
+    }
   });
   
   
@@ -29,19 +37,19 @@ $(document).ready(function() {
      //get name from worker name
      workerName = $('#searchUserName').val();
      workerLastName = $('#searchUserLastName').val();
-     
-     //alert(workerName);
-     $.post(EmpoloyeeVacation.routes.ajax_request_find_user, { name: workerName, last_name: workerLastName },  function(data) {
-         //alert(data);
-         if(data !== '')
-         {
-            $('#usersResult').html(data);
-         }
-         else
-         {
-            $('#usersResult').html('<h3>There is no user with that name!</h3>');
-         }
-      });
+
+    $.post(EmpoloyeeVacation.routes.ajax_request_find_user, { name: workerName, last_name: workerLastName },  function(data) {
+        //alert(data);
+        if(data !== '')
+        {
+           $('#usersResult').html(data);
+        }
+        else
+        {
+           $('#usersResult').html('<h3>There is no user with that name!</h3>');
+        }
+     });
+
   });
   
   
@@ -110,6 +118,13 @@ $(document).ready(function() {
         {
             getPendingRequests( page );
         }
+       else if(divWrapp.hasClass('pagerfantaSearchRequest'))
+        {
+            first_name = $('#requestWorkerName').val();
+            last_name = $('#requestWorkerLastName').val();
+            //alert(first_name + ' ' + last_name);
+            getSearchRequests( page, filter, first_name, last_name );
+        }
        return false;
    });
    
@@ -120,6 +135,19 @@ $(document).ready(function() {
             if(data !== '')
             {
                $('#requestResults').html(data);                
+            }
+        });
+   }
+   function getSearchRequests( page, filter, first_name, last_name )
+   {
+       $.post(EmpoloyeeVacation.routes.ajax_request_find_requests, {page: page, filter: filter, name: first_name, last_name: last_name}, function(data){
+            if(data !== '')
+            {
+               $('#requestResults').html(data);                
+            }
+            else
+            {
+                $('#requestResults').html('<h3>There is no request with selected status ('+filter+')!</h3>');
             }
         });
    }
@@ -168,4 +196,7 @@ $(document).ready(function() {
             window.location.href = EmpoloyeeVacation.routes.delete_user_on_approving_base + '/' + id;
         });
    });
+   
+   
+   
 });

@@ -1,32 +1,36 @@
-{% for name, requests in all_requests %}
-    <h3>{{ name }}</h3>
-    
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Status</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Days</th>
-                <th>Details</th>
-                <th>Edit</th>
-                <th>Approve</th>
-                <th>Reject</th>
-            </tr>   
-        </thead>
-        <tbody>
-            {% for request in requests %}
-                <tr> 
-                    <td>{{ request.getState }} </td>
-                    <td>{{ request.getStartDate|date('d-m-Y') }} </td> 
-                    <td>{{ request.getEndDate|date('d-m-Y') }}  </td>
-                    <td>{{ request.getNumberOfWorkingDays }} </td>                                        
-                    <td><a href="#commentModal" id='{{ request.getId }}' role="button" class="btn showRequestInfo">Show</a></td>
-                    <td><a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> </td>
-                    <td><a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a></td>
-                     <td><a class="rejectRequestLink" href="#rejectRequestModal" id='{{ request.getId }}' role="button">Reject</a></td>
-                </tr> 
-            {% endfor %}
-        </tbody>
-    </table>
-{% endfor %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>State</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Days</th>
+            <th>Details</th>
+            <th>Edit</th>
+            <th>Approve</th>
+            <th>Reject</th>
+        </tr>   
+    </thead>
+    <tbody>
+        {% for  request in requests %}
+            <tr class="request-details"> 
+                <td>{{ request.getUser.firstName }} {{ request.getUser.lastName }}</td>
+                <td>{{ request.getState }}</td>
+                <td>{{ request.getStartDate|date('d-m-Y') }} </td> 
+                <td>{{ request.getEndDate|date('d-m-Y') }}  </td>
+                <td>{{ request.getNumberOfWorkingDays }} </td>                                        
+                <td><a href="#commentModal" id='{{ request.getId }}' role="button" class="btn showRequestInfo">Show</a></td>
+                <td><a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> </td>
+                <td><a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a></td>
+                <td><a class="rejectRequestLink" href="#rejectRequestModal" id='{{ request.getId }}' role="button">Reject</a></td>
+                <!--td><a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a></td-->
+            </tr> 
+        {% endfor %}
+    </tbody>
+</table>
+{% if 1 != requests.getNbPages %}
+    <div class="pagerfantaSearchRequest">
+        {{ pagerfanta(requests, 'twitter_bootstrap') }}
+    </div>
+{% endif %}
