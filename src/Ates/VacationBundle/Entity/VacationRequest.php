@@ -10,6 +10,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class VacationRequest
 {
+    const PENDING = 1;
+    const APPROVED = 2;
+    const REJECTED = 3;
+    
+    
     /**
     * @ORM\Id
     * @ORM\Column(type="integer")
@@ -51,7 +56,7 @@ class VacationRequest
     protected $end_date;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="integer")
      */
     protected $state;
     
@@ -72,7 +77,7 @@ class VacationRequest
     
     public function __construct()
     {
-        $this->state = 'pending';
+        $this->state = VacationRequest::PENDING;
     }
     
     /**
@@ -175,29 +180,6 @@ class VacationRequest
     public function getEndDate()
     {
         return $this->end_date;
-    }
-
-    /**
-     * Set state
-     *
-     * @param string $state
-     * @return Request
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-    
-        return $this;
-    }
-
-    /**
-     * Get state
-     *
-     * @return string 
-     */
-    public function getState()
-    {
-        return $this->state;
     }
 
     /**
@@ -359,5 +341,28 @@ class VacationRequest
     public function getNumberOfWorkingDays()
     {
         return $this->number_of_working_days;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     * @return VacationRequest
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return integer 
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 }
