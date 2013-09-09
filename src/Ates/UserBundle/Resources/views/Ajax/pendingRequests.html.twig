@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>State</th>
             <th>From</th>
             <th>To</th>
             <th>Days</th>
@@ -15,8 +14,7 @@
     <tbody>
         {% for  request in requests %}
             <tr class="request-details"> 
-                <td>{{ request.getUser.firstName }} {{ request.getUser.lastName }}</td>
-                <td>{{ request.getState }}</td>
+                <td>{{ request.getUser.getFirstName }} {{ request.getUser.getLastName }}</td>
                 <td>{{ request.getStartDate|date('d-m-Y') }} </td> 
                 <td>{{ request.getEndDate|date('d-m-Y') }}  </td>
                 <td>{{ request.getNumberOfWorkingDays }} </td>                                        
@@ -24,13 +22,13 @@
                 <td><a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> </td>
                 <td><a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a></td>
                 <td><a class="rejectRequestLink" href="#rejectRequestModal" id='{{ request.getId }}' role="button">Reject</a></td>
-                <!--td><a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a></td-->
             </tr> 
         {% endfor %}
     </tbody>
 </table>
+
 {% if 1 != requests.getNbPages %}
-    <div class="pagerfantaSearchRequest">
+    <div class="pagerfantaPendingRequest">
         {{ pagerfanta(requests, 'twitter_bootstrap') }}
     </div>
 {% endif %}

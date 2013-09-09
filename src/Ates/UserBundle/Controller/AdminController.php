@@ -31,20 +31,12 @@ class AdminController extends Controller
     {      
         $em = $this->getDoctrine()->getManager();
         
-        $query = $em->getRepository('AtesVacationBundle:VacationRequest')->createQueryBuilder('r')
-            ->where('r.state = :s')
-            ->setParameter('s','pending')
-            ->orderBy('r.start_date','ASC')
-            ->getQuery();
-        $requests = $query->getResult();
-        
-        
-        
+        $pagerfanta = $this->container->get('vacation_request.model')->getPendingRequests();
+          
         $holidays = $em->getRepository('AtesVacationBundle:Holidays')->findAll();
         
-
         //get all user with confirmed email ( for account approving )
-        $users = $this->getDoctrine()->getRepository('AtesUserBundle:User')->findBy(array(
+        $users = $em->getRepository('AtesUserBundle:User')->findBy(array(
             'enabled' => true,
             'locked' => true
         ));
@@ -53,7 +45,7 @@ class AdminController extends Controller
         $roles = $activeUser->getRoles();
         
         return array(                    
-                'requests' => $requests,
+                'requests' => $pagerfanta,
                 'holidays' => $holidays,
                 'users' => $users,
                 'user' => $activeUser,
@@ -149,6 +141,7 @@ class AdminController extends Controller
         $vacationRequest->setSubmitted($today);
         $vacationRequest->setState("approved");
         $vacationRequest->setEditTime($today);
+        $vacationRequest->setComment('slava');
 
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($vacationRequest);
@@ -161,6 +154,7 @@ class AdminController extends Controller
     
     /**
      * @Route("/admin/delete_user_on_approving/{id}", name="delete_user_on_approving")
+     * @Route("/admin/delete_user_on_approving", name="delete_user_on_approving_base")
      */
     public function deleteUserOnApprovingAction($id)
     {
@@ -176,6 +170,7 @@ class AdminController extends Controller
     
     /**
      * @Route("/admin/reject_request/{id}", name="reject_request")
+     * @Route("/admin/reject_request", name="reject_request_base")
      */
     public function rejectRequestAction($id)
     {
@@ -226,6 +221,7 @@ class AdminController extends Controller
         
     /**
      * @Route("/admin/delete_holiday/{id}", name="delete_holiday")
+     * @Route("/admin/delete_holiday", name="delete_holiday_base")
      */
     public function deleteHolidayAction($id)
     {

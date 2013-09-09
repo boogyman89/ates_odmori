@@ -2,24 +2,32 @@ $(document).ready(function() {
      
   //find requests  
   $('#filterRequestButton').on('click', function(){
+     //rename title Pending Request to Request
+     $('.requestsTitle').text('Requests');
      
      //get name from worker name
      workerName = $('#requestWorkerName').val();
      workerLastName = $('#requestWorkerLastName').val();
+     filter = $('#requestsFilterProfile').val();
      
-     //alert(workerName+" "+workerLastName);
-     
-     $.post(EmpoloyeeVacation.routes.ajax_request_find_requests,{ name: workerName, last_name: workerLastName },  function(data) {
-         //alert('vraceno');
-         if(data !== '')
-         {
-            $('#requestResults').html(data);
-         }
-         else
-         {
-              $('#requestResults').html('<h3>There is no requests for that user OR there is no user with that name!</h3>');
-         }
-      });
+     if('' == workerName && '' == workerLastName )
+    {
+        alert('Both field for search are empty!');
+    }
+    else
+    {
+        $.post(EmpoloyeeVacation.routes.ajax_request_find_requests,{ name: workerName, last_name: workerLastName, filter: filter },  function(data) {
+
+            if(data !== '')
+            {
+               $('#requestResults').html(data);
+            }
+            else
+            {
+                 $('#requestResults').html('<h3>There is no requests for that user OR there is no user with that name!</h3>');
+            }
+         });
+    }
   });
   
   
@@ -29,19 +37,19 @@ $(document).ready(function() {
      //get name from worker name
      workerName = $('#searchUserName').val();
      workerLastName = $('#searchUserLastName').val();
-     
-     //alert(workerName);
-     $.post(EmpoloyeeVacation.routes.ajax_request_find_user, { name: workerName, last_name: workerLastName },  function(data) {
-         //alert(data);
-         if(data !== '')
-         {
-            $('#usersResult').html(data);
-         }
-         else
-         {
-            $('#usersResult').html('<h3>There is no user with that name!</h3>');
-         }
-      });
+
+    $.post(EmpoloyeeVacation.routes.ajax_request_find_user, { name: workerName, last_name: workerLastName },  function(data) {
+        //alert(data);
+        if(data !== '')
+        {
+           $('#usersResult').html(data);
+        }
+        else
+        {
+           $('#usersResult').html('<h3>There is no user with that name!</h3>');
+        }
+     });
+
   });
   
   
@@ -100,52 +108,95 @@ $(document).ready(function() {
                 }
             }            
         }
-       getUserRequests( filter, page );
+       
+       var divWrapp = $(this).parent().parent().parent().parent();
+       if(divWrapp.hasClass('pagerfantaProfile'))
+       {
+           getUserRequests( filter, page );
+       }
+       else if(divWrapp.hasClass('pagerfantaPendingRequest'))
+        {
+            getPendingRequests( page );
+        }
+       else if(divWrapp.hasClass('pagerfantaSearchRequest'))
+        {
+            first_name = $('#requestWorkerName').val();
+            last_name = $('#requestWorkerLastName').val();
+            //alert(first_name + ' ' + last_name);
+            getSearchRequests( page, filter, first_name, last_name );
+        }
        return false;
    });
-    
-    
-    
-    
    
-   $('.request-details a').on('click', function() {
-       id = $(this).attr('id');
-                  
-       $.post('ajax/find_request_by_id', { id: id}, function(data){
+   function getPendingRequests( page )
+   {
+       $.get(EmpoloyeeVacation.routes.ajax_get_pending_requests_base + '/' + page, function(data){
+            //alert(data);
+            if(data !== '')
+            {
+               $('#requestResults').html(data);                
+            }
+        });
+   }
+   function getSearchRequests( page, filter, first_name, last_name )
+   {
+       $.post(EmpoloyeeVacation.routes.ajax_request_find_requests, {page: page, filter: filter, name: first_name, last_name: last_name}, function(data){
+            if(data !== '')
+            {
+               $('#requestResults').html(data);                
+            }
+            else
+            {
+                $('#requestResults').html('<h3>There is no request with selected status ('+filter+')!</h3>');
+            }
+        });
+   }
+    
+    
+    
+
+   
+   $(document).on('click', '.showRequestInfo', function(){
+        id = $(this).attr('id');
+        
+        $.post(EmpoloyeeVacation.routes.ajax_find_request_by_id, { id: id}, function(data){
            
             if(data !== '')
             {  
-                $('#requestModal').html(data);           
+                $('#requestModal').html(data);
+                $('#commentModal').modal('toggle');
             }
-       });                
+       });        
    });
    
-   
-   $('.rejectRequestLink').click(function(){
+   $(document).on('click', '.rejectRequestLink', function(){
         id = $(this).attr('id');
-        $('#confirmRejectModal').modal('toggle')
+        $('#rejectRequestModal').modal('toggle');
         
         $('.confirmRejectRequestButton').click(function(){
-            window.location.href = 'http://localhost/app_dev.php/admin/reject_request/'+id;
+            window.location.href = EmpoloyeeVacation.routes.reject_request_base + '/' + id;
         });
    });
    
     
-   $('.deleteHoliday').click(function(){
+   $(document).on('click', '.deleteHoliday', function(){
         id = $(this).attr('id');
-        $('#confirmDeleteHolidayModal').modal('toggle')
+        $('#confirmDeleteHolidayModal').modal('toggle');
 
         $('.confirmDeleteHolidayButton').click(function(){
-            window.location.href = 'http://localhost/app_dev.php/admin/delete_holiday/'+id;
+            window.location.href = EmpoloyeeVacation.routes.delete_holiday_base + '/' + id;
         });
    });
    
-   $('.deleteUser').click(function(){
+   $(document).on('click', '.deleteUser', function(){
         id = $(this).attr('id');
-        $('#userDeleteModal').modal('toggle')
+        $('#userDeleteModal').modal('toggle');
 
         $('.confirmDeleteUserButton').click(function(){
-            window.location.href = 'http://localhost/app_dev.php/admin/delete_user_on_approving/'+id;
+            window.location.href = EmpoloyeeVacation.routes.delete_user_on_approving_base + '/' + id;
         });
    });
+   
+   
+   
 });

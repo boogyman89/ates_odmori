@@ -35,7 +35,8 @@ class AddWorkingDaysCommand extends ContainerAwareCommand
         
         foreach( $users as $user)
         {
-            $user->setNoDaysOffLastYear($user->getNoDaysOff());
+            $nb_days_off_last_year = $user->getNoDaysOff();
+            $user->setNoDaysOffLastYear($nb_days_off_last_year);
             $user->setNoDaysOff($nbr_days_off);
             
             //send slava request for this year
@@ -51,10 +52,11 @@ class AddWorkingDaysCommand extends ContainerAwareCommand
             $today = new \DateTime("now");
             $vacationRequest->setStartDate($date_of_slava); 
             $vacationRequest->setEndDate($date_of_slava_ends);
-            $vacationRequest->setIdUser($user->getId());
+            $vacationRequest->setUser($user);
             $vacationRequest->setSubmitted($today);
             $vacationRequest->setState("approved");
             $vacationRequest->setEditTime($today);
+            $vacationRequest->setComment('slava');
 
             
             $em->persist($vacationRequest);

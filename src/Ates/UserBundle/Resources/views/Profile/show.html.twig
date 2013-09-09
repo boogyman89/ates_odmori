@@ -66,11 +66,12 @@
             <tbody>
               {% for request in requests.currentPageResults %}
                     <tr> 
-                        <td>{{ request.state }}</td> 
-                        <td>{{ request.startDate|date('Y-m-d') }} </td>  
-                        <td>{{ request.endDate|date('Y-m-d') }} </td> 
+                        <td>{{ request.state }}</td>
+                        <td>{{ request.startDate|date('d-m-Y') }} </td>  
+                        <td>{{ request.endDate|date('d-m-Y') }} </td> 
                         {% if (request.pdf != null )%}
-                            <td><a href=' {{ request.getPdf }} '>PDF</a></td>
+                            {% set pdfUrl = 'PDF/' ~ request.getPdf %}
+                            <td><a href='{{ asset(pdfUrl) }}' target="_blank">PDF</a></td>
                          {% endif %}
                          {% if (request.getState == 'pending' )%}
                             <td><a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a></td>  
@@ -82,7 +83,12 @@
                 {% endfor %}
             </tbody>
           </table>
-          {{ pagerfanta(requests, 'twitter_bootstrap') }}
+                
+            {% if 1 != requests.getNbPages %}
+                <div class="pagerfantaProfile">
+                    {{ pagerfanta(requests, 'twitter_bootstrap') }}
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

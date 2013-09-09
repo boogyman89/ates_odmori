@@ -22,16 +22,39 @@
 {% block container %}
 
 
-<form class="form-signin registration-input-width" action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
+<div class="form-signin registration-input-width" >
     <h2 class="form-signin-heading text-center">Edit Info</h2>
     
-    {{ form_widget(form) }}
+   {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div>
+            <p>Username</p>
+            <p class="disabledTextField">{{ app.user.username }}<p>
+        </div>
+        <div>
+            <p>Email</p>
+            <p class="disabledTextField">{{ app.user.email }}</p>
+        </div>
     
+        {{ form_row(form.first_name) }}
+        {{ form_row(form.last_name) }}
+        
+        <div>
+            <p>SSN</p>
+            <p class="disabledTextField">{{ app.user.ssn }}<p>
+        </div>
+    
+        {{ form_row(form.address) }}
+        {{ form_row(form.phone) }}   
     
     <div>
         <input class="btn btn-primary btn-block btn-large marginTop20" type="submit" value="{{ 'profile.edit.submit'|trans }}   " />
     </div>
-</form>
+
+    {{ form_end(form) }}
+    
+</div>
 {% endblock container %}
 
 

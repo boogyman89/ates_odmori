@@ -78,3 +78,21 @@ a.registerLink:hover{
 .margieBottom0px{
     margin-bottom: 0px;
 }
+.disabledTextFieldWrapp{
+    width: 305px;
+}
+.disabledTextField{
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    color: #000;
+    background: #eee;
+}
+.width100px{
+    width: 100px;
+}
+.width190px{
+    width: 190px;
+}

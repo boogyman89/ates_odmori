@@ -70,10 +70,10 @@
         /**
          * @ORM\Column(type="integer")
          * @Assert\Range(
-         *      min = 120,
-         *      max = 180,
-         *      minMessage = "You must be at least 120cm tall to enter",
-         *      maxMessage = "You cannot be taller than 180cm to enter"
+         *      min = 0,
+         *      max = 100,
+         *      minMessage = "Minimum number of days off is 0!",
+         *      maxMessage = "Maximum number of days off is 100!"
          * )
          */
         protected $no_days_off;
@@ -84,6 +84,10 @@
          */
         protected $date_of_slava;
         
+        /**
+         * @ORM\Column(type="integer")
+         *
+         */
         protected $no_days_off_last_year;
 
         /**

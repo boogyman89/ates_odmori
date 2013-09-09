@@ -17,7 +17,8 @@
                     <td>{{ request.getStartDate|date('d-m-Y') }} </td>  
                     <td>{{ request.getEndDate|date('d-m-Y') }} </td> 
                     {% if (request.getPdf != null )%}
-                        <td><a href=' {{ request.getPdf }} '>PDF</a></td>
+                        {% set pdfUrl = 'PDF/' ~ request.getPdf %}
+                        <td><a href='{{ asset(pdfUrl) }}' target="_blank">PDF</a></td>
                      {% endif %}
                      {% if (request.getState == 'pending' )%}
                         <td><a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a></td>  
@@ -31,4 +32,8 @@
                 
     </tbody>
 </table>
-{{ pagerfanta(requests, 'twitter_bootstrap') }}
+{% if 1 != requests.getNbPages %}
+    <div class="pagerfantaProfile">
+        {{ pagerfanta(requests, 'twitter_bootstrap') }}
+    </div>
+{% endif %}

@@ -36,11 +36,19 @@
         <div class="row-fluid">
             <div class="span6 ">
                 <div class="white-box">
-                    <h2 class='underline'>Pending Requests</h2>
+                    <h2 class='underline requestsTitle'>Pending Requests</h2>
 
-                    <div class="find-box">
-                        <input id="requestWorkerName" type="text" name="name" value="" placeholder="First Name"/>
-                        <input id="requestWorkerLastName" type="text" name="lastname" value="" placeholder="Last Name"/>
+                    <div class="find-box">                        
+                            
+                        <input id="requestWorkerName" class="width190px" type="text" name="name" value="" placeholder="First Name"/>
+                        <input id="requestWorkerLastName" class="width190px" type="text" name="lastname" value="" placeholder="Last Name"/>
+                        
+                        <select id="requestsFilterProfile" class="width100px">
+                            <option>all</option>
+                            <option>pending</option>
+                            <option>approved</option>
+                        </select>
+                        
                         <button id="filterRequestButton" class="btn btn-primary marginTop-10">Find</button>
                     </div>
                     
@@ -62,21 +70,25 @@
                                 {% for  request in requests %}
                                     <tr class="request-details"> 
                                         <td>{{ request.getUser.getFirstName }} {{ request.getUser.getLastName }}</td>
-                                        <td>{{ request.getStartDate|date('d.m.Y') }} </td> 
-                                        <td>{{ request.getEndDate|date('d.m.Y') }}  </td>
+                                        <td>{{ request.getStartDate|date('d-m-Y') }} </td> 
+                                        <td>{{ request.getEndDate|date('d-m-Y') }}  </td>
                                         <td>{{ request.getNumberOfWorkingDays }} </td>                                        
-                                        <td><a href="#commentModal" id='{{ request.getId }}' role="button" class="btn" data-toggle="modal">Show</a></td>
+                                        <td><a href="#commentModal" id='{{ request.getId }}' role="button" class="btn showRequestInfo">Show</a></td>
                                         <td><a href=' {{ path('edit_request_form', {'id' : request.id}) }}'>Edit</a> </td>
                                         <td><a href=' {{ path('approve_request',  {'id' : request.id}) }}'>Approve</a></td>
-                                        <td><a class="rejectRequestLink" href="#confirmRejectModal" id=' {{ request.getId }}' role="button">Reject</a></td>
+                                        <td><a class="rejectRequestLink" href="#rejectRequestModal" id='{{ request.getId }}' role="button">Reject</a></td>
                                         <!--td><a href=' {{ path('reject_request',  {'id' : request.id}) }}'>Reject</a></td-->
                                     </tr> 
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <!--ul id="requestResults">
-
-                        </ul-->
+                        
+                        {% if 1 != requests.getNbPages %}
+                            <div class="pagerfantaPendingRequest">
+                                {{ pagerfanta(requests, 'twitter_bootstrap') }}
+                            </div>
+                        {% endif %}
+                            
                     </div>
                 </div>
             </div>
@@ -180,7 +192,7 @@
    </div>
 </div>
 
-<div id="confirmRejectModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="rejectRequestModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Warning!</h3>
