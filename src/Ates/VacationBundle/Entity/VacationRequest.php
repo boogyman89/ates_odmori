@@ -10,6 +10,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class VacationRequest
 {
+    const PENDING = 1;
+    const APPROVED = 2;
+    const REJECTED = 3;
+    
+    
     /**
     * @ORM\Id
     * @ORM\Column(type="integer")
@@ -51,7 +56,7 @@ class VacationRequest
     protected $end_date;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="integer")
      */
     protected $state;
     
@@ -72,7 +77,7 @@ class VacationRequest
     
     public function __construct()
     {
-        $this->state = 'pending';
+        $this->state = VacationRequest::PENDING;
     }
     
     /**
