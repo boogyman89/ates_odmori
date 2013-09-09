@@ -534,7 +534,7 @@
     </parameter>
     <parameter key="knp_snappy.pdf.internal_generator.class">Knp\Snappy\Pdf</parameter>
     <parameter key="knp_snappy.pdf.class">Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator</parameter>
-    <parameter key="knp_snappy.pdf.binary">C:\"Program Files"\wkhtmltopdf\wkhtmltopdf.exe</parameter>
+    <parameter key="knp_snappy.pdf.binary">C:\"Program Files (x86)"\wkhtmltopdf\wkhtmltopdf.exe</parameter>
     <parameter key="knp_snappy.pdf.options" type="collection"/>
     <parameter key="knp_snappy.pdf.env" type="collection"/>
     <parameter key="knp_snappy.image.internal_generator.class">Knp\Snappy\Image</parameter>
@@ -2872,7 +2872,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>522db5e84874d</argument>
+            <argument>522dd139aaf8f</argument>
           </service>
         </argument>
       </argument>
@@ -3138,7 +3138,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>522db5e84874d</argument>
+            <argument>522dd139aaf8f</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3999,7 +3999,7 @@
       <tag name="monolog.logger" channel="snappy"/>
       <argument type="service">
         <service class="Knp\Snappy\Pdf" public="false">
-          <argument>C:\"Program Files"\wkhtmltopdf\wkhtmltopdf.exe</argument>
+          <argument>C:\"Program Files (x86)"\wkhtmltopdf\wkhtmltopdf.exe</argument>
           <argument type="collection"/>
           <argument type="collection"/>
         </service>

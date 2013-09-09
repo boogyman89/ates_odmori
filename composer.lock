@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0d62914c2f071a93437001fa601267db",
+    "hash": "81a529d48435bbd9a3e9d3ac475ecd1b",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -591,6 +591,20 @@
                 "uploadable"
             ],
             "time": "2013-09-01 18:48:56"
+<<<<<<< HEAD
+        },
+        {
+            "name": "google/wkhtmltopdf-amd64",
+            "version": "0.11.0-RC1",
+            "dist": {
+                "type": "tar",
+                "url": "http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz2",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+=======
+>>>>>>> d05ca9db4d14d53dd968c3c06a125b54e699d509
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1794,7 +1808,8 @@
         "braincrafted/bootstrap-bundle": 20,
         "twitter/bootstrap": 20,
         "leafo/lessphp": 20,
-        "knplabs/knp-snappy-bundle": 20
+        "knplabs/knp-snappy-bundle": 20,
+        "google/wkhtmltopdf-amd64": 5
     },
     "platform": {
         "php": ">=5.3.3"

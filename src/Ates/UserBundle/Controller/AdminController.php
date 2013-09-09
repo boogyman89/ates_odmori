@@ -70,7 +70,7 @@ class AdminController extends Controller
          $startDate = $vacationRequest->getStartDate();
          $workingDays = $vacationRequest->getNumberOfWorkingDays();
 
-         $vacationRequest->setState('approved');
+         $vacationRequest->setState(VacationRequest::APPROVED);
          $vacationRequest->setPdf($user->getID() . "req" . $vacationRequest->getId() . ".pdf");
           
          $noDaysOffLastYear = $user->getNoDaysOffLastYear();
@@ -111,7 +111,7 @@ class AdminController extends Controller
          
          
          //send email 
-         $this->sendEmail($user, $vacationRequest, 'approve');        
+         $this->sendEmail($user, $vacationRequest, VacationRequest::APPROVED);        
         
          
          return $this->redirect($this->generateUrl('show_admin_panel'));
@@ -139,7 +139,7 @@ class AdminController extends Controller
         $vacationRequest->setEndDate($date_of_slava_ends);
         $vacationRequest->setUser($user);
         $vacationRequest->setSubmitted($today);
-        $vacationRequest->setState("approved");
+        $vacationRequest->setState(VacationRequest::APPROVED);
         $vacationRequest->setEditTime($today);
         $vacationRequest->setComment('slava');
 
@@ -178,7 +178,7 @@ class AdminController extends Controller
          $repository = $em->getRepository('AtesVacationBundle:VacationRequest');
          $vacationRequest = $repository->find($id);
           
-         $vacationRequest->setState('rejected');
+         $vacationRequest->setState(VacationRequest::REJECTED);
           
          $em->flush();
          
@@ -327,29 +327,6 @@ class AdminController extends Controller
             }
         }         
         return $workingDays;
-    }
-    
-    function createPDF($user,$vacationRequest,$workingDays)
-    {
-        $pdf = new \FPDF('P', 'mm', 'A4');
-                
-        $text = "Zaposlenom " . $user->getFirstName() . " " . $user->getLastName() 
-                . " sa maticnim brojem " . $user->getSSN() 
-                . " se odobrava godisnji odmor u trajanju od " . $workingDays 
-                . " radnih dana sa pocetkom dana " . $vacationRequest->getStartDate()->format('Y-m-d')
-                . " do " . $vacationRequest->getEndDate()->format('Y-m-d') ;
-             
-        $pdf->AddPage();
-        $pdf->SetFont('Arial','',12);
-         //cell width height text in mm
-        $pdf->write(5,$text);
-        $path = "PDF/" . $user->getID() . "req" . $vacationRequest->getId() . ".pdf";
-        $pdf->Output($path,"F");
-       
-        $url = "http://localhost/" . $path;
-        //echo $url;
-        $vacationRequest->setPdf($url);
-      //  return $this->redirect('http://localhost/pdf/simple.pdf');
     }
     
      /**

@@ -17,6 +17,17 @@
                     "type": "file"
                 }
             }
+        },
+		{
+            "type": "package",
+            "package": {
+                "name": "google/wkhtmltopdf-amd64",
+                "version": "0.11.0-RC1",
+                "dist": {
+                    "url": "http://wkhtmltopdf.googlecode.com/files/wkhtmltopdf-0.11.0_rc1-static-amd64.tar.bz2",
+                    "type": "tar"
+                }
+            }
         }
     ],
     "require": {
@@ -43,7 +54,8 @@
         "twitter/bootstrap": "2.3.*@dev",
         "jquery/jquery": "1.9.*",
         "leafo/lessphp": "dev-master",
-		"knplabs/knp-snappy-bundle": "dev-master"
+		"knplabs/knp-snappy-bundle": "dev-master",
+		"google/wkhtmltopdf-amd64": "0.11.0-RC1"
     },
     "scripts": {
         "post-install-cmd": [
