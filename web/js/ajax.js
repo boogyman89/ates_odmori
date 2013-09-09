@@ -1,4 +1,22 @@
 $(document).ready(function() {
+    
+    function getState( s )
+    {
+        if('pending' == s)
+        {
+            state = 1;
+        }
+        else if('approved' == s)
+        {
+            state = 2;
+        }
+        else
+        {
+            state = 'all';
+        }
+        
+        return state; 
+    }
      
   //find requests  
   $('#filterRequestButton').on('click', function(){
@@ -8,7 +26,7 @@ $(document).ready(function() {
      //get name from worker name
      workerName = $('#requestWorkerName').val();
      workerLastName = $('#requestWorkerLastName').val();
-     filter = $('#requestsFilterProfile').val();
+     state = getState( $('#requestsFilterProfile').val() );
      
      if('' == workerName && '' == workerLastName )
     {
@@ -16,7 +34,7 @@ $(document).ready(function() {
     }
     else
     {
-        $.post(EmpoloyeeVacation.routes.ajax_request_find_requests,{ name: workerName, last_name: workerLastName, filter: filter },  function(data) {
+        $.post(EmpoloyeeVacation.routes.ajax_request_find_requests,{ name: workerName, last_name: workerLastName, filter: state },  function(data) {
 
             if(data !== '')
             {
@@ -58,14 +76,13 @@ $(document).ready(function() {
    $("#requestsFilterProfile").on('change', function(){
       //alert (EmpoloyeeVacation.routes.ajax_find_user_request_base);
         
-        var filter = $(this).val();
-        
-        getUserRequests( filter, 1 );
+        var state = getState( $(this).val() );
+        getUserRequests( state, 1 );
     });
     
-   function getUserRequests( filter, page )
+   function getUserRequests( state, page )
    {
-       $.get(EmpoloyeeVacation.routes.ajax_find_user_request_base + '/' + filter + '/' + page, function(data){
+       $.get(EmpoloyeeVacation.routes.ajax_find_user_request_base + '/' + state + '/' + page, function(data){
             //alert(data);
             if(data !== '')
             {
@@ -73,7 +90,7 @@ $(document).ready(function() {
             }
             else
             {
-                $('#userRequestResults').html('<h3>There is no request with selected status ('+filter+')!</h3>');
+                $('#userRequestResults').html('<h3>There is no request with selected status ('+state+')!</h3>');
             }
         });
    }
@@ -82,7 +99,7 @@ $(document).ready(function() {
    $(document).on('click', '.pagination ul li a', function(){
         
        var page = $(this).text();
-       var filter = $("#requestsFilterProfile").val();
+       var state = getState( $("#requestsFilterProfile").val() );
              
         //if not a number
         if(isNaN(page))
@@ -112,7 +129,7 @@ $(document).ready(function() {
        var divWrapp = $(this).parent().parent().parent().parent();
        if(divWrapp.hasClass('pagerfantaProfile'))
        {
-           getUserRequests( filter, page );
+           getUserRequests( state, page );
        }
        else if(divWrapp.hasClass('pagerfantaPendingRequest'))
         {
@@ -123,7 +140,7 @@ $(document).ready(function() {
             first_name = $('#requestWorkerName').val();
             last_name = $('#requestWorkerLastName').val();
             //alert(first_name + ' ' + last_name);
-            getSearchRequests( page, filter, first_name, last_name );
+            getSearchRequests( page, state, first_name, last_name );
         }
        return false;
    });
@@ -138,16 +155,16 @@ $(document).ready(function() {
             }
         });
    }
-   function getSearchRequests( page, filter, first_name, last_name )
+   function getSearchRequests( page, state, first_name, last_name )
    {
-       $.post(EmpoloyeeVacation.routes.ajax_request_find_requests, {page: page, filter: filter, name: first_name, last_name: last_name}, function(data){
+       $.post(EmpoloyeeVacation.routes.ajax_request_find_requests, {page: page, filter: state, name: first_name, last_name: last_name}, function(data){
             if(data !== '')
             {
                $('#requestResults').html(data);                
             }
             else
             {
-                $('#requestResults').html('<h3>There is no request with selected status ('+filter+')!</h3>');
+                $('#requestResults').html('<h3>There is no request with selected status ('+state+')!</h3>');
             }
         });
    }

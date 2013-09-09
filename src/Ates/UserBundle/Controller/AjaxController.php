@@ -38,7 +38,7 @@ class AjaxController extends Controller
         
         $first_name = $request->request->get('name');
         $last_name = $request->request->get('last_name');        
-        $filter = $request->request->get('filter');
+        $state = $request->request->get('filter');
         
         if(null != $request->request->get('page'))
         {
@@ -71,10 +71,10 @@ class AjaxController extends Controller
             $queryBuilder->andWhere('u.last_name LIKE :l_name')
                 ->setParameter('l_name', '%'.$last_name.'%');
         }
-        if('all' != $filter)
+        if('all' != $state)
         {
-            $queryBuilder->andWhere('r.state = :state')
-                ->setParameter('state', $filter);
+            $queryBuilder->andWhere('r.state = :s')
+                ->setParameter('s', $state);
         }
 
         $adapter = new DoctrineORMAdapter($queryBuilder);
@@ -156,21 +156,21 @@ class AjaxController extends Controller
     }
     
     /**
-     * @Route("/ajax/find_user_requests/{filter}/{page}", name="ajax_find_user_request",  requirements={"page" = "\d+"}, defaults={ "page" = 1} )
+     * @Route("/ajax/find_user_requests/{state}/{page}", name="ajax_find_user_request",  requirements={"page" = "\d+"}, defaults={ "page" = 1} )
      * @Route("/ajax/find_user_requests", name="ajax_find_user_request_base" )
      * @Template("AtesUserBundle:Ajax:userRequests.html.twig", vars={"requests","filter"})
      * @param int $page
      */
-    public function findRequestsForUserAction($filter, $page )
+    public function findRequestsForUserAction($state, $page )
     {
         $user = $this->getUser();
 //        \Doctrine\Common\Util\Debug::dump($user,2);exit;
        
-        $pagerfanta = $this->container->get('vacation_request.model')->getUserRequests($user, $page, $filter);
+        $pagerfanta = $this->container->get('vacation_request.model')->getUserRequests($user, $page, $state);
         
         return array(                    
             'requests' => $pagerfanta,
-            'filter' => $filter
+            'filter' => $state
         );
     }
     

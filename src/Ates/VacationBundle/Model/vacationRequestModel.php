@@ -18,7 +18,7 @@ class vacationRequestModel
         $this->entityManager = $entityManager;
     }
     
-    public function getUserRequests($user, $page, $filter = null)
+    public function getUserRequests($user, $page, $state = null)
     {
         $requestRepository = $this->entityManager->getRepository('AtesVacationBundle:VacationRequest');
         
@@ -27,10 +27,10 @@ class vacationRequestModel
             ->setParameter('user', $user)
             ->orderBy('r.created','DESC');
         
-        if( null != $filter && 'all' != $filter )
+        if( null != $state && 'all' != $state )
         {
-            $queryBuilder->andWhere('r.state = :filter')
-                        ->setParameter('filter', $filter);
+            $queryBuilder->andWhere('r.state = :s')
+                        ->setParameter('s', $state);
         }
         
         $adapter = new DoctrineORMAdapter($queryBuilder);
@@ -57,7 +57,7 @@ class vacationRequestModel
         
         $queryBuilder = $requestRepository->createQueryBuilder('r')
             ->where('r.state = :s')
-            ->setParameter('s','pending')
+            ->setParameter('s', 1)
             ->orderBy('r.created','DESC');
         
         $adapter = new DoctrineORMAdapter($queryBuilder);
