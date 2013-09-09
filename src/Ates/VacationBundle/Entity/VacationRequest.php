@@ -183,29 +183,6 @@ class VacationRequest
     }
 
     /**
-     * Set state
-     *
-     * @param string $state
-     * @return Request
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-    
-        return $this;
-    }
-
-    /**
-     * Get state
-     *
-     * @return string 
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
      * Set pdf
      *
      * @param string $pdf
@@ -364,5 +341,28 @@ class VacationRequest
     public function getNumberOfWorkingDays()
     {
         return $this->number_of_working_days;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     * @return VacationRequest
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return integer 
+     */
+    public function getState()
+    {
+        return $this->state;
     }
 }
