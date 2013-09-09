@@ -70,7 +70,7 @@ class AdminController extends Controller
          $startDate = $vacationRequest->getStartDate();
          $workingDays = $vacationRequest->getNumberOfWorkingDays();
 
-         $vacationRequest->setState('approved');
+         $vacationRequest->setState(VacationRequest::APPROVED);
          $vacationRequest->setPdf($user->getID() . "req" . $vacationRequest->getId() . ".pdf");
           
          $noDaysOffLastYear = $user->getNoDaysOffLastYear();
@@ -111,7 +111,7 @@ class AdminController extends Controller
          
          
          //send email 
-         $this->sendEmail($user, $vacationRequest, 'approve');        
+         $this->sendEmail($user, $vacationRequest, VacationRequest::APPROVED);        
         
          
          return $this->redirect($this->generateUrl('show_admin_panel'));
@@ -139,7 +139,7 @@ class AdminController extends Controller
         $vacationRequest->setEndDate($date_of_slava_ends);
         $vacationRequest->setUser($user);
         $vacationRequest->setSubmitted($today);
-        $vacationRequest->setState("approved");
+        $vacationRequest->setState(VacationRequest::APPROVED);
         $vacationRequest->setEditTime($today);
         $vacationRequest->setComment('slava');
 
@@ -178,7 +178,7 @@ class AdminController extends Controller
          $repository = $em->getRepository('AtesVacationBundle:VacationRequest');
          $vacationRequest = $repository->find($id);
           
-         $vacationRequest->setState('rejected');
+         $vacationRequest->setState(VacationRequest::REJECTED);
           
          $em->flush();
          

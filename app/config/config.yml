@@ -131,7 +131,7 @@ bc_bootstrap:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     C:\"Program Files"\wkhtmltopdf\wkhtmltopdf.exe
+        binary:     C:\"Program Files (x86)"\wkhtmltopdf\wkhtmltopdf.exe
         options:    []
 
 services:
