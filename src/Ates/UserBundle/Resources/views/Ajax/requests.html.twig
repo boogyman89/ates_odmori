@@ -16,7 +16,15 @@
         {% for  request in requests %}
             <tr class="request-details"> 
                 <td>{{ request.getUser.firstName }} {{ request.getUser.lastName }}</td>
-                <td>{{ request.getState }}</td>
+                <td>
+                    {%if 1 == request.getState %} 
+                        pending 
+                    {% elseif 2 == request.getState %}
+                        approved 
+                    {% elseif 3 == request.getState %}
+                        rejected 
+                    {% endif %}
+                </td>
                 <td>{{ request.getStartDate|date('d-m-Y') }} </td> 
                 <td>{{ request.getEndDate|date('d-m-Y') }}  </td>
                 <td>{{ request.getNumberOfWorkingDays }} </td>                                        

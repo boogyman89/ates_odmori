@@ -13,7 +13,15 @@
       {% for request in requests.currentPageResults %}
             {% if request.getState == filter or filter == 'all' %}
                 <tr> 
-                    <td>{{ request.getState }}</td> 
+                    <td>
+                        {%if 1 == request.getState %} 
+                            pending 
+                        {% elseif 2 == request.getState %}
+                            approved 
+                        {% elseif 3 == request.getState %}
+                            rejected 
+                        {% endif %}
+                    </td>
                     <td>{{ request.getStartDate|date('d-m-Y') }} </td>  
                     <td>{{ request.getEndDate|date('d-m-Y') }} </td> 
                     {% if (request.getPdf != null )%}
