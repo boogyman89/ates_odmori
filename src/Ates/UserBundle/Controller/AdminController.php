@@ -94,7 +94,7 @@ class AdminController extends Controller
          $em->flush();
           
          $year = $startDate->format('Y');
-         $path = "PDF/" . $user->getID() . "req" . $vacationRequest->getId() . ".pdf";
+         /*$path = __DIR__."/../../../../PDF/" . $user->getID() . "req" . $vacationRequest->getId() . ".pdf";
                   
          $this->get('knp_snappy.pdf')->generateFromHtml(
             $this->renderView(
@@ -106,10 +106,10 @@ class AdminController extends Controller
                         'numberOfDays' => $workingDays
                     )
             ),
-            $path
+            '/tmp/bill-123.pdf'
          );
          
-         
+         */
          //send email 
          $this->sendEmail($user, $vacationRequest, VacationRequest::APPROVED);        
         
