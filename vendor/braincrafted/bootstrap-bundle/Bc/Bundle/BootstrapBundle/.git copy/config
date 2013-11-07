@@ -1,0 +1,19 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = git://github.com/braincrafted/bootstrap-bundle.git
+	pushurl = git@github.com:braincrafted/bootstrap-bundle.git
+[branch "2.0"]
+	remote = origin
+	merge = refs/heads/2.0
+[remote "composer"]
+	url = git://github.com/braincrafted/bootstrap-bundle.git
+	fetch = +refs/heads/*:refs/remotes/composer/*
+[branch "master"]
+	remote = composer
+	merge = refs/heads/master

@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = git://github.com/whiteoctober/WhiteOctoberPagerfantaBundle.git
+	pushurl = git@github.com:whiteoctober/WhiteOctoberPagerfantaBundle.git
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[remote "composer"]
+	url = git://github.com/whiteoctober/WhiteOctoberPagerfantaBundle.git
+	fetch = +refs/heads/*:refs/remotes/composer/*
