@@ -36,6 +36,10 @@ assetic:
     bundles:        [ ]
     #java: /usr/bin/java
     filters:
+        uglifyjs2:
+            bin: /usr/local/bin/uglifyjs
+        uglifycss:
+            bin: /usr/local/bin/uglifycss
         lessphp:
             file: %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
             apply_to:   "\.less$"
@@ -47,7 +51,7 @@ assetic:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/less/responsive.less
             filters:
                 - lessphp
-            output: css/bootstrap.css
+            output: bundles/twitter/css/bootstrap.css
         bootstrap_js:
             inputs:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-transition.js
@@ -63,7 +67,7 @@ assetic:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-tab.js
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-affix.js
-            output: js/bootstrap.js
+            output: bundles/twitter/js/bootstrap.js
         jquery:
             inputs:
                 - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.9.1.js

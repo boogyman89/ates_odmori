@@ -41,6 +41,8 @@ class appDevDebugProjectContainer extends Container
             'assetic.controller' => 'getAssetic_ControllerService',
             'assetic.filter.cssrewrite' => 'getAssetic_Filter_CssrewriteService',
             'assetic.filter.lessphp' => 'getAssetic_Filter_LessphpService',
+            'assetic.filter.uglifycss' => 'getAssetic_Filter_UglifycssService',
+            'assetic.filter.uglifyjs2' => 'getAssetic_Filter_Uglifyjs2Service',
             'assetic.filter_manager' => 'getAssetic_FilterManagerService',
             'assetic.request_listener' => 'getAssetic_RequestListenerService',
             'assetic.value_supplier.default' => 'getAssetic_ValueSupplier_DefaultService',
@@ -309,7 +311,7 @@ class appDevDebugProjectContainer extends Container
     {
         $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('config' => new \Symfony\Bundle\AsseticBundle\Factory\Loader\ConfigurationLoader(), 'twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig')), new \Assetic\Cache\ConfigCache('/Users/milosnovicevic/employee_vacation/app/cache/dev/assetic/config'), true)));
 
-        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('bootstrap_css' => array(0 => array(0 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/less/bootstrap.less', 1 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/less/responsive.less', 2 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/less/bootstrap.less', 3 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/less/responsive.less'), 1 => array(0 => 'lessphp', 1 => 'cssrewrite', 2 => 'lessphp'), 2 => array('output' => 'css/bootstrap.css')), 'bootstrap_js' => array(0 => array(0 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 1 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 2 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 3 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 4 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 5 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 6 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 7 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 8 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 9 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 10 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 11 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 12 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js', 13 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 14 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 15 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 16 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 17 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 18 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 19 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 20 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 21 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 22 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 23 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 24 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 25 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js'), 1 => array(), 2 => array('output' => 'js/bootstrap.js')), 'jquery' => array(0 => array(0 => '/Users/milosnovicevic/employee_vacation/app/../vendor/jquery/jquery/jquery-1.9.1.js', 1 => '/Users/milosnovicevic/employee_vacation/app/../vendor/jquery/jquery/jquery-1.9.1.js'), 1 => array(), 2 => array('output' => 'js/jquery.js')))), 'config');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('bootstrap_css' => array(0 => array(0 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/less/bootstrap.less', 1 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/less/responsive.less', 2 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/less/bootstrap.less', 3 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/less/responsive.less'), 1 => array(0 => 'lessphp', 1 => 'cssrewrite', 2 => 'lessphp'), 2 => array('output' => 'bundles/twitter/css/bootstrap.css')), 'bootstrap_js' => array(0 => array(0 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 1 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 2 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 3 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 4 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 5 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 6 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 7 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 8 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 9 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 10 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 11 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 12 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js', 13 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-transition.js', 14 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-alert.js', 15 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-button.js', 16 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-carousel.js', 17 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-collapse.js', 18 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js', 19 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-modal.js', 20 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js', 21 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-popover.js', 22 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js', 23 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-tab.js', 24 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js', 25 => '/Users/milosnovicevic/employee_vacation/app/../vendor/twitter/bootstrap/js/bootstrap-affix.js'), 1 => array(), 2 => array('output' => 'bundles/twitter/js/bootstrap.js')), 'jquery' => array(0 => array(0 => '/Users/milosnovicevic/employee_vacation/app/../vendor/jquery/jquery/jquery-1.9.1.js', 1 => '/Users/milosnovicevic/employee_vacation/app/../vendor/jquery/jquery/jquery-1.9.1.js'), 1 => array(), 2 => array('output' => 'js/jquery.js')))), 'config');
         $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($this->get('templating.loader'), '', '/Users/milosnovicevic/employee_vacation/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
 
         return $instance;
@@ -367,6 +369,48 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'assetic.filter.uglifycss' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Assetic\Filter\UglifyCssFilter A Assetic\Filter\UglifyCssFilter instance.
+     */
+    protected function getAssetic_Filter_UglifycssService()
+    {
+        $this->services['assetic.filter.uglifycss'] = $instance = new \Assetic\Filter\UglifyCssFilter('/usr/local/bin/uglifycss', '/usr/bin/node');
+
+        $instance->setTimeout(NULL);
+        $instance->setNodePaths(array());
+        $instance->setExpandVars(false);
+        $instance->setUglyComments(false);
+        $instance->setCuteComments(false);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'assetic.filter.uglifyjs2' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Assetic\Filter\UglifyJs2Filter A Assetic\Filter\UglifyJs2Filter instance.
+     */
+    protected function getAssetic_Filter_Uglifyjs2Service()
+    {
+        $this->services['assetic.filter.uglifyjs2'] = $instance = new \Assetic\Filter\UglifyJs2Filter('/usr/local/bin/uglifyjs', '/usr/bin/node');
+
+        $instance->setTimeout(NULL);
+        $instance->setNodePaths(array());
+        $instance->setCompress(false);
+        $instance->setBeautify(false);
+        $instance->setMangle(false);
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'assetic.filter_manager' service.
      *
      * This service is shared.
@@ -376,7 +420,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_FilterManagerService()
     {
-        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('lessphp' => 'assetic.filter.lessphp', 'cssrewrite' => 'assetic.filter.cssrewrite'));
+        return $this->services['assetic.filter_manager'] = new \Symfony\Bundle\AsseticBundle\FilterManager($this, array('uglifyjs2' => 'assetic.filter.uglifyjs2', 'uglifycss' => 'assetic.filter.uglifycss', 'lessphp' => 'assetic.filter.lessphp', 'cssrewrite' => 'assetic.filter.cssrewrite'));
     }
 
     /**
@@ -2385,7 +2429,7 @@ class appDevDebugProjectContainer extends Container
         $n = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($l, array('default_target_path' => '/profile', 'always_use_default_target_path' => false, 'login_path' => '/login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
         $n->setProviderKey('main');
 
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($k, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username_email')), 'main', $a, $c), 2 => $m, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $l, 'main', $n, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $l, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '527adda21a227', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $k, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $l, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $l, '/login', false), NULL, NULL, $a));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($k, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $this->get('fos_user.user_provider.username_email')), 'main', $a, $c), 2 => $m, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $f, $this->get('security.authentication.session_strategy'), $l, 'main', $n, new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($e, $l, array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'), $a), array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'intention' => 'authenticate', 'post_only' => true), $a, $c, $this->get('form.csrf_provider')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '52817383f0da1', $a), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, $this->get('security.access.decision_manager'), $k, $f)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $this->get('security.authentication.trust_resolver'), $l, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($e, $l, '/login', false), NULL, NULL, $a));
     }
 
     /**
@@ -3917,7 +3961,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username_email'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('527adda21a227')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider($this->get('fos_user.user_provider.username_email'), $this->get('security.user_checker'), 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('52817383f0da1')), true);
 
         $instance->setEventDispatcher($this->get('event_dispatcher'));
 
@@ -4495,9 +4539,29 @@ class appDevDebugProjectContainer extends Container
 
             ),
             'assetic.java.bin' => '/usr/bin/java',
-            'assetic.node.bin' => '/usr/local/bin/node',
+            'assetic.node.bin' => '/usr/bin/node',
             'assetic.ruby.bin' => '/usr/bin/ruby',
             'assetic.sass.bin' => '/usr/bin/sass',
+            'assetic.filter.uglifyjs2.class' => 'Assetic\\Filter\\UglifyJs2Filter',
+            'assetic.filter.uglifyjs2.bin' => '/usr/local/bin/uglifyjs',
+            'assetic.filter.uglifyjs2.node' => '/usr/bin/node',
+            'assetic.filter.uglifyjs2.timeout' => NULL,
+            'assetic.filter.uglifyjs2.node_paths' => array(
+
+            ),
+            'assetic.filter.uglifyjs2.compress' => false,
+            'assetic.filter.uglifyjs2.beautify' => false,
+            'assetic.filter.uglifyjs2.mangle' => false,
+            'assetic.filter.uglifycss.class' => 'Assetic\\Filter\\UglifyCssFilter',
+            'assetic.filter.uglifycss.bin' => '/usr/local/bin/uglifycss',
+            'assetic.filter.uglifycss.node' => '/usr/bin/node',
+            'assetic.filter.uglifycss.timeout' => NULL,
+            'assetic.filter.uglifycss.node_paths' => array(
+
+            ),
+            'assetic.filter.uglifycss.expand_vars' => false,
+            'assetic.filter.uglifycss.ugly_comments' => false,
+            'assetic.filter.uglifycss.cute_comments' => false,
             'assetic.filter.lessphp.class' => 'Assetic\\Filter\\LessphpFilter',
             'assetic.filter.lessphp.presets' => array(
 

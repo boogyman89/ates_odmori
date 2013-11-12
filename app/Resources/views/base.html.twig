@@ -5,9 +5,13 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}">
+
+        {% stylesheets '@AtesVacationBundle/Resources/public/css/*'
+            'bundles/twitter/css/bootstrap.css'
+            filter='?uglifycss'
+            output='css/min.css' %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+        {% endstylesheets %}
     </head>
     <body>
         {% block body %}
@@ -22,8 +26,6 @@
         
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="{{ asset('js/bootstrap.js') }}"></script>
-
         <script>
              var EmpoloyeeVacation = {
                  'routes': {
@@ -39,11 +41,11 @@
              };
          </script>
 
-        <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
-
         {% javascripts
             '@AtesVacationBundle/Resources/public/js/*'
-             output='js/joiz_hardcore_combined-min.js' %}
+            'bundles/twitter/js/bootstrap.js'
+            filter='?glifyjs2'
+            output='js/joiz_hardcore_combined-min.js' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
         

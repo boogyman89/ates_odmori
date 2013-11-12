@@ -1,6 +1,8 @@
 /web/bundles/
-app/cache/*
-app/logs/*
+/web/js/
+/web/css/
+app/cache/
+app/logs/
 app/config/parameters.yml
 .idea/
 nbproject/

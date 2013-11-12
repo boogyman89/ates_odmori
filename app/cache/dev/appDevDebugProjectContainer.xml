@@ -403,9 +403,25 @@
     <parameter key="assetic.write_to">/Users/milosnovicevic/employee_vacation/app/../web</parameter>
     <parameter key="assetic.variables" type="collection"/>
     <parameter key="assetic.java.bin">/usr/bin/java</parameter>
-    <parameter key="assetic.node.bin">/usr/local/bin/node</parameter>
+    <parameter key="assetic.node.bin">/usr/bin/node</parameter>
     <parameter key="assetic.ruby.bin">/usr/bin/ruby</parameter>
     <parameter key="assetic.sass.bin">/usr/bin/sass</parameter>
+    <parameter key="assetic.filter.uglifyjs2.class">Assetic\Filter\UglifyJs2Filter</parameter>
+    <parameter key="assetic.filter.uglifyjs2.bin">/usr/local/bin/uglifyjs</parameter>
+    <parameter key="assetic.filter.uglifyjs2.node">/usr/bin/node</parameter>
+    <parameter key="assetic.filter.uglifyjs2.timeout">null</parameter>
+    <parameter key="assetic.filter.uglifyjs2.node_paths" type="collection"/>
+    <parameter key="assetic.filter.uglifyjs2.compress">false</parameter>
+    <parameter key="assetic.filter.uglifyjs2.beautify">false</parameter>
+    <parameter key="assetic.filter.uglifyjs2.mangle">false</parameter>
+    <parameter key="assetic.filter.uglifycss.class">Assetic\Filter\UglifyCssFilter</parameter>
+    <parameter key="assetic.filter.uglifycss.bin">/usr/local/bin/uglifycss</parameter>
+    <parameter key="assetic.filter.uglifycss.node">/usr/bin/node</parameter>
+    <parameter key="assetic.filter.uglifycss.timeout">null</parameter>
+    <parameter key="assetic.filter.uglifycss.node_paths" type="collection"/>
+    <parameter key="assetic.filter.uglifycss.expand_vars">false</parameter>
+    <parameter key="assetic.filter.uglifycss.ugly_comments">false</parameter>
+    <parameter key="assetic.filter.uglifycss.cute_comments">false</parameter>
     <parameter key="assetic.filter.lessphp.class">Assetic\Filter\LessphpFilter</parameter>
     <parameter key="assetic.filter.lessphp.presets" type="collection"/>
     <parameter key="assetic.filter.lessphp.paths" type="collection"/>
@@ -2902,7 +2918,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>527adda21a227</argument>
+            <argument>52817383f0da1</argument>
           </service>
         </argument>
       </argument>
@@ -3168,7 +3184,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>527adda21a227</argument>
+            <argument>52817383f0da1</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3457,6 +3473,8 @@
     <service id="assetic.filter_manager" class="Symfony\Bundle\AsseticBundle\FilterManager">
       <argument type="service" id="service_container"/>
       <argument type="collection">
+        <argument key="uglifyjs2">assetic.filter.uglifyjs2</argument>
+        <argument key="uglifycss">assetic.filter.uglifycss</argument>
         <argument key="lessphp">assetic.filter.lessphp</argument>
         <argument key="cssrewrite">assetic.filter.cssrewrite</argument>
       </argument>
@@ -3506,7 +3524,7 @@
                   <argument>lessphp</argument>
                 </argument>
                 <argument type="collection">
-                  <argument key="output">css/bootstrap.css</argument>
+                  <argument key="output">bundles/twitter/css/bootstrap.css</argument>
                 </argument>
               </argument>
               <argument key="bootstrap_js" type="collection">
@@ -3540,7 +3558,7 @@
                 </argument>
                 <argument type="collection"/>
                 <argument type="collection">
-                  <argument key="output">js/bootstrap.js</argument>
+                  <argument key="output">bundles/twitter/js/bootstrap.js</argument>
                 </argument>
               </argument>
               <argument key="jquery" type="collection">
@@ -3599,6 +3617,46 @@
     </service>
     <service id="assetic.value_supplier.default" class="Symfony\Bundle\AsseticBundle\DefaultValueSupplier" public="false">
       <argument type="service" id="service_container"/>
+    </service>
+    <service id="assetic.filter.uglifyjs2" class="Assetic\Filter\UglifyJs2Filter">
+      <tag name="assetic.filter" alias="uglifyjs2"/>
+      <argument>/usr/local/bin/uglifyjs</argument>
+      <argument>/usr/bin/node</argument>
+      <call method="setTimeout">
+        <argument>null</argument>
+      </call>
+      <call method="setNodePaths">
+        <argument type="collection"/>
+      </call>
+      <call method="setCompress">
+        <argument>false</argument>
+      </call>
+      <call method="setBeautify">
+        <argument>false</argument>
+      </call>
+      <call method="setMangle">
+        <argument>false</argument>
+      </call>
+    </service>
+    <service id="assetic.filter.uglifycss" class="Assetic\Filter\UglifyCssFilter">
+      <tag name="assetic.filter" alias="uglifycss"/>
+      <argument>/usr/local/bin/uglifycss</argument>
+      <argument>/usr/bin/node</argument>
+      <call method="setTimeout">
+        <argument>null</argument>
+      </call>
+      <call method="setNodePaths">
+        <argument type="collection"/>
+      </call>
+      <call method="setExpandVars">
+        <argument>false</argument>
+      </call>
+      <call method="setUglyComments">
+        <argument>false</argument>
+      </call>
+      <call method="setCuteComments">
+        <argument>false</argument>
+      </call>
     </service>
     <service id="assetic.filter.lessphp" class="Assetic\Filter\LessphpFilter">
       <tag name="assetic.filter" alias="lessphp"/>
