@@ -25,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use Ates\VacationBundle\Model\vacationRequestModel;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProfileController extends BaseController
 {    
@@ -46,11 +47,20 @@ class ProfileController extends BaseController
         
         $pagerfanta = $this->container->get('vacation_request.model')->getUserRequests($user, $page);
                                 
-        return array(
-            'user' => $user, 
+        $response = new Response();
+        $html = $this->container->get('templating')->render("AtesUserBundle:Profile:show.html.twig",  array(
+            'user' => $user,
             'requests' => $pagerfanta,
             'roles' => $roles
-        );
+        ));
+        $response->setPublic();
+        $response->setPrivate();
+        $response->setContent($html);
+
+        $response->setMaxAge(200);
+        $response->setSharedMaxAge(200);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+        return $response;
     } 
     
     

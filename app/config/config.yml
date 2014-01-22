@@ -11,7 +11,7 @@ framework:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
     form:            ~
-    csrf_protection: ~
+    csrf_protection: true
     validation:      { enable_annotations: true }
     templating:
         engines: ['twig']
@@ -19,15 +19,13 @@ framework:
     default_locale:  "%locale%"
     trusted_proxies: ~
     session:         ~
-    fragments:       ~
+    fragments:       { path: /_fragment }
     http_method_override: true
 
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    
-
 
 # Assetic Configuration
 assetic:
@@ -135,7 +133,7 @@ bc_bootstrap:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     C:\"Program Files (x86)"\wkhtmltopdf\wkhtmltopdf.exe
+        binary:     /usr/local/bin/wkhtmltopdf
         options:    []
 
 services:

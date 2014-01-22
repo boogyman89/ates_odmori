@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use \Ates\VacationBundle\Entity\VacationRequest;
 use \Ates\VacationBundle\Form\Type\VacationRequestType;
-
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -19,6 +19,40 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class RequestController extends Controller
 {
+
+    /**
+     * @Route("/milos", name="send_request_form_1")
+     * @Template("")
+     */
+    public function pageToPDFAction(){
+        return new Response(
+            file_get_contents(__DIR__."/../../../../PDF/1req2.pdf"),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+            )
+        );
+    }
+
+    /**
+     * @Route("/milos1", name="send_request_form_11")
+     * @Template("")
+     */
+    public function milosAction(){
+        $response = new Response();
+
+        $response->setPublic();
+        $response->setPrivate();
+        $response->setContent('milos novicevic je car');
+
+        $response->setMaxAge(600);
+        $response->setSharedMaxAge(600);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+        return $response;
+
+    }
+
     /**
      * @Route("/new", name="send_request_form")
      * @Template("AtesVacationBundle:Request:requestForm.html.twig")
