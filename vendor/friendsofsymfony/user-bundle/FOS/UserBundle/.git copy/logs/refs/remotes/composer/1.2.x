@@ -1,1 +1,0 @@
-0000000000000000000000000000000000000000 8bc5be08eaeefe47c552dc4ff230e760e6fbed92 Milos Novicevic <milos@joiz.ch> 1383783804 +0100	fetch composer: storing head
