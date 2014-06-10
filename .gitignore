@@ -7,3 +7,4 @@ app/config/parameters.yml
 .idea/
 nbproject/
 vendor/
+vendor.tar.gz
