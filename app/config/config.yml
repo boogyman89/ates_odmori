@@ -102,6 +102,7 @@ doctrine:
 swiftmailer:
     transport: %mailer_transport%
     host:      %mailer_host%
+    port:      %mailer_port%
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
@@ -115,6 +116,9 @@ fos_user:
             type: ates_user_registration
         confirmation:
             enabled:    true
+            from_email:
+                address:        registration@worktime.com
+                sender_name:    Worktime Registration
     profile:
         form:
             type: ates_user_profile

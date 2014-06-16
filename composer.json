@@ -55,7 +55,8 @@
         "jquery/jquery": "1.9.*",
         "leafo/lessphp": "dev-master",
 		"knplabs/knp-snappy-bundle": "dev-master",
-		"google/wkhtmltopdf-amd64": "0.11.0-RC1"
+		"google/wkhtmltopdf-amd64": "0.11.0-RC1",
+        "mandrill/mandrill": "1.0.*"
     },
     "scripts": {
         "post-install-cmd": [
