@@ -47,20 +47,26 @@ class ProfileController extends BaseController
         
         $pagerfanta = $this->container->get('vacation_request.model')->getUserRequests($user, $page);
                                 
-        $response = new Response();
-        $html = $this->container->get('templating')->render("AtesUserBundle:Profile:show.html.twig",  array(
-            'user' => $user,
-            'requests' => $pagerfanta,
-            'roles' => $roles
-        ));
-        $response->setPublic();
-        $response->setPrivate();
-        $response->setContent($html);
+//        $response = new Response();
+//        $html = $this->container->get('templating')->render("AtesUserBundle:Profile:show.html.twig",  array(
+//            'user' => $user,
+//            'requests' => $pagerfanta,
+//            'roles' => $roles
+//        ));
+//        $response->setPublic();
+//        $response->setPrivate();
+//        $response->setContent($html);
+//
+//        $response->setMaxAge(200);
+//        $response->setSharedMaxAge(200);
+//        $response->headers->addCacheControlDirective('must-revalidate', true);
+//        return $response;
 
-        $response->setMaxAge(200);
-        $response->setSharedMaxAge(200);
-        $response->headers->addCacheControlDirective('must-revalidate', true);
-        return $response;
+		return array(
+			'user' => $user,
+			'requests' => $pagerfanta,
+			'roles' => $roles
+		);
     } 
     
     

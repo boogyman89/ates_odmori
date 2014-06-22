@@ -31,28 +31,14 @@
 {% block container %}
 
 
-<div class="row-fluid">
-    <div class="span3">
-      <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-          <li class="nav-header">Days Off From This Year</li>
-          <li class="active"><a href="#">{{ user.noDaysOff }}</a></li>
-          
-          <li class="nav-header">Days Off From Last Year</li>
-          <li class="active"><a href="#">{{user.noDaysOffLastYear }}</a></li>
-          
-        </ul>
-      </div><!--/.well -->
-    </div><!--/span-->
-    
-    <div class="span9">
-        
+<div class="row">
+    <div class="col-sm-8 main">
           <select id="requestsFilterProfile">
             <option>all</option>
             <option>pending</option>
             <option>approved</option>
           </select>
-          
+
         <div id="userRequestResults">
           <table class="table table-striped">
             <thead>
@@ -65,15 +51,12 @@
             </thead>
             <tbody>
               {% for request in requests.currentPageResults %}
-                    <tr> 
-                        <td>{{ request.state }}</td>
+                    <tr>
+                        <td>{% if 2 == request.state %}Approved{% elseif 3 == request.state%}Rejected{% else %}Pending{% endif %}</td>
                         <td>{{ request.startDate|date('d-m-Y') }} </td>  
-                        <td>{{ request.endDate|date('d-m-Y') }} </td> 
-                        {% if (request.pdf != null )%}
-                            {% set pdfUrl = 'PDF/' ~ request.getPdf %}
-                            <td><a href='{{ asset(pdfUrl) }}' target="_blank">PDF</a></td>
-                         {% endif %}
-                         {% if (request.getState == 'pending' )%}
+                        <td>{{ request.endDate|date('d-m-Y') }} </td>
+                        <td><a href="{{ path('request2pdf', {'id': request.id}) }}" target="_blank">Pdf</a></td>
+                        {% if (request.getState == 'pending' )%}
                             <td><a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a></td>  
                         {% else %}
                             <td></td>
@@ -89,6 +72,14 @@
                     {{ pagerfanta(requests, 'twitter_bootstrap') }}
                 </div>
             {% endif %}
+        </div>
+    </div>
+
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+        <div class="sidebar-module sidebar-module-inset">
+            <h4>Status</h4>
+            <li class="nav-header">Days Off From This Year: {{ user.noDaysOff }}</li>
+            <li class="nav-header">Days Off From Last Year: {{user.noDaysOffLastYear }}</li>
         </div>
     </div>
 </div>

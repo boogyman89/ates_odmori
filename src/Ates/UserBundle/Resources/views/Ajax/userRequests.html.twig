@@ -23,11 +23,8 @@
                         {% endif %}
                     </td>
                     <td>{{ request.getStartDate|date('d-m-Y') }} </td>  
-                    <td>{{ request.getEndDate|date('d-m-Y') }} </td> 
-                    {% if (request.getPdf != null )%}
-                        {% set pdfUrl = 'PDF/' ~ request.getPdf %}
-                        <td><a href='{{ asset(pdfUrl) }}' target="_blank">PDF</a></td>
-                     {% endif %}
+                    <td>{{ request.getEndDate|date('d-m-Y') }} </td>
+                    <td><a href="{{ path('request2pdf', {'id': request.id}) }}" target="_blank">Pdf</a></td>
                      {% if (request.getState == 'pending' )%}
                         <td><a href=' {{ path('edit_request_form', {'id' : request.id})}}'>Edit</a></td>  
                     {% else %}

@@ -60,11 +60,6 @@ class VacationRequest
      */
     protected $state;
     
-     /**
-     * @ORM\Column(type="string", length=200, nullable = true)
-     */
-    protected $pdf;
-    
     /**
      * @ORM\Column(type="string", length=300)
      */
@@ -180,29 +175,6 @@ class VacationRequest
     public function getEndDate()
     {
         return $this->end_date;
-    }
-
-    /**
-     * Set pdf
-     *
-     * @param string $pdf
-     * @return Request
-     */
-    public function setPdf($pdf)
-    {
-        $this->pdf = $pdf;
-    
-        return $this;
-    }
-
-    /**
-     * Get pdf
-     *
-     * @return string 
-     */
-    public function getPdf()
-    {
-        return $this->pdf;
     }
 
     /**

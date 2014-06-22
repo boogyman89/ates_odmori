@@ -11,9 +11,9 @@
             "type": "package",
             "package": {
                 "name": "jquery/jquery",
-                "version": "1.9.1",
+                "version": "1.10.2",
                 "dist": {
-                    "url": "http://code.jquery.com/jquery-1.9.1.js",
+                    "url": "http://code.jquery.com/jquery-1.10.2.js",
                     "type": "file"
                 }
             }
@@ -32,7 +32,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.3.*",
+        "symfony/symfony": "2.4.*",
         "doctrine/orm": ">=2.2.3,<2.4-dev",
         "doctrine/doctrine-bundle": "1.2.*",
         "twig/extensions": "1.0.*",
@@ -50,10 +50,10 @@
         "gedmo/doctrine-extensions": "dev-master",
         "pagerfanta/pagerfanta": "dev-master",
         "white-october/pagerfanta-bundle": "dev-master",
-        "braincrafted/bootstrap-bundle": "dev-master",
-        "twitter/bootstrap": "2.3.*@dev",
-        "jquery/jquery": "1.9.*",
-        "leafo/lessphp": "dev-master",
+        "braincrafted/bootstrap-bundle": "~2.0",
+        "twbs/bootstrap": "3.0.0",
+        "jquery/jquery":  "1.10.*",
+        "leafo/lessphp": "v0.4.0",
 		"knplabs/knp-snappy-bundle": "dev-master",
 		"google/wkhtmltopdf-amd64": "0.11.0-RC1",
         "mandrill/mandrill": "1.0.*"

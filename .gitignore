@@ -1,6 +1,7 @@
 /web/bundles/
-/web/js/
-/web/css/
+web/js/
+web/css/
+web/assetic/
 app/cache/
 app/logs/
 app/config/parameters.yml

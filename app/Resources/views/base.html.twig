@@ -1,54 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-        {% stylesheets '@AtesVacationBundle/Resources/public/css/*'
+        {% stylesheets
             'bundles/twitter/css/bootstrap.css'
+            '@AtesVacationBundle/Resources/public/css/*'
             filter='?uglifycss'
             output='css/min.css' %}
         <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
         {% endstylesheets %}
     </head>
     <body>
-        {% block body %}
-            
-            {% block navigation %}{% endblock navigation %}
-            
-            <div class='container-fluid'>
-                {% block container %}
-                {% endblock  %}
-            </div>
-        {% endblock %}
-        
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script>
-             var EmpoloyeeVacation = {
-                 'routes': {
-                     'ajax_find_user_request_base' : '{{ path('ajax_find_user_request_base') }}',
-                     'ajax_request_find_user' : '{{ path('ajax_request_find_user') }}',
-                     'ajax_request_find_requests' : '{{ path('ajax_request_find_requests') }}',
-                     'ajax_find_request_by_id' : '{{ path('ajax_find_request_by_id') }}',
-                     'reject_request_base' : '{{ path('reject_request_base') }}',
-                     'delete_holiday_base' : '{{ path('delete_holiday_base') }}',
-                     'delete_user_on_approving_base' : '{{ path('delete_user_on_approving_base') }}',
-                     'ajax_get_pending_requests_base' : '{{ path('ajax_get_pending_requests_base') }}'
-                 }
-             };
-         </script>
+        {% block navigation %}{% endblock navigation %}
+
+        <div class='container'>
+            {% block container %}
+            {% endblock  %}
+        </div>
 
         {% javascripts
-            '@AtesVacationBundle/Resources/public/js/*'
-            'bundles/twitter/js/bootstrap.js'
-            filter='?uglifyjs2'
-            output='js/min.js' %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
+                '@jquery_and_ui'
+                '@bootstrap_js'
+                '@AtesVacationBundle/Resources/public/js/*'
+                filter='?uglifyjs2'
+                output='js/min.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
-        
-        {% block javascripts %}{% endblock %}
+
+        <script>
+            var EmpoloyeeVacation = {
+                'routes': {
+                    'ajax_find_user_request_base' : '{{ path('ajax_find_user_request_base') }}',
+                    'ajax_request_find_user' : '{{ path('ajax_request_find_user') }}',
+                    'ajax_request_find_requests' : '{{ path('ajax_request_find_requests') }}',
+                    'ajax_find_request_by_id' : '{{ path('ajax_find_request_by_id') }}',
+                    'reject_request_base' : '{{ path('reject_request_base') }}',
+                    'delete_holiday_base' : '{{ path('delete_holiday_base') }}',
+                    'delete_user_on_approving_base' : '{{ path('delete_user_on_approving_base') }}',
+                    'ajax_get_pending_requests_base' : '{{ path('ajax_get_pending_requests_base') }}'
+                }
+            };
+        </script>
+        {% block additionaljs %}
+        {% endblock %}
     </body>
 </html>

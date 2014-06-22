@@ -32,14 +32,14 @@
     <div class="form-signin">
         <h2 class="form-signin-heading text-center">Request</h2>
         
-        <input class="start_date_help input-block-level" type="text" placeholder="Start date" /><br/>
-        <input class="end_date_help input-block-level" type="text" placeholder="End date" />
-              
+        <input class="form-control start_date_help input-block-level" type="text" placeholder="Start date" /><br/>
+        <input class="form-control end_date_help input-block-level" type="text" placeholder="End date" />
+
         {{ form_start(form) }}
             {{ form_errors(form) }}
 
          {{ form_widget(form.comment) }}
-        
+
             <div class="hidden">
                 {{ form_label(form.start_date) }}
                 {{ form_errors(form.start_date) }}
@@ -52,14 +52,15 @@
                 {{ form_widget(form.end_date) }}
             </div>
 
+
         {{ form_end(form) }}
     </div>
 
 {% endblock container %}
 
-{% block javascripts %}
+{% block additionaljs %}
     {{ parent() }}
     <script>
         $(document).ready(vacationRequest.initDatepicker);
     </script>
-{% endblock javascripts %}
+{% endblock additionaljs %}

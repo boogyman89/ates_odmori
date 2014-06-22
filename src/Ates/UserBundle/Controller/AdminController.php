@@ -16,8 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Ates\UserBundle\Form\Type\EditUserType;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use FOS\UserBundle\Util\UserManipulator;
-use Knp\Snappy\Pdf;
 
 
 class AdminController extends Controller
@@ -67,12 +65,10 @@ class AdminController extends Controller
 
          $user = $userRepository->find($vacationRequest->getUser()->getId());
 
-         $startDate = $vacationRequest->getStartDate();
          $workingDays = $vacationRequest->getNumberOfWorkingDays();
 
          $vacationRequest->setState(VacationRequest::APPROVED);
-         $vacationRequest->setPdf($user->getID() . "req" . $vacationRequest->getId() . ".pdf");
-          
+
          $noDaysOffLastYear = $user->getNoDaysOffLastYear();
          if($noDaysOffLastYear > 0)
          {
@@ -93,26 +89,8 @@ class AdminController extends Controller
                
          $em->flush();
           
-         $year = $startDate->format('Y');
-         $path = __DIR__."/../../../../PDF/" . $user->getID() . "req" . $vacationRequest->getId() . ".pdf";
-                  
-         $this->get('knp_snappy.pdf')->generateFromHtml(
-            $this->renderView(
-                'AtesVacationBundle:Request:pdfTemplate.html.twig',
-                    array(
-                        'user' => $user,
-                        'year' => $year,
-                        'request' => $vacationRequest,
-                        'numberOfDays' => $workingDays
-                    )
-            ),
-             $path
-         );
-         
-         //send email
-         $this->sendEmail($user, $vacationRequest, VacationRequest::APPROVED);        
-        
-         
+         $this->sendEmail($user, $vacationRequest, VacationRequest::APPROVED);
+
          return $this->redirect($this->generateUrl('show_admin_panel'));
     }
     

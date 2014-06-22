@@ -20,21 +20,50 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class RequestController extends Controller
 {
 
-    /**
-     * @Route("/milos", name="send_request_form_1")
-     * @Template("")
-     */
-    public function pageToPDFAction(){
-        return new Response(
-            file_get_contents(__DIR__."/../../../../PDF/1req2.pdf"),
-            200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="file.pdf"'
-            )
-        );
-    }
+	/**
+	 * @Route("/request/{id}/pdf", name="request2pdf")
+	 * @Template("")
+	 */
+	public function requestToPdfAction(VacationRequest $vacationRequest) {
 
+		/** @var  $user User */
+		$user = $this->getUser();
+
+		$workingDays = $vacationRequest->getNumberOfWorkingDays();
+
+		$vacationRequest->setState(VacationRequest::APPROVED);
+		$vacationRequest->setPdf($user->getID() . "req" . $vacationRequest->getId() . ".pdf");
+
+		$noDaysOffLastYear = $user->getNoDaysOffLastYear();
+		if($noDaysOffLastYear > 0)
+		{
+			if($noDaysOffLastYear >= $workingDays)
+			{
+				$workingDays = 0;
+			}
+			else
+			{
+				$workingDays -= $noDaysOffLastYear;
+			}
+		}
+		$params = array(
+			'user' => $user,
+			'year' => $vacationRequest->getStartDate()->format('Y'),
+			'request' => $vacationRequest,
+			'numberOfDays' => $workingDays
+		);
+
+		$html = $this->renderView('AtesVacationBundle:Request:pdfTemplate.html.twig', $params);
+
+		return new Response(
+			$this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+			200,
+			array(
+				'Content-Type'          => 'application/pdf',
+			)
+		);
+
+	}
     /**
      * @Route("/milos1", name="send_request_form_11")
      * @Template("")
@@ -141,7 +170,7 @@ class RequestController extends Controller
          
           $vacationRequest->setNumberOfWorkingDays($workingDays);
           
-          $em->flush();     //kraj edita
+          $em->flush();
           
           return $this->redirect($this->generateUrl('fos_user_profile_show'));
           

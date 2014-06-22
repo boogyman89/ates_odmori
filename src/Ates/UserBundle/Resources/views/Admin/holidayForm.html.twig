@@ -60,7 +60,7 @@
 
 {% endblock container %}
 
-{% block javascripts %}
+{% block additionaljs %}
     {{ parent() }}
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script>
@@ -84,4 +84,4 @@
             
         });
     </script>
-{% endblock javascripts %}
+{% endblock additionaljs %}

@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Ates\UserBundle\AtesUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
+			new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
     );
