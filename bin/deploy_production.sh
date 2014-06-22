@@ -29,6 +29,7 @@ git checkout master
 git fetch
 git pull origin master
 git reset --hard origin/master
+tar -zxvf vendor.tar.gz
 
 app/console cache:clear --env prod
 app/console assets:install web

@@ -32,7 +32,6 @@ class RequestController extends Controller
 		$workingDays = $vacationRequest->getNumberOfWorkingDays();
 
 		$vacationRequest->setState(VacationRequest::APPROVED);
-		$vacationRequest->setPdf($user->getID() . "req" . $vacationRequest->getId() . ".pdf");
 
 		$noDaysOffLastYear = $user->getNoDaysOffLastYear();
 		if($noDaysOffLastYear > 0)
