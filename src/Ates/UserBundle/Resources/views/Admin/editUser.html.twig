@@ -6,13 +6,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <style type="text/css">
-        body {
-          padding-top: 60px;
-          padding-bottom: 40px;
-        }
-        
-    </style>
     <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}">
 {% endblock stylesheets %}
     
@@ -68,5 +61,5 @@
             
         });
     </script>
-{% endblock additionaljs %}
+{% endblock javascripts %}
 

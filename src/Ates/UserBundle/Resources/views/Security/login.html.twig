@@ -4,17 +4,6 @@
 
 {% block title%}Vacation Requests{% endblock title%}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style type="text/css">
-        body {
-          padding-top: 60px;
-          padding-bottom: 40px;
-        }
-
-    </style>
-{% endblock stylesheets %}
-
 {% block container %}
 
 <form class="form-signin paddingBottom50" role="form" action="{{ path("fos_user_security_check") }}" method="post">

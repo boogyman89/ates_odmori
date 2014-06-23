@@ -15,10 +15,10 @@ git checkout $BRANCH
 app/console cache:clear --env prod
 app/console assetic:dump --env prod
 
-scp -r ./web/js/ "milos@162.243.71.179":/tmp/js
-scp -r ./web/css/ "milos@162.243.71.179":/tmp/css
+scp -r ./web/js/ "milos@188.226.235.234":/tmp/js
+scp -r ./web/css/ "milos@188.226.235.234":/tmp/css
 
-ssh -A "milos@162.243.71.179" << ENDSSH
+ssh -A "milos@188.226.235.234" << ENDSSH
 sudo su
 service php5-fpm stop
 cd /usr/share/nginx/www
